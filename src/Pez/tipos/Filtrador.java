@@ -41,7 +41,7 @@ public abstract class Filtrador extends Pez {
                 this.alimentado = false;
             }
         } else {
-            this.alimentado = false;
+            this.alimentado = true;
         }
     }
 }

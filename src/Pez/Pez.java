@@ -3,6 +3,7 @@ package Pez;
 import java.util.Random;
 
 import Tanques.Tanque;
+import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
 /**
@@ -14,6 +15,7 @@ import propiedades.PecesDatos;
  */
 
 public class Pez {
+
     protected int edad = 0;
     protected int ciclodevida;
     protected final boolean sexo; // true es Hombre
@@ -70,6 +72,9 @@ public class Pez {
                 this.vivo = false;
                 t.pezMuere(this);
             }
+        }else{
+            this.fertil = false;
+            this.adulto = false;
         }
 
     }
@@ -102,6 +107,7 @@ public class Pez {
     public void verificarFertilidad() {
         if (this.edad >= pezDato.getMadurez()) {
             this.fertil = true;
+            this.adulto = true;
         } else {
             this.fertil = false;
         }
@@ -147,6 +153,8 @@ public class Pez {
         }
 
     }
+
+    
 
     /**
      * Obtiene la edad actual del pez.
@@ -298,5 +306,62 @@ public class Pez {
     public void setCiclodevida(int ciclodevida) {
         this.ciclodevida = ciclodevida;
     }
+
+    public double getPrecioVenta(Pez p) {
+        // Obtener el tipo de pez
+        String tipoPez = p.getClass().getSimpleName();
+    
+        // Obtener el costo del pez desde la clase AlmacenPropiedades
+        double costo = 0;
+        switch (tipoPez) {
+            case "Besugo":
+                costo = AlmacenPropiedades.BESUGO.getCoste();
+                break;
+            case "Caballa":
+                costo = AlmacenPropiedades.CABALLA.getCoste();
+                break;
+            case "Robalo":
+                costo = AlmacenPropiedades.ROBALO.getCoste();
+                break;
+            case "Rodaballo":
+                costo = AlmacenPropiedades.RODABALLO.getCoste();
+                break;
+            case "Sargo":
+                costo = AlmacenPropiedades.SARGO.getCoste();
+                break;
+            case "Carpa_Plateada":
+                costo = AlmacenPropiedades.CARPA_PLATEADA.getCoste();
+                break;
+            case "Carpa":
+                costo = AlmacenPropiedades.CARPA.getCoste();
+                break;
+            case "LucioDelNorte":
+                costo = AlmacenPropiedades.LUCIO_NORTE.getCoste();
+                break;
+            case "Pejerrey":
+                costo = AlmacenPropiedades.PEJERREY.getCoste();
+                break;
+            case "PercaEuropea":
+                costo = AlmacenPropiedades.PERCA_EUROPEA.getCoste();
+                break;
+            case "Dorada":
+                costo = AlmacenPropiedades.DORADA.getCoste();
+                break;
+            case "LubinaEuropea":
+                costo = AlmacenPropiedades.LUBINA_EUROPEA.getCoste();
+                break;
+            default:
+                // Si el tipo del pez no coincide con ningún caso, no se puede determinar el costo
+                System.out.println("No se puede determinar el costo del pez.");
+                return -1; // Valor inválido para indicar que no se pudo determinar el costo
+        }
+    
+        // Devolver el precio de venta igual al costo del pez
+        return costo;
+    }
+
+    
+    
+    
 
 }

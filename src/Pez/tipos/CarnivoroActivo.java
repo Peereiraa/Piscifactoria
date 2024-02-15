@@ -35,8 +35,10 @@ public abstract class CarnivoroActivo extends Pez {
         int random = rd.nextInt(2);
         int random2 = rd.nextInt(2);
 
+        Pez pezMuerto = t.obtenerPezMuerto();
+        Pez pezMuerto2 = t.obtenerPezMuerto();
+
         if (random2 == 0) {
-            Pez pezMuerto = t.obtenerPezMuerto();
 
             if (pezMuerto != null) {
                 if (random == 0) {
@@ -47,13 +49,32 @@ public abstract class CarnivoroActivo extends Pez {
                     System.out.println("El pez carnívoro activo se ha alimentado de un pez muerto entero y se eliminó");
                     this.alimentado = true;
                 }
+            }else{
+                if (t.getCantidadComida() > 0) {
+                    t.setCantidadComida(t.getCantidadComida() - 1);
+                    this.alimentado = true;
+                } else {
+                    this.alimentado = false;
+                }
             }
-
-            if (t.getCantidadComida() > 0) {
-                t.setCantidadComida(t.getCantidadComida() - 2);
-                this.alimentado = true;
-            } else {
-                this.alimentado = false;
+        }else{
+            if (pezMuerto != null) {
+                if (random == 0) {
+                    System.out.println("El pez carnívoro activo se ha alimentado de dos peces muerto");
+                    this.alimentado = true;
+                } else {
+                    t.comerPezMuerto(pezMuerto);
+                    t.comerPezMuerto(pezMuerto2);
+                    System.out.println("El pez carnívoro activo se ha alimentado de dos peces muertos entero y se eliminó");
+                    this.alimentado = true;
+                }
+            }else{
+                if (t.getCantidadComida() > 1) {
+                    t.setCantidadComida(t.getCantidadComida() - 2);
+                    this.alimentado = true;
+                } else {
+                    this.alimentado = false;
+                }
             }
         }
     }

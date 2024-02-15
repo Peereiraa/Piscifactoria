@@ -36,7 +36,7 @@ public abstract class Omnivoro extends Pez {
 
         Pez pezMuerto = t.obtenerPezMuerto();
 
-        if (random2 == 0) {
+        if (random2 != 0) {
             if (pezMuerto != null) {
 
                 if (random == 0) {
@@ -47,16 +47,19 @@ public abstract class Omnivoro extends Pez {
                     System.out.println("El pez omnívoro se ha alimentado de un pez muerto entero y se eliminó");
                     this.alimentado = true;
                 }
+            }else{
+                if (t.getCantidadComida() > 0) {
+                    t.setCantidadComida(t.getCantidadComida() - 1);
+                    this.alimentado = true;
+                } else {
+                    this.alimentado = false;
+                }
             }
 
-            if (t.getCantidadComida() > 0) {
-                t.setCantidadComida(t.getCantidadComida() - 1);
-                this.alimentado = true;
-            } else {
-                this.alimentado = false;
-            }
+        }else{
+            this.alimentado = true;
         }
 
-        this.alimentado = false;
+        
     }
 }

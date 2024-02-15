@@ -44,13 +44,15 @@ public abstract class Carnivoro extends Pez {
                 System.out.println("El pez carnívoro se ha alimentado de un pez muerto entero y se eliminó");
                 this.alimentado = true;
             }
+        }else{
+            if (t.getCantidadComida() > 0) {
+                t.setCantidadComida(t.getCantidadComida() - 1);
+                this.alimentado = true;
+            } else {
+                this.alimentado = false;
+            }
         }
 
-        if (t.getCantidadComida() > 0) {
-            t.setCantidadComida(t.getCantidadComida() - 1);
-            this.alimentado = true;
-        } else {
-            this.alimentado = false;
-        }
+        
     }
 }

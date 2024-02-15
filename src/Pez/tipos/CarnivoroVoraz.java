@@ -47,13 +47,15 @@ public abstract class CarnivoroVoraz extends Pez {
                 System.out.println("El pez carnívoro voraz se ha alimentado de dos peces muertos enteros y se eliminaron");
                 this.alimentado = true;
             }
+        }else{
+            if (t.getCantidadComida() > 0) {
+                t.setCantidadComida(t.getCantidadComida() - 2);
+                this.alimentado = true;
+            } else {
+                this.alimentado = false;
+            }
         }
 
-        if (t.getCantidadComida() > 0) {
-            t.setCantidadComida(t.getCantidadComida() - 2);
-            this.alimentado = true;
-        } else {
-            this.alimentado = false;
-        }
+        
     }
 }

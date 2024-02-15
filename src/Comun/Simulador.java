@@ -1,6 +1,7 @@
 package Comun;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 import Pez.Pez;
@@ -23,7 +24,6 @@ import Piscifactorias.PiscifactoriaMar;
 import Piscifactorias.PiscifactoriaRio;
 import Tanques.Tanque;
 
-
 /**
  * Esta clase representa un simulador para gestionar una piscifactoría.
  * Permite realizar diversas operaciones relacionadas con la simulación,
@@ -42,7 +42,7 @@ public class Simulador {
 
     /**
      * Arreglo de nombres de peces disponibles en la simulación.
-    */
+     */
 
     protected String[] peces = { AlmacenPropiedades.BESUGO.getNombre(), AlmacenPropiedades.CABALLA.getNombre(),
             AlmacenPropiedades.ROBALO.getNombre(),
@@ -53,7 +53,6 @@ public class Simulador {
             AlmacenPropiedades.LUCIO_NORTE.getNombre(), AlmacenPropiedades.PEJERREY.getNombre(),
             AlmacenPropiedades.PERCA_EUROPEA.getNombre() };
 
-
     /**
      * Lista de piscifactorías en la simulación.
      */
@@ -61,7 +60,7 @@ public class Simulador {
     protected ArrayList<Piscifactoria> piscifactorias;
     protected String nombrePartida;
     protected String nombrePisci;
-
+    protected Gestion g;
 
     /**
      * Constructor por defecto de la clase Simulador.
@@ -70,9 +69,9 @@ public class Simulador {
      */
     public Simulador() {
         piscifactorias = new ArrayList<>();
+        g = new Gestion();
         init();
     }
-
 
     /**
      * Inicializa la simulación estableciendo valores iniciales.
@@ -137,7 +136,7 @@ public class Simulador {
                     break;
                 case 4:
                     System.out.println("Opción 4: Informes");
-                    // Implementar la opción 4: Informes
+                    showStats();
                     break;
                 case 5:
                     System.out.println("Opción 5: Ictiopedia");
@@ -157,7 +156,7 @@ public class Simulador {
                     break;
                 case 9:
                     System.out.println("Opción 9: Vender peces");
-                    // Implementar la opción 9: Vender peces
+                    sell();
                     break;
                 case 10:
                     System.out.println("Opción 10: Limpiar tanques");
@@ -187,7 +186,8 @@ public class Simulador {
     }
 
     /**
-     * Muestra el estado de las piscifactorías, incluyendo la cantidad de peces vivos,
+     * Muestra el estado de las piscifactorías, incluyendo la cantidad de peces
+     * vivos,
      * la cantidad total de peces, y el espacio total disponible en cada tanque.
      */
 
@@ -207,11 +207,14 @@ public class Simulador {
     }
 
     /**
-     * Permite al usuario seleccionar una piscifactoría a partir de la lista de piscifactorías disponibles.
-     * Muestra la lista de piscifactorías y devuelve el índice de la piscifactoría seleccionada.
+     * Permite al usuario seleccionar una piscifactoría a partir de la lista de
+     * piscifactorías disponibles.
+     * Muestra la lista de piscifactorías y devuelve el índice de la piscifactoría
+     * seleccionada.
      * Si se selecciona la opción 0, devuelve -1 indicando ninguna selección válida.
      *
-     * @return El índice de la piscifactoría seleccionada o -1 si no se selecciona ninguna.
+     * @return El índice de la piscifactoría seleccionada o -1 si no se selecciona
+     *         ninguna.
      */
 
     public int selectPisc() {
@@ -230,7 +233,8 @@ public class Simulador {
 
     /**
      * Permite al usuario seleccionar un tanque de una piscifactoría específica.
-     * Muestra la lista de tanques disponibles y devuelve el índice del tanque seleccionado.
+     * Muestra la lista de tanques disponibles y devuelve el índice del tanque
+     * seleccionado.
      * Si se selecciona la opción 0, devuelve -1 indicando ninguna selección válida.
      *
      * @param p La piscifactoría para la cual se debe seleccionar un tanque.
@@ -264,9 +268,66 @@ public class Simulador {
         }
     }
 
+    public void showStats() {
+        System.out.println("Desglose de los peces en el sistema: ");
+        System.out.println("-------------------------------------");
+
+        for (int i = 1; i <= 12; i++) {
+            PecesDatos pez = null;
+
+            switch (i) {
+                case 1:
+                    pez = AlmacenPropiedades.BESUGO;
+                    break;
+                case 2:
+                    pez = AlmacenPropiedades.CABALLA;
+                    break;
+                case 3:
+                    pez = AlmacenPropiedades.ROBALO;
+                    break;
+                case 4:
+                    pez = AlmacenPropiedades.RODABALLO;
+                    break;
+                case 5:
+                    pez = AlmacenPropiedades.SARGO;
+                    break;
+                case 6:
+                    pez = AlmacenPropiedades.CARPA_PLATEADA;
+                    break;
+                case 7:
+                    pez = AlmacenPropiedades.CARPA;
+                    break;
+                case 8:
+                    pez = AlmacenPropiedades.LUCIO_NORTE;
+                    break;
+                case 9:
+                    pez = AlmacenPropiedades.PEJERREY;
+                    break;
+                case 10:
+                    pez = AlmacenPropiedades.PERCA_EUROPEA;
+                    break;
+                case 11:
+                    pez = AlmacenPropiedades.DORADA;
+                    break;
+                case 12:
+                    pez = AlmacenPropiedades.LUBINA_EUROPEA;
+                    break;
+            }
+
+            if (pez != null) {
+                String nombrePez = pez.getNombre();
+                int cantidadComprada = g.getCantidadComprada(nombrePez);
+                System.out.println(pez.getNombre());
+                System.out.println("Comprados: " + cantidadComprada);
+                System.out.println("Vendidos: ");
+            }
+
+        }
+    }
 
     /**
-     * Muestra el estado general de todas las piscifactorías, incluyendo el estado de los tanques
+     * Muestra el estado general de todas las piscifactorías, incluyendo el estado
+     * de los tanques
      * y el número de días transcurridos en la simulación.
      */
 
@@ -278,8 +339,10 @@ public class Simulador {
     }
 
     /**
-     * Muestra el estado específico de una piscifactoría seleccionada por el usuario.
-     * Permite al usuario seleccionar una piscifactoría y muestra el estado de todos sus tanques.
+     * Muestra el estado específico de una piscifactoría seleccionada por el
+     * usuario.
+     * Permite al usuario seleccionar una piscifactoría y muestra el estado de todos
+     * sus tanques.
      */
 
     public void showSpecificStatus() {
@@ -310,13 +373,53 @@ public class Simulador {
     }
 
     public void sell() {
-
+        int totalPecesVendidos = 0;
+        int totalMonedasGanadas = 0;
+    
+        // Iterar sobre todas las piscifactorías
+        Iterator<Piscifactoria> iterator = piscifactorias.iterator();
+        while (iterator.hasNext()) {
+            Piscifactoria piscifactoria = iterator.next();
+            System.out.println("Piscifactoría " + piscifactoria.getNombre() + ":");
+    
+            int pecesVendidosEnPiscifactoria = 0;
+            int monedasGanadasEnPiscifactoria = 0;
+    
+            // Iterar sobre todos los tanques de la piscifactoría
+            for (Tanque<? extends Pez> tanque : piscifactoria.getTanque()) {
+                // Crear un iterador para evitar ConcurrentModificationException al eliminar peces
+                Iterator<Pez> pezIterator = tanque.getPeces().iterator();
+                while (pezIterator.hasNext()) {
+                    Pez pez = pezIterator.next();
+                    // Vender los peces adultos vivos
+                    if (pez.getAdulto() && pez.isVivo()) {
+                        pecesVendidosEnPiscifactoria++;
+                        // Utilizar el precio de venta del pez almacenado en PecesDatos
+                        monedasGanadasEnPiscifactoria += pez.getPezDato().getCoste();
+                        // Utilizar el iterador para remover el pez del tanque
+                        pezIterator.remove();
+                    }
+                }
+            }
+    
+            System.out.println(pecesVendidosEnPiscifactoria + " peces vendidos por " + monedasGanadasEnPiscifactoria + " monedas");
+    
+            // Actualizar el total de peces vendidos y el total de monedas ganadas
+            totalPecesVendidos += pecesVendidosEnPiscifactoria;
+            totalMonedasGanadas += monedasGanadasEnPiscifactoria;
+        }
     }
+    
+    
+    
 
     /**
-     * Muestra información detallada sobre un tipo de pez seleccionado por el usuario.
-     * Permite al usuario seleccionar un pez de la lista e imprime sus propiedades, como
-     * nombre científico, cantidad de huevos, ciclo de vida, madurez, condiciones óptimas,
+     * Muestra información detallada sobre un tipo de pez seleccionado por el
+     * usuario.
+     * Permite al usuario seleccionar un pez de la lista e imprime sus propiedades,
+     * como
+     * nombre científico, cantidad de huevos, ciclo de vida, madurez, condiciones
+     * óptimas,
      * costo y ganancias en monedas.
      */
 
@@ -341,7 +444,6 @@ public class Simulador {
 
     }
 
-
     /**
      * Avanza la simulación al siguiente día, aplicando los cambios correspondientes
      * en todas las piscifactorías.
@@ -356,8 +458,10 @@ public class Simulador {
 
     /**
      * Permite al usuario comprar comida para una piscifactoría seleccionada.
-     * Muestra la cantidad de monedas disponibles y solicita la cantidad de comida a comprar.
-     * La comida comprada se agrega a la piscifactoría seleccionada, y las monedas se deducen.
+     * Muestra la cantidad de monedas disponibles y solicita la cantidad de comida a
+     * comprar.
+     * La comida comprada se agrega a la piscifactoría seleccionada, y las monedas
+     * se deducen.
      */
 
     public void addFood() {
@@ -405,10 +509,11 @@ public class Simulador {
         }
     }
 
-
     /**
-     * Crea y agrega un pez al tanque de la piscifactoría seleccionada según la opción proporcionada.
-     * El pez se selecciona según la opción y se verifica si hay fondos suficientes antes de agregarlo.
+     * Crea y agrega un pez al tanque de la piscifactoría seleccionada según la
+     * opción proporcionada.
+     * El pez se selecciona según la opción y se verifica si hay fondos suficientes
+     * antes de agregarlo.
      *
      * @param opc La opción seleccionada por el usuario para elegir el tipo de pez.
      */
@@ -416,147 +521,176 @@ public class Simulador {
     public void seleccionarPez(int opc) {
         Random rd = new Random();
         boolean sexo = rd.nextBoolean();
+        int cantidadComprada = 1;
+
         switch (opc) {
             case 1:
                 escogerPez = new Besugo(sexo, AlmacenPropiedades.BESUGO);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.BESUGO.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("BESUGO añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.BESUGO.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.BESUGO.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
-
                 break;
-
             case 2:
                 escogerPez = new Caballa(sexo, AlmacenPropiedades.CABALLA);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.CABALLA.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("CABALLA añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.CABALLA.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.CABALLA.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 3:
                 escogerPez = new Robalo(sexo, AlmacenPropiedades.ROBALO);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.ROBALO.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("ROBALO añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.ROBALO.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.ROBALO.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 4:
                 escogerPez = new Rodaballo(sexo, AlmacenPropiedades.RODABALLO);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.RODABALLO.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("RODABALLO añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.RODABALLO.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.RODABALLO.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 5:
                 escogerPez = new Sargo(sexo, AlmacenPropiedades.SARGO);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.SARGO.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("SARGO añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.SARGO.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.SARGO.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 6:
                 escogerPez = new Carpa_Plateada(sexo, AlmacenPropiedades.CARPA_PLATEADA);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.CARPA_PLATEADA.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("CARPA_PLATEADA añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.CARPA_PLATEADA.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.CARPA_PLATEADA.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 7:
                 escogerPez = new Carpa(sexo, AlmacenPropiedades.CARPA);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.CARPA.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("CARPA añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.CARPA.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.CARPA.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 8:
                 escogerPez = new LucioDelNorte(sexo, AlmacenPropiedades.LUCIO_NORTE);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.LUCIO_NORTE.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("LUCIO_NORTE añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.LUCIO_NORTE.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.LUCIO_NORTE.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 9:
                 escogerPez = new Pejerrey(sexo, AlmacenPropiedades.PEJERREY);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.PEJERREY.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("PEJERREY añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.PEJERREY.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.PEJERREY.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 10:
                 escogerPez = new PercaEuropea(sexo, AlmacenPropiedades.PERCA_EUROPEA);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.PERCA_EUROPEA.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("PERCA_EUROPEA añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.PERCA_EUROPEA.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.PERCA_EUROPEA.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 11:
                 escogerPez = new Dorada(sexo, AlmacenPropiedades.DORADA);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.DORADA.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("DORADA añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.DORADA.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.DORADA.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
-
             case 12:
                 escogerPez = new LubinaEuropea(sexo, AlmacenPropiedades.LUBINA_EUROPEA);
+                if (!comprobarPecesDelTanque(escogerPez)) {
+                    return;
+                }
                 if (monedas.getMonedas() > AlmacenPropiedades.LUBINA_EUROPEA.getCoste()) {
-                    comprobarPecesDelTanque(escogerPez);
                     System.out.println("LUBINA_EUROPEA añadido correctamente");
                     monedas.setMonedas(monedas.getMonedas() - AlmacenPropiedades.LUBINA_EUROPEA.getCoste());
+                    g.registrarCompras(AlmacenPropiedades.LUBINA_EUROPEA.getNombre(), cantidadComprada);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
                 break;
             default:
+                System.out.println("Opción inválida");
                 break;
         }
     }
 
     /**
-     * Limpia los peces muertos de todos los tanques de la piscifactoría seleccionada por el usuario.
-     * El usuario debe seleccionar una piscifactoría válida antes de limpiar los tanques.
+     * Limpia los peces muertos de todos los tanques de la piscifactoría
+     * seleccionada por el usuario.
+     * El usuario debe seleccionar una piscifactoría válida antes de limpiar los
+     * tanques.
      */
 
     public void cleanTank() {
@@ -578,10 +712,11 @@ public class Simulador {
         System.out.println("Se han eliminado todos los peces muertos de todos los tanques");
     }
 
-
     /**
-     * Vacía todos los peces de un tanque específico de la piscifactoría seleccionada por el usuario.
-     * El usuario debe seleccionar una piscifactoría y un tanque válidos antes de vaciar el tanque.
+     * Vacía todos los peces de un tanque específico de la piscifactoría
+     * seleccionada por el usuario.
+     * El usuario debe seleccionar una piscifactoría y un tanque válidos antes de
+     * vaciar el tanque.
      */
 
     public void emptyTank() {
@@ -605,7 +740,8 @@ public class Simulador {
     }
 
     /**
-     * Muestra un menú de selección de peces para que el usuario elija un tipo de pez.
+     * Muestra un menú de selección de peces para que el usuario elija un tipo de
+     * pez.
      * Devuelve la opción seleccionada por el usuario.
      *
      * @return La opción seleccionada por el usuario para elegir el tipo de pez.
@@ -637,13 +773,14 @@ public class Simulador {
     }
 
     /**
-     * Verifica la disponibilidad de tanques y permite al usuario seleccionar un tanque para agregar un pez.
+     * Verifica la disponibilidad de tanques y permite al usuario seleccionar un
+     * tanque para agregar un pez.
      * Selecciona el tanque disponible y añade el pez al tanque correspondiente.
      *
      * @param p El pez que se va a agregar al tanque.
      */
 
-    public void comprobarPecesDelTanque(Pez p) {
+    public boolean comprobarPecesDelTanque(Pez p) {
         ArrayList<Tanque<? extends Pez>> tanquesDispos = new ArrayList<>();
 
         for (int i = 0; i < piscifactorias.size(); i++) {
@@ -652,6 +789,7 @@ public class Simulador {
 
         if (tanquesDispos.size() == 0) {
             System.out.println("No hay tanques disponibles");
+            return false; // No hay tanques disponibles
         } else {
             System.out.println("Tanques disponibles:");
             for (int i = 0; i < tanquesDispos.size(); i++) {
@@ -661,14 +799,16 @@ public class Simulador {
             System.out.println("Selecciona una opción de los tanques disponibles");
             int opc = sc.nextInt();
             tanquesDispos.get(opc - 1).addFish(p);
+            return true; // Hay tanques disponibles
         }
     }
 
     /**
-     * Muestra un menú de opciones para mejorar o comprar edificios en la simulación.
-     * Permite al usuario seleccionar diferentes opciones, como comprar una piscifactoría o mejorar tanques.
+     * Muestra un menú de opciones para mejorar o comprar edificios en la
+     * simulación.
+     * Permite al usuario seleccionar diferentes opciones, como comprar una
+     * piscifactoría o mejorar tanques.
      */
-
 
     public void upgrade() {
         System.out.println("-------------MEJORAR-------------");
@@ -747,15 +887,15 @@ public class Simulador {
                                     }
                                 }
                                 break;
-                    
+
                             default:
                                 break;
                         }
                     case 2:
                         System.out.println("Aumentar capacidad de Almacen");
-                        if(monedas.getMonedas() >= 100){
+                        if (monedas.getMonedas() >= 100) {
                             monedas.setMonedas(monedas.getMonedas() - 100);
-                            
+
                         }
                 }
                 break;
@@ -765,7 +905,8 @@ public class Simulador {
     }
 
     /**
-     * Permite al usuario comprar una nueva Piscifactoría, solicitando información sobre el nombre y el tipo.
+     * Permite al usuario comprar una nueva Piscifactoría, solicitando información
+     * sobre el nombre y el tipo.
      * Verifica las monedas disponibles y realiza la compra si es posible.
      * Muestra mensajes adecuados según el resultado de la compra.
      */
@@ -817,7 +958,8 @@ public class Simulador {
     }
 
     /**
-     * Permite al usuario comprar un nuevo tanque para una Piscifactoría seleccionada.
+     * Permite al usuario comprar un nuevo tanque para una Piscifactoría
+     * seleccionada.
      * Verifica las monedas disponibles y realiza la compra si es posible.
      * Muestra mensajes adecuados según el resultado de la compra.
      */
@@ -884,9 +1026,11 @@ public class Simulador {
     }
 
     /**
-     * Método principal que crea una instancia de la clase Simulador y llama al método menu() para iniciar la simulación.
+     * Método principal que crea una instancia de la clase Simulador y llama al
+     * método menu() para iniciar la simulación.
      *
-     * @param args Los argumentos de la línea de comandos (no se utilizan en este caso).
+     * @param args Los argumentos de la línea de comandos (no se utilizan en este
+     *             caso).
      */
 
     public static void main(String[] args) {

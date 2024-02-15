@@ -108,6 +108,7 @@ public class Tanque<T extends Pez> {
             }
         }
         this.muertos.add(p);
+        
     }
 
     /**
@@ -265,6 +266,10 @@ public class Tanque<T extends Pez> {
 
     public void comerPezMuerto(Pez p) {
         muertos.remove(p);
+    }
+
+    public void removerPezVivo(Pez p){
+        peces.remove(p);
     }
 
     /**
