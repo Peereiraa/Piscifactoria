@@ -385,18 +385,14 @@ public class Simulador {
             int pecesVendidosEnPiscifactoria = 0;
             int monedasGanadasEnPiscifactoria = 0;
     
-            // Iterar sobre todos los tanques de la piscifactoría
+        
             for (Tanque<? extends Pez> tanque : piscifactoria.getTanque()) {
-                // Crear un iterador para evitar ConcurrentModificationException al eliminar peces
                 Iterator<Pez> pezIterator = tanque.getPeces().iterator();
                 while (pezIterator.hasNext()) {
                     Pez pez = pezIterator.next();
-                    // Vender los peces adultos vivos
                     if (pez.getAdulto() && pez.isVivo()) {
                         pecesVendidosEnPiscifactoria++;
-                        // Utilizar el precio de venta del pez almacenado en PecesDatos
                         monedasGanadasEnPiscifactoria += pez.getPezDato().getCoste();
-                        // Utilizar el iterador para remover el pez del tanque
                         pezIterator.remove();
                     }
                 }
