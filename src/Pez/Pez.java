@@ -37,6 +37,7 @@ public class Pez {
         this.sexo = sexo;
         this.edad = 0;
         this.pezDato = pezDato;
+        this.ciclodevida = 0;
 
     }
 
@@ -193,6 +194,9 @@ public class Pez {
      */
 
     public boolean isFertil() {
+
+        
+
         return fertil;
     }
 
