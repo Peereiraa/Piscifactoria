@@ -302,19 +302,11 @@ public class Tanque<T extends Pez> {
         for (int i = 0; i < peces.size(); i++) {
             if (peces.get(i) != null) {
                 peces.get(i).grow(this, comida);
-            }
-        }
-        
-        for (int i = 0; i < peces.size();) {
-            Pez p = peces.get(i);
-            if (p != null) {
-                p.reproducir(this);
-                break;
-            } else {
-                break;
+                peces.get(i).reproducir(this); // Intentar reproducción para cada pez
             }
         }
     }
+    
 
     /**
      * Limpia la lista de peces muertos en el tanque.

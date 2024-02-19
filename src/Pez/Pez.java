@@ -155,6 +155,14 @@ public class Pez {
 
     }
 
+    public void incrementarCicloDeVida() {
+        this.ciclodevida++;
+    }
+
+    public void resetCicloDeVida() {
+        this.ciclodevida = 0;
+    }
+
     
 
     /**
