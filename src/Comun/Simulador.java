@@ -59,6 +59,7 @@ public class Simulador {
     protected String nombrePartida;
     protected String nombrePisci;
     protected Gestion g;
+    protected AlmacenCentral ac;
     private int numMachos = 0;
     private int numHembras = 0;
 
@@ -101,6 +102,7 @@ public class Simulador {
             System.out.println("---------INFORMACION---------\n");
             System.out.println("Tu monedero: " + monedas.getMonedas());
             System.out.println("Dia: " + this.diasPasados);
+            System.out.println("Almacen Central: " + AlmacenCentral());
             System.out.println("");
             System.out.println("Menú:");
             System.out.println("1. Estado general");
@@ -171,7 +173,7 @@ public class Simulador {
                     break;
                 case 13:
                     System.out.println("Opción 13: Pasar varios días");
-                    // Implementar la opción 13: Pasar varios días
+                    pasarVariosDias();
                     break;
                 case 14:
                     System.out.println("Saliendo del programa.");
@@ -397,7 +399,8 @@ public class Simulador {
 
         monedas.setMonedas(monedas.getMonedas() + totalMonedasGanadas);
 
-        System.out.println("Se han vendido " + totalPecesVendidos + " peces por un total de " + totalMonedasGanadas + " monedas.");
+        System.out.println(
+                "Se han vendido " + totalPecesVendidos + " peces por un total de " + totalMonedasGanadas + " monedas.");
     }
 
     /**
@@ -430,16 +433,54 @@ public class Simulador {
 
     }
 
-    /**
-     * Avanza la simulación al siguiente día, aplicando los cambios correspondientes
-     * en todas las piscifactorías.
-     */
-
     public void nextDay() {
+        if (ac != null) {
+
+            if (ac.getEspacioOcupado() > 0) {
+                // Calcular la cantidad de comida disponible para cada piscifactoría
+                int comidaTotal = ac.getEspacioOcupado();
+                int piscifactoriasNoLLenas = 0;
+
+                // Contar cuántas piscifactorías no están llenas
+                for (Piscifactoria p : piscifactorias) {
+                    if (!p.estaLlena()) {
+                        piscifactoriasNoLLenas++;
+                    }
+                }
+
+                // Repartir equitativamente la comida entre las piscifactorías no llenas
+                if (piscifactoriasNoLLenas > 0) {
+                    int comidaPorPiscifactoria = comidaTotal / piscifactoriasNoLLenas;
+                    for (Piscifactoria p : piscifactorias) {
+                        if (!p.estaLlena()) {
+                            p.setComidaActual(comidaPorPiscifactoria);
+                        }
+                    }
+                    // Actualizar el espacio ocupado en el almacén central a 0 después de repartir
+                    // la comida
+                    ac.setEspacioOcupado(0);
+                }
+
+            } else {
+            }
+        }
+
+        // Avanzar un día en todas las piscifactorías
         for (Piscifactoria p : piscifactorias) {
             p.nextDay();
             diasPasados++;
         }
+    }
+
+    public void pasarVariosDias() {
+        System.out.println("¿Cuántos días quieres pasar?");
+        int dias = sc.nextInt();
+
+        for (int i = 0; i < dias; i++) {
+            nextDay();
+        }
+
+        System.out.println("Se han pasado " + dias + " días.");
     }
 
     /**
@@ -449,49 +490,74 @@ public class Simulador {
      * La comida comprada se agrega a la piscifactoría seleccionada, y las monedas
      * se deducen.
      */
-
     public void addFood() {
-        int opc = selectPisc();
-        if (opc != 0) {
-            Piscifactoria p = piscifactorias.get(opc - 1);
+
+        if (ac != null) {
             System.out.println("¿Cuanta comida quieres comprar? Pulsa 0 para cancelar");
             System.out.println("Tu monedero: " + monedas.getMonedas());
-            int cantidad = sc.nextInt();
+            int cantidad1 = sc.nextInt();
 
-            switch (cantidad) {
+            switch (cantidad1) {
                 case 5:
-                    if (cantidad <= p.getComidaMaxima() - p.getComidaActual()) {
-                        p.setComidaActual(p.getComidaActual() + 5);
-                        System.out.println("Añadiste 5 de comida");
-                        monedas.setMonedas(monedas.getMonedas() - 5);
-
-                    } else {
-                        System.out.println("No tienes espacio para meter mas comida");
-                    }
-                    break;
-
                 case 10:
-                    if (cantidad <= p.getComidaMaxima() - p.getComidaActual()) {
-                        p.setComidaActual(p.getComidaActual() + 10);
-                        System.out.println("Añadiste 10 de comida");
-                        monedas.setMonedas(monedas.getMonedas() - 10);
+                case 25:
+
+                    if (monedas.getMonedas() >= cantidad1) {
+                        ac.meterComida(cantidad1);
+                        System.out.println("Añadiste " + cantidad1 + " de comida al Almacen Central");
+                        monedas.setMonedas(monedas.getMonedas() - cantidad1);
                     } else {
-                        System.out.println("No tienes espacio para meter mas comida");
+                        System.out.println("No tienes suficientes monedas");
                     }
                     break;
-
-                case 25:
-                    if (cantidad <= p.getComidaMaxima() - p.getComidaActual()) {
-                        p.setComidaActual(p.getComidaActual() + 25);
-                        System.out.println("Añadiste 5 de comida");
-                        monedas.setMonedas(monedas.getMonedas() - 25);
-                    } else {
-                        System.out.println("No tienes espacio para meter mas comida");
-                    }
+                default:
+                    System.out.println("Opcion invalida");
                     break;
             }
+
         } else {
-            menu();
+            int opc = selectPisc();
+            if (opc != 0) {
+                Piscifactoria p = piscifactorias.get(opc - 1);
+                System.out.println("¿Cuanta comida quieres comprar? Pulsa 0 para cancelar");
+                System.out.println("Tu monedero: " + monedas.getMonedas());
+                int cantidad = sc.nextInt();
+
+                switch (cantidad) {
+                    case 5:
+                        if (cantidad <= p.getComidaMaxima() - p.getComidaActual()) {
+                            p.setComidaActual(p.getComidaActual() + 5);
+                            System.out.println("Añadiste 5 de comida");
+                            monedas.setMonedas(monedas.getMonedas() - 5);
+
+                        } else {
+                            System.out.println("No tienes espacio para meter mas comida");
+                        }
+                        break;
+
+                    case 10:
+                        if (cantidad <= p.getComidaMaxima() - p.getComidaActual()) {
+                            p.setComidaActual(p.getComidaActual() + 10);
+                            System.out.println("Añadiste 10 de comida");
+                            monedas.setMonedas(monedas.getMonedas() - 10);
+                        } else {
+                            System.out.println("No tienes espacio para meter mas comida");
+                        }
+                        break;
+
+                    case 25:
+                        if (cantidad <= p.getComidaMaxima() - p.getComidaActual()) {
+                            p.setComidaActual(p.getComidaActual() + 25);
+                            System.out.println("Añadiste 25 de comida");
+                            monedas.setMonedas(monedas.getMonedas() - 25);
+                        } else {
+                            System.out.println("No tienes espacio para meter mas comida");
+                        }
+                        break;
+                }
+            } else {
+                menu();
+            }
         }
     }
 
@@ -503,10 +569,13 @@ public class Simulador {
      *
      * @param opc La opción seleccionada por el usuario para elegir el tipo de pez.
      */
-
     public void seleccionarPez(int opc) {
-        Random rd = new Random();
-        boolean sexo = rd.nextBoolean();
+        boolean sexo;
+        if (numHembras >= numMachos){
+            sexo = true;
+        }else{
+            sexo = false;
+        }
         int cantidadComprada = 1;
 
         switch (opc) {
@@ -677,20 +746,6 @@ public class Simulador {
             numHembras++;
         }
 
-        while (Math.abs(numHembras - numMachos) > 1) {
-            // Determinar el sexo que falta para equilibrar el tanque
-            boolean sexoFaltante = numHembras > numMachos;
-
-            // Intentar comprar un pez del sexo faltante
-            seleccionarPezDeSexo(sexoFaltante);
-
-            // Actualizar el recuento de hembras y machos
-            if (sexoFaltante) {
-                numMachos++;
-            } else {
-                numHembras++;
-            }
-        }
     }
 
     private void seleccionarPezDeSexo(boolean sexoFaltante) {
@@ -705,7 +760,6 @@ public class Simulador {
      * El usuario debe seleccionar una piscifactoría válida antes de limpiar los
      * tanques.
      */
-
     public void cleanTank() {
 
         int piscifactoriaSeleccionada = selectPisc();
@@ -1026,7 +1080,7 @@ public class Simulador {
         if (respuesta.equalsIgnoreCase("SI")) {
             if (monedas.getMonedas() >= AlmacenCentral.precio) {
                 monedas.setMonedas(monedas.getMonedas() - AlmacenCentral.precio);
-                new AlmacenCentral();
+                ac = new AlmacenCentral();
 
             } else {
                 System.out.println("No tienes suficiente dinero para comprar el Almacen");
@@ -1035,6 +1089,14 @@ public class Simulador {
         } else {
             System.out.println("Vuelva pronto!");
             upgrade();
+        }
+    }
+
+    public String AlmacenCentral() {
+        if (ac != null) {
+            return "Si";
+        } else {
+            return "No";
         }
     }
 

@@ -32,6 +32,7 @@ public class Piscifactoria {
     public Piscifactoria(String nombre) {
         this.tanque = new ArrayList<>();
         this.nombre = nombre;
+        
 
     }
 
@@ -254,7 +255,6 @@ public class Piscifactoria {
      *
      * @return La capacidad máxima de comida que puede almacenar.
      */
-
     public int getComidaMaxima() {
         return comidaMaxima;
     }
@@ -268,5 +268,10 @@ public class Piscifactoria {
     public void setComidaMaxima(int comidaMaxima) {
         this.comidaMaxima = comidaMaxima;
     }
+
+    public boolean estaLlena() {
+        return comidaActual >= comidaMaxima;
+    }
+    
 
 }

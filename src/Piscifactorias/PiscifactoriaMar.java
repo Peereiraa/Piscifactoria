@@ -19,6 +19,7 @@ public class PiscifactoriaMar extends Piscifactoria {
     public PiscifactoriaMar(String nombre) {
         super(nombre);
         this.comidaActual = 100;
+        this.comidaMaxima = 100;
         Tanque<? extends Pez> t = new Tanque<>(100, 1,this);
         tanque.add(t);
     }

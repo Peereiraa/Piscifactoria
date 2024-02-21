@@ -25,11 +25,10 @@ public class Pez {
     protected boolean adulto = false; // false es que no es Adulto
     protected PecesDatos pezDato;
 
-
     /**
      * Constructor de la clase `Pez`.
      * 
-     * @param sexo Género del pez. `true` para macho, `false` para hembra.
+     * @param sexo    Género del pez. `true` para macho, `false` para hembra.
      * @param pezDato Datos específicos del tipo de pez.
      */
 
@@ -37,12 +36,13 @@ public class Pez {
         this.sexo = sexo;
         this.edad = 0;
         this.pezDato = pezDato;
-        this.ciclodevida = 0;
+        this.ciclodevida = pezDato.getCiclo();
 
     }
 
     /**
-     * Muestra el estado del pez, incluyendo su edad, sexo, estado de vida, alimentación, adultez y fertilidad.
+     * Muestra el estado del pez, incluyendo su edad, sexo, estado de vida,
+     * alimentación, adultez y fertilidad.
      */
 
     public void showStatus() {
@@ -56,9 +56,10 @@ public class Pez {
     }
 
     /**
-     * Hace que el pez crezca un día, realizando la alimentación y verificando su supervivencia.
+     * Hace que el pez crezca un día, realizando la alimentación y verificando su
+     * supervivencia.
      * 
-     * @param t Tanque en el que se encuentra el pez.
+     * @param t      Tanque en el que se encuentra el pez.
      * @param comida Cantidad de comida disponible en el tanque.
      */
 
@@ -73,7 +74,7 @@ public class Pez {
                 this.vivo = false;
                 t.pezMuere(this);
             }
-        }else{
+        } else {
             this.fertil = false;
             this.adulto = false;
         }
@@ -81,7 +82,8 @@ public class Pez {
     }
 
     /**
-     * Realiza la acción de alimentar al pez. (Método a implementar según las necesidades específicas de cada tipo de pez)
+     * Realiza la acción de alimentar al pez. (Método a implementar según las
+     * necesidades específicas de cada tipo de pez)
      * 
      * @param t Tanque en el que se encuentra el pez.
      */
@@ -128,12 +130,18 @@ public class Pez {
     }
 
     /**
-     * Realiza la acción de reproducirse, generando nuevos peces si las condiciones son adecuadas.
+     * Realiza la acción de reproducirse, generando nuevos peces si las condiciones
+     * son adecuadas.
      * 
      * @param t Tanque en el que se encuentra el pez.
      */
 
     public void reproducir(Tanque<? extends Pez> t) {
+        if (this.ciclodevida == 0) {
+            this.fertil = true;
+        } else {
+            this.ciclodevida--;
+        }
         if (this.isFertil() && !this.getSexo()) { // Que sea fertil y que sea hembra
             if (pezDato.getHuevos() <= t.espacioLibreTanque()) {
                 Pez p = t.obtenerPezFertil(true);
@@ -147,6 +155,8 @@ public class Pez {
                         }
                         pezHijo.reset();
                         t.addFish(pezHijo);
+                        p.setFertil(false);
+                        this.ciclodevida = pezDato.getCiclo();
                     }
                 }
             }
@@ -162,8 +172,6 @@ public class Pez {
     public void resetCicloDeVida() {
         this.ciclodevida = 0;
     }
-
-    
 
     /**
      * Obtiene la edad actual del pez.
@@ -203,8 +211,6 @@ public class Pez {
 
     public boolean isFertil() {
 
-        
-
         return fertil;
     }
 
@@ -217,7 +223,6 @@ public class Pez {
     public void setFertil(boolean fertil) {
         this.fertil = fertil;
     }
-
 
     /**
      * Verifica si el pez está vivo.
@@ -242,7 +247,8 @@ public class Pez {
     /**
      * Verifica si el pez ha sido alimentado.
      * 
-     * @return `true` si el pez ha sido alimentado, `false` si el pez no ha sido alimentado.
+     * @return `true` si el pez ha sido alimentado, `false` si el pez no ha sido
+     *         alimentado.
      */
 
     public boolean getAlimentado() {
@@ -308,7 +314,7 @@ public class Pez {
     public int getCiclodevida() {
         return ciclodevida;
     }
-    
+
     /**
      * Establece el ciclo de vida del pez.
      * 
@@ -322,7 +328,7 @@ public class Pez {
     public double getPrecioVenta(Pez p) {
         // Obtener el tipo de pez
         String tipoPez = p.getClass().getSimpleName();
-    
+
         // Obtener el costo del pez desde la clase AlmacenPropiedades
         double costo = 0;
         switch (tipoPez) {
@@ -363,17 +369,14 @@ public class Pez {
                 costo = AlmacenPropiedades.LUBINA_EUROPEA.getCoste();
                 break;
             default:
-                // Si el tipo del pez no coincide con ningún caso, no se puede determinar el costo
+                // Si el tipo del pez no coincide con ningún caso, no se puede determinar el
+                // costo
                 System.out.println("No se puede determinar el costo del pez.");
                 return -1; // Valor inválido para indicar que no se pudo determinar el costo
         }
-    
+
         // Devolver el precio de venta igual al costo del pez
         return costo;
     }
-
-    
-    
-    
 
 }

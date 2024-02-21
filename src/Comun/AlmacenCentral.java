@@ -17,6 +17,7 @@ public class AlmacenCentral {
 
     public AlmacenCentral() {
         this.espacioMaximo = 200;
+        this.espacioDisponible = 200;
     }
 
     /**
@@ -26,13 +27,13 @@ public class AlmacenCentral {
      */
 
     public void meterComida(int cantidad){
-        espacioDisponible = espacioMaximo - espacioOcupado;
-        if(espacioDisponible >= cantidad){
+        if(this.espacioDisponible >= cantidad){
             this.espacioOcupado += cantidad;
-
         } else{
-            this.espacioOcupado += espacioDisponible;
+            this.espacioOcupado += this.espacioDisponible;
+            
         }
+        this.espacioDisponible = this.espacioMaximo - this.espacioOcupado;
     }
 
     /**
