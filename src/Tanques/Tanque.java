@@ -36,6 +36,8 @@ public class Tanque<T extends Pez> {
     protected int pecesMuertos;
     protected Piscifactoria p;
 
+    
+
     Scanner sc = new Scanner(System.in);
 
     /**
@@ -176,6 +178,8 @@ public class Tanque<T extends Pez> {
         return machos;
     }
 
+    
+
     /**
      * Obtiene la cantidad de peces hembras en el tanque.
      * 
@@ -300,12 +304,14 @@ public class Tanque<T extends Pez> {
 
     public void nextDay(int comida) {
         for (int i = 0; i < peces.size(); i++) {
-            if (peces.get(i) != null) {
-                peces.get(i).grow(this, comida);
-                peces.get(i).reproducir(this); // Intentar reproducción para cada pez
+            Pez pezActual = peces.get(i);
+            if (pezActual != null) {
+                pezActual.grow(this, comida);
+                pezActual.reproducir(this); // Intentar reproducción para cada pez
             }
         }
     }
+    
     
 
     /**

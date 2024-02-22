@@ -23,6 +23,7 @@ import Piscifactorias.Piscifactoria;
 import Piscifactorias.PiscifactoriaMar;
 import Piscifactorias.PiscifactoriaRio;
 import Tanques.Tanque;
+import estadisticas.Estadisticas;
 
 /**
  * Esta clase representa un simulador para gestionar una piscifactoría.
@@ -269,8 +270,11 @@ public class Simulador {
         System.out.println("Desglose de los peces en el sistema: ");
         System.out.println("-------------------------------------");
 
+        int totalDineroGanado = 0;
+
         for (int i = 1; i <= 12; i++) {
             PecesDatos pez = null;
+            
 
             switch (i) {
                 case 1:
@@ -315,12 +319,22 @@ public class Simulador {
                 String nombrePez = pez.getNombre();
                 int cantidadComprada = g.getCantidadComprada(nombrePez);
                 int cantidadVendida = g.getCantidadVendida(nombrePez);
+                int dineroGanado = cantidadVendida * pez.getCoste();
                 System.out.println(pez.getNombre());
                 System.out.println("Comprados: " + cantidadComprada);
                 System.out.println("Vendidos: " + cantidadVendida);
+                System.out.println("Dinero ganado: " + dineroGanado);
+
+                totalDineroGanado += dineroGanado;
+                System.out.println();
+                
+                
             }
 
         }
+
+        System.out.println("Total general:");
+        System.out.println("Dinero ganado en total: " + totalDineroGanado);
     }
 
     /**
@@ -437,35 +451,31 @@ public class Simulador {
         if (ac != null) {
 
             if (ac.getEspacioOcupado() > 0) {
-                // Calcular la cantidad de comida disponible para cada piscifactoría
                 int comidaTotal = ac.getEspacioOcupado();
                 int piscifactoriasNoLLenas = 0;
 
-                // Contar cuántas piscifactorías no están llenas
                 for (Piscifactoria p : piscifactorias) {
                     if (!p.estaLlena()) {
                         piscifactoriasNoLLenas++;
                     }
                 }
 
-                // Repartir equitativamente la comida entre las piscifactorías no llenas
                 if (piscifactoriasNoLLenas > 0) {
                     int comidaPorPiscifactoria = comidaTotal / piscifactoriasNoLLenas;
                     for (Piscifactoria p : piscifactorias) {
                         if (!p.estaLlena()) {
-                            p.setComidaActual(comidaPorPiscifactoria);
+                            p.setComidaActual(p.getComidaActual() +comidaPorPiscifactoria);
                         }
                     }
-                    // Actualizar el espacio ocupado en el almacén central a 0 después de repartir
-                    // la comida
+                    
                     ac.setEspacioOcupado(0);
+                    ac.setEspacioDisponible(200);
                 }
 
             } else {
             }
         }
 
-        // Avanzar un día en todas las piscifactorías
         for (Piscifactoria p : piscifactorias) {
             p.nextDay();
             diasPasados++;
