@@ -3,7 +3,6 @@
     import java.util.Random;
 
     import Tanques.Tanque;
-    import estadisticas.Estadisticas;
     import propiedades.AlmacenPropiedades;
     import propiedades.PecesDatos;
 
@@ -103,7 +102,6 @@
          * @param sex Género del nuevo pez. `true` para macho, `false` para hembra.
          * @return Nuevo pez creado.
          */
-
         public Pez crearPez(boolean sex) {
             return new Pez(sex, pezDato);
         }
@@ -111,7 +109,6 @@
         /**
          * Verifica si el pez ha alcanzado la edad de madurez para ser fértil.
          */
-
         public void verificarFertilidad() {
             if (this.edad >= pezDato.getMadurez()) {
                 this.fertil = true;
@@ -124,7 +121,6 @@
         /**
          * Reinicia los valores del pez a su estado inicial.
          */
-
         public void reset() {
             this.edad = 0;
             this.setAdulto(adulto);
@@ -140,14 +136,12 @@
          * 
          * @param t Tanque en el que se encuentra el pez.
          */
-
         public void reproducir(Tanque<? extends Pez> t) {
             if (this.ciclodevida == 0) {
-                // El pez se vuelve fértil y se reinicia su ciclo de vida
                 this.fertil = true;
                 this.ciclodevida = pezDato.getCiclo();
             } else {
-                // Reducir el ciclo de vida en uno
+                
                 this.ciclodevida--;
             }
         
@@ -186,7 +180,6 @@
          * 
          * @return Edad actual del pez en días.
          */
-
         public int getEdad() {
             return edad;
         }
@@ -196,7 +189,6 @@
          * 
          * @param edad Nueva edad del pez en días.
          */
-
         public void setEdad(int edad) {
             this.edad = edad;
         }
@@ -206,7 +198,6 @@
          * 
          * @return `true` si el pez es macho, `false` si el pez es hembra.
          */
-
         public boolean getSexo() {
             return sexo;
         }
@@ -216,7 +207,6 @@
          * 
          * @return `true` si el pez es fértil, `false` si el pez no es fértil.
          */
-
         public boolean isFertil() {
 
             return fertil;
@@ -227,7 +217,6 @@
          * 
          * @param fertil Nuevo estado de fertilidad del pez.
          */
-
         public void setFertil(boolean fertil) {
             this.fertil = fertil;
         }
@@ -237,7 +226,6 @@
          * 
          * @return `true` si el pez está vivo, `false` si el pez está muerto.
          */
-
         public boolean isVivo() {
             return vivo;
         }
@@ -247,7 +235,6 @@
          * 
          * @param vivo Nuevo estado de vida del pez.
          */
-
         public void setVivo(boolean vivo) {
             this.vivo = vivo;
         }
@@ -258,7 +245,6 @@
          * @return `true` si el pez ha sido alimentado, `false` si el pez no ha sido
          *         alimentado.
          */
-
         public boolean getAlimentado() {
             return alimentado;
         }
@@ -268,7 +254,6 @@
          * 
          * @param alimentado Nuevo estado de alimentación del pez.
          */
-
         public void setAlimentado(boolean alimentado) {
             this.alimentado = alimentado;
         }
@@ -278,7 +263,6 @@
          * 
          * @return `true` si el pez es adulto, `false` si el pez no es adulto.
          */
-
         public boolean getAdulto() {
             return adulto;
         }
@@ -288,7 +272,6 @@
          * 
          * @param adulto Nuevo estado de adultez del pez.
          */
-
         public void setAdulto(boolean adulto) {
             this.adulto = adulto;
         }
@@ -298,7 +281,6 @@
          * 
          * @return Datos específicos del tipo de pez.
          */
-
         public PecesDatos getPezDato() {
             return pezDato;
         }
@@ -308,7 +290,6 @@
          * 
          * @param pezDato Nuevos datos específicos del tipo de pez.
          */
-
         public void setPezDato(PecesDatos pezDato) {
             this.pezDato = pezDato;
         }
@@ -318,7 +299,6 @@
          * 
          * @return Ciclo de vida del pez.
          */
-
         public int getCiclodevida() {
             return ciclodevida;
         }
@@ -330,7 +310,6 @@
          * 
          * @param ciclodevida Nuevo ciclo de vida del pez.
          */
-
         public void setCiclodevida(int ciclodevida) {
             this.ciclodevida = ciclodevida;
         }
@@ -379,13 +358,11 @@
                     costo = AlmacenPropiedades.LUBINA_EUROPEA.getCoste();
                     break;
                 default:
-                    // Si el tipo del pez no coincide con ningún caso, no se puede determinar el
-                    // costo
                     System.out.println("No se puede determinar el costo del pez.");
-                    return -1; // Valor inválido para indicar que no se pudo determinar el costo
+                    return -1; 
             }
 
-            // Devolver el precio de venta igual al costo del pez
+            
             return costo;
         }
 
