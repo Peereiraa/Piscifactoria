@@ -2,7 +2,6 @@ package Registro;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,14 +34,19 @@ public class Log {
     }
 
     public void log(String texto) {
-    try (PrintWriter writer = new PrintWriter(new FileOutputStream("src/logs/" + s.getNombrePartida() + ".logs", true), true)) {
-        writer.println(this.getCurrentTime() + " " + texto);
-    } catch (FileNotFoundException e) {
-        System.err.println("No se pudo crear el archivo de registro.");
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new FileOutputStream("src/logs/" + s.getNombrePartida() + ".logs", true), true);
+            writer.println(this.getCurrentTime() + " " + texto);
+        } catch (FileNotFoundException e) {
+            System.err.println("No se pudo crear el archivo de registro.");
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
     }
+    
 }
 
-}
