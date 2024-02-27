@@ -23,7 +23,7 @@ import Piscifactorias.Piscifactoria;
 import Piscifactorias.PiscifactoriaMar;
 import Piscifactorias.PiscifactoriaRio;
 import Tanques.Tanque;
-import estadisticas.Estadisticas;
+
 
 /**
  * Esta clase representa un simulador para gestionar una piscifactoría.
@@ -34,7 +34,6 @@ import estadisticas.Estadisticas;
  * @author Pablo
  * @version 1.0
  */
-
 public class Simulador {
     static Scanner sc = new Scanner(System.in);
     protected int diasPasados;
@@ -74,6 +73,14 @@ public class Simulador {
         g = new Gestion();
         init();
     }
+
+    
+
+    public String getNombrePartida() {
+        return nombrePartida;
+    }
+
+
 
     /**
      * Inicializa la simulación estableciendo valores iniciales.
@@ -1122,5 +1129,7 @@ public class Simulador {
         Simulador s = new Simulador();
         s.menu();
     }
+
+    
 
 }
