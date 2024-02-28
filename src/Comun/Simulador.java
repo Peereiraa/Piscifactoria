@@ -1,8 +1,9 @@
 package Comun;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Scanner;
 import Pez.Pez;
 import propiedades.AlmacenPropiedades;
@@ -22,8 +23,11 @@ import Pez.PecesRio.PercaEuropea;
 import Piscifactorias.Piscifactoria;
 import Piscifactorias.PiscifactoriaMar;
 import Piscifactorias.PiscifactoriaRio;
+import Registro.Log;
+import Registro.Registro;
+import Registro.Transcripciones;
 import Tanques.Tanque;
-import estadisticas.Estadisticas;
+
 
 /**
  * Esta clase representa un simulador para gestionar una piscifactoría.
@@ -39,8 +43,15 @@ public class Simulador {
     static Scanner sc = new Scanner(System.in);
     protected int diasPasados;
     protected static Monedas monedas = Monedas.getInstance();
+    protected static Log log = Log.getInstance();
+    protected static Registro registro = Registro.getInstance();
+    protected static Transcripciones tr = Transcripciones.getInstance();
     protected Pez escogerPez;
 
+    protected ArrayList<String> pecesRio;
+    protected ArrayList<String> pecesMar;
+    protected ArrayList<String> pecesMixto;
+    
     /**
      * Arreglo de nombres de peces disponibles en la simulación.
      */
@@ -82,6 +93,20 @@ public class Simulador {
      * piscifactoria con los valores iniciales de Rio y de 25 de comida
      */
     public void init() {
+
+        
+            File carpeta = new File("src/saves");
+
+            if(!carpeta.exists()){
+                carpeta.mkdirs();
+            }else{
+
+            }
+
+
+        
+
+
         System.out.println("Introduce nombre de partida: ");
         nombrePartida = sc.nextLine();
         System.out.println("Introduce nombre de la piscifactoria: ");
@@ -89,7 +114,43 @@ public class Simulador {
         Piscifactoria p = new PiscifactoriaRio(nombrePisci);
         piscifactorias.add(p);
         p.setComidaActual(25);
+        pecesRio = new ArrayList<>();
+        pecesMar = new ArrayList<>();
+        pecesMixto = new ArrayList<>();
+        registro.registrar("Inicio de la simulacion "+nombrePartida);
+        tr.transcripcion("Dinero: "+monedas.getMonedas()+" monedas");
+        for(int i = 0; i < this.peces.length; i++){
+            String nombrePez = this.peces[i];
+            PecesDatos pezDatos = AlmacenPropiedades.getPropByName(nombrePez);
+            if(pezDatos.getPiscifactoria().toString().equals("RIO")){
+                pecesRio.add(nombrePez);
+            }else if(pezDatos.getPiscifactoria().toString().equals("DOUBLE")){
+                pecesMixto.add(nombrePez);
+            }else{
+                pecesMar.add(nombrePez);
+            }
+        }
 
+        tr.transcripcion("Rio: ");
+        for(String nombre : pecesRio){
+            tr.transcripcion("-"+nombre);
+        }
+        tr.transcripcion("Mar: ");
+        for(String nombre : pecesMar){
+            tr.transcripcion("-"+nombre);
+        }
+        tr.transcripcion("Mixtos: ");
+        for(String nombre : pecesMixto){
+            tr.transcripcion("-"+nombre);
+        }
+    
+
+    }
+
+    
+
+    public String getNombrePartida() {
+        return nombrePartida;
     }
 
     /**
@@ -182,7 +243,6 @@ public class Simulador {
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elija una opción válida.");
-
             }
         }
     }
@@ -758,11 +818,6 @@ public class Simulador {
 
     }
 
-    private void seleccionarPezDeSexo(boolean sexoFaltante) {
-
-        Random rd = new Random();
-        boolean sexo = sexoFaltante;
-    }
 
     /**
      * Limpia los peces muertos de todos los tanques de la piscifactoría
@@ -777,7 +832,6 @@ public class Simulador {
             Piscifactoria p = piscifactorias.get(piscifactoriaSeleccionada - 1);
             for (Tanque<? extends Pez> t : p.getTanque()) {
                 t.limpiarPecesMuertos();
-
             }
             System.out.println("Se han eliminado los peces muertos de todos los tanques de la piscifactoría "
                     + p.getNombre() + ".");
@@ -785,7 +839,6 @@ public class Simulador {
             System.out.println("Piscifactoria no valida");
             menu();
         }
-
         System.out.println("Se han eliminado todos los peces muertos de todos los tanques");
     }
 
@@ -795,14 +848,11 @@ public class Simulador {
      * El usuario debe seleccionar una piscifactoría y un tanque válidos antes de
      * vaciar el tanque.
      */
-
     public void emptyTank() {
         int piscifactoriaSeleccionada = selectPisc();
-
         if (piscifactoriaSeleccionada >= 1 && piscifactoriaSeleccionada <= piscifactorias.size()) {
             Piscifactoria p = piscifactorias.get(piscifactoriaSeleccionada - 1);
             int tanqueSeleccionado = selectTank(p);
-
             if (tanqueSeleccionado >= 0 && tanqueSeleccionado < p.getTanque().size()) {
                 Tanque<? extends Pez> t = p.getTanque().get(tanqueSeleccionado);
                 t.vaciarTanque();
@@ -823,7 +873,6 @@ public class Simulador {
      *
      * @return La opción seleccionada por el usuario para elegir el tipo de pez.
      */
-
     public int menuPeces() {
         System.out.println("Selecciona un pez para añadir: ");
         System.out.println("----------PECES DE MAR----------");
@@ -856,7 +905,6 @@ public class Simulador {
      *
      * @param p El pez que se va a agregar al tanque.
      */
-
     public boolean comprobarPecesDelTanque(Pez p) {
         ArrayList<Tanque<? extends Pez>> tanquesDispos = new ArrayList<>();
 
@@ -886,7 +934,6 @@ public class Simulador {
      * Permite al usuario seleccionar diferentes opciones, como comprar una
      * piscifactoría o mejorar tanques.
      */
-
     public void upgrade() {
         System.out.println("-------------MEJORAR-------------");
         System.out.println("1. Comprar edificios\n");
@@ -964,7 +1011,6 @@ public class Simulador {
                                     }
                                 }
                                 break;
-
                             default:
                                 break;
                         }
@@ -972,7 +1018,6 @@ public class Simulador {
                         System.out.println("Aumentar capacidad de Almacen");
                         if (monedas.getMonedas() >= 100) {
                             monedas.setMonedas(monedas.getMonedas() - 100);
-
                         }
                 }
                 break;
@@ -987,7 +1032,6 @@ public class Simulador {
      * Verifica las monedas disponibles y realiza la compra si es posible.
      * Muestra mensajes adecuados según el resultado de la compra.
      */
-
     public void comprarPiscifactoria() {
 
         System.out.println("Precios: ");
@@ -995,7 +1039,6 @@ public class Simulador {
         System.out.println("2. Piscifactoria de Mar - 2000");
         System.out.println("¿Quieres comprar una Piscifactoria? (SI/NO)");
         String respuesta = sc.next();
-
         if (respuesta.equalsIgnoreCase("SI")) {
             System.out.println("Introduce el nombre de la Piscifactoria");
             String nombrePisci = sc.next();
@@ -1013,7 +1056,6 @@ public class Simulador {
                     System.out.println("No tienes suficientes monedas para comprar");
                     comprarPiscifactoria();
                 }
-
             } else if (tipoPisci == 2) {
                 if (monedas.getMonedas() >= 2000) {
                     monedas.setMonedas(monedas.getMonedas() - 2000);
@@ -1040,14 +1082,11 @@ public class Simulador {
      * Verifica las monedas disponibles y realiza la compra si es posible.
      * Muestra mensajes adecuados según el resultado de la compra.
      */
-
     public void comprarTanques() {
         System.out.println("¿Quieres comprar un Tanque? (SI/NO)");
         String respuesta = sc.next();
-
         if (respuesta.equalsIgnoreCase("SI")) {
             int piscifactoriaSeleccionada = selectPisc();
-
             if (piscifactoriaSeleccionada >= 1 && piscifactoriaSeleccionada <= piscifactorias.size()) {
                 Piscifactoria p = piscifactorias.get(piscifactoriaSeleccionada - 1);
 
@@ -1082,7 +1121,6 @@ public class Simulador {
      * Verifica las monedas disponibles y realiza la compra si es posible.
      * Muestra mensajes adecuados según el resultado de la compra.
      */
-
     public void comprarAlmacenCentral() {
         System.out.println("¿Quieres comprar el AlmacenCentral? (SI/NO)");
         String respuesta = sc.next();
@@ -1117,10 +1155,8 @@ public class Simulador {
      * @param args Los argumentos de la línea de comandos (no se utilizan en este
      *             caso).
      */
-
     public static void main(String[] args) {
         Simulador s = new Simulador();
         s.menu();
     }
-
 }

@@ -32,11 +32,12 @@ public class Log {
         Date date = new Date(System.currentTimeMillis());
         return formatter.format(date);
     }
+    
 
     public void log(String texto) {
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter(new FileOutputStream("src/logs/" + s.getNombrePartida() + ".logs", true), true);
+            writer = new PrintWriter(new FileOutputStream("logs/" + s.getNombrePartida() + ".log", true), true);
             writer.println(this.getCurrentTime() + " " + texto);
         } catch (FileNotFoundException e) {
             System.err.println("No se pudo crear el archivo de registro.");
