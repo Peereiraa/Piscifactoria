@@ -120,6 +120,32 @@ public class Piscifactoria {
         return numPeces;
     }
 
+    public int getNumeroPecesRio() {
+        int totalPecesRio = 0;
+        for (Tanque<? extends Pez> t : tanque) {
+            for (Pez pez : t.getPeces()) {
+                if (pez instanceof DeRio && pez.isVivo()) {
+                    totalPecesRio++;
+                }
+            }
+        }
+        return totalPecesRio;
+    }
+    
+    public int getNumeroPecesMar() {
+        int totalPecesMar = 0;
+        for (Tanque<? extends Pez> t : tanque) {
+            for (Pez pez : t.getPeces()) {
+                if (pez instanceof DeMar && pez.isVivo()) {
+                    totalPecesMar++;
+                }
+            }
+        }
+        return totalPecesMar;
+    }
+
+    
+
     /**
      * Muestra el estado de los peces en un tanque específico.
      *
