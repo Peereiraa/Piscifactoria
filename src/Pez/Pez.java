@@ -3,7 +3,6 @@
     import java.util.Random;
 
     import Tanques.Tanque;
-    import estadisticas.Estadisticas;
     import propiedades.AlmacenPropiedades;
     import propiedades.PecesDatos;
 
@@ -14,7 +13,6 @@
      * alimentación,
      * un estado de adultez, y un conjunto de datos específicos del tipo de pez.
      */
-
     public class Pez {
 
         protected int edad = 0;
@@ -33,7 +31,6 @@
          * @param sexo    Género del pez. `true` para macho, `false` para hembra.
          * @param pezDato Datos específicos del tipo de pez.
          */
-
         public Pez(boolean sexo, PecesDatos pezDato) {
             this.sexo = sexo;
             this.edad = 0;
@@ -46,7 +43,6 @@
          * Muestra el estado del pez, incluyendo su edad, sexo, estado de vida,
          * alimentación, adultez y fertilidad.
          */
-
         public void showStatus() {
             System.out.println("--------------- " + pezDato.getNombre() + " ---------------");
             System.out.println("Edad: " + this.edad + " dias");

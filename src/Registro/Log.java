@@ -1,17 +1,14 @@
 package Registro;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import Comun.Simulador;
 
 public class Log {
 
     private static Log instance;
-    private Simulador s;
+    private BufferedWriter writer;
 
     private Log() {
     }
@@ -23,31 +20,28 @@ public class Log {
         return instance;
     }
 
-    public Log(Simulador s) {
-        this.s = s;
-    }
-
-    public String getCurrentTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]");
-        Date date = new Date(System.currentTimeMillis());
-        return formatter.format(date);
-    }
-    
-
-    public void log(String texto) {
-        PrintWriter writer = null;
+    public void log(String nombrePartida, String texto) {
         try {
-            writer = new PrintWriter(new FileOutputStream("logs/" + s.getNombrePartida() + ".log", true), true);
-            writer.println(this.getCurrentTime() + " " + texto);
-        } catch (FileNotFoundException e) {
-            System.err.println("No se pudo crear el archivo de registro.");
-            e.printStackTrace();
-        } finally {
-            if (writer != null) {
-                writer.close();
+            if (writer == null) {
+                writer = new BufferedWriter(new FileWriter("logs/" + nombrePartida + ".log", true));
             }
+            SimpleDateFormat formatter = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]");
+            String currentTime = formatter.format(System.currentTimeMillis());
+            writer.write(currentTime + " " + texto + "\n");
+            writer.flush(); // Limpiar el buffer
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-    
-}
 
+    public void cerrar() {
+        try {
+            if (writer != null) {
+                writer.close();
+                writer = null; 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

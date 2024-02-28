@@ -9,14 +9,12 @@ public class Monedas {
     /**
      * Instancia única del monedero (patrón Singleton).
      */
-
     public static Monedas monedero = null;
     protected int monedas;
 
     /**
      * Constructor privado para asegurar la creación de una única instancia del monedero.
      */
-
     private Monedas() {
         monedas = 10000;
     }
@@ -26,7 +24,6 @@ public class Monedas {
      *
      * @return La instancia única del monedero.
      */
-
     public static Monedas getInstance() {
         if (monedero == null) {
             monedero = new Monedas();
@@ -39,7 +36,6 @@ public class Monedas {
      *
      * @param capacidad La cantidad de monedas a ingresar.
      */
-
     public void ingresar(int capacidad) {
         this.monedas += capacidad;
     }
@@ -49,7 +45,6 @@ public class Monedas {
      *
      * @param cantidad La cantidad de monedas a pagar.
      */
-
     public void pagar(int cantidad) {
         if (this.monedas >= cantidad) {
             this.monedas -= cantidad;
@@ -64,7 +59,6 @@ public class Monedas {
      *
      * @return La cantidad actual de monedas.
      */
-
     public int getMonedas() {
         return monedas;
     }
@@ -74,7 +68,6 @@ public class Monedas {
      *
      * @param monedas La nueva cantidad de monedas.
      */
-
     public void setMonedas(int monedas) {
         this.monedas = monedas;
     }
@@ -84,7 +77,6 @@ public class Monedas {
      *
      * @return La instancia única del monedero.
      */
-
     public static Monedas getMonedero() {
         return monedero;
     }
@@ -94,7 +86,6 @@ public class Monedas {
      *
      * @param monedero La nueva instancia única del monedero.
      */
-
     public static void setMonedero(Monedas monedero) {
         Monedas.monedero = monedero;
     }
