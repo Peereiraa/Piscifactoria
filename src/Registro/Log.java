@@ -34,6 +34,20 @@ public class Log {
         }
     }
 
+    public void logError(String errorMessage) {
+        try {
+            if (writer == null) {
+                writer = new BufferedWriter(new FileWriter("logs/0_errors" + ".log", true));
+            }
+            SimpleDateFormat formatter = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]");
+            String currentTime = formatter.format(System.currentTimeMillis());
+            writer.write(currentTime + " [ERROR] " + errorMessage + "\n");
+            writer.flush(); 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void cerrar() {
         try {
             if (writer != null) {

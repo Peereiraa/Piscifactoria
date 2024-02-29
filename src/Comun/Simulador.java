@@ -1,6 +1,7 @@
 package Comun;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -37,7 +38,6 @@ import Tanques.Tanque;
  * @author Pablo
  * @version 1.0
  */
-
 public class Simulador {
     static Scanner sc = new Scanner(System.in);
     protected int diasPasados;
@@ -92,11 +92,15 @@ public class Simulador {
      * piscifactoria con los valores iniciales de Rio y de 25 de comida
      */
     public void init() {
-
         try {
             File logsFolder = new File("logs");
             File transcripcionesFolder = new File("transcripciones");
+            File errorLogFile = new File(logsFolder, "0_errors.log");
 
+            if (!errorLogFile.exists()) {
+                errorLogFile.createNewFile();
+            }
+            
             if (!logsFolder.exists()) {
                 logsFolder.mkdirs();
             }
@@ -144,7 +148,7 @@ public class Simulador {
         for (String nombre : pecesMixto) {
             tr.transcripcion(nombrePartida, "-" + nombre);
         }
-        tr.transcripcion(nombrePartida, "Piscifactoria Inicial: " + nombrePisci);
+        registro.registrar(nombrePartida, "Piscifactoria Inicial: " + nombrePisci);
         tr.transcripcion(nombrePartida, "----------");
 
     }
@@ -160,6 +164,7 @@ public class Simulador {
     public void menu() {
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
+
         while (!salir) {
             System.out.println("---------INFORMACION---------\n");
             System.out.println("Tu monedero: " + monedas.getMonedas());
@@ -175,7 +180,7 @@ public class Simulador {
             System.out.println("6. Pasar día");
             System.out.println("7. Comprar comida");
             System.out.println("8. Comprar peces");
-            System.out.println("9. Vender peces");
+            System.out.println("9. Vender peces"); 
             System.out.println("10. Limpiar tanques");
             System.out.println("11. Vaciar tanque");
             System.out.println("12. Mejorar");
@@ -240,6 +245,7 @@ public class Simulador {
                 case 14:
                     System.out.println("Saliendo del programa.");
                     salir = true;
+                    log.log(nombrePartida, "Cierre de partida");
                     log.cerrar();
                     tr.cerrar();
                     registro.cerrar();
@@ -248,11 +254,15 @@ public class Simulador {
                     addPezRandom();
                 case 99:
                     monedas.setMonedas(1000);
+                    tr.transcripcion(nombrePartida,
+                            "Añadidas 1000 monedas mediante la opcion oculta. Monedas actuales, "
+                                    + monedas.getMonedas());
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elija una opción válida.");
             }
         }
+
     }
 
     /**
@@ -471,7 +481,6 @@ public class Simulador {
                     totalMonedasGanadas += ganancia;
                     iterator.remove();
                     totalPecesVendidos++;
-
                     g.registrarVenta(pez.getPezDato().getNombre(), 1);
                 }
             }
@@ -484,7 +493,7 @@ public class Simulador {
 
         String transcripcion = "Vendidos " + totalPecesVendidos + " peces de la piscifactoría "
                 + piscifactoriaSeleccionada.getNombre() + " de forma manual por " + totalMonedasGanadas + " monedas.";
-        tr.transcripcion(nombrePartida, transcripcion);
+        registro.registrar(nombrePartida, transcripcion);
     }
 
     /**
@@ -553,7 +562,7 @@ public class Simulador {
 
         int totalMonedas = monedas.getMonedas();
 
-        // Mostrar los resultados del día
+        log.log(nombrePartida, "Fin del dia " + diasPasados + ".");
         tr.transcripcion(nombrePartida, "Fin del día " + diasPasados + ".");
         tr.transcripcion(nombrePartida, "Peces actuales, " + totalPecesRio + " de río " + totalPecesMar + " de mar.");
         tr.transcripcion(nombrePartida, "Total de monedas " + totalMonedas);
@@ -598,7 +607,7 @@ public class Simulador {
                         ac.meterComida(cantidad1);
                         System.out.println("Añadiste " + cantidad1 + " de comida al Almacen Central");
                         monedas.setMonedas(monedas.getMonedas() - cantidad1);
-                        tr.transcripcion(nombrePartida, cantidad1 + " de comida comprada por " + cantidad1
+                        registro.registrar(nombrePartida, cantidad1 + " de comida comprada por " + cantidad1
                                 + " monedas. Se almacena en el almacén central.");
                     } else {
                         System.out.println("No tienes suficientes monedas");
@@ -625,7 +634,7 @@ public class Simulador {
                             p.setComidaActual(p.getComidaActual() + cantidad);
                             System.out.println("Añadiste " + cantidad + " de comida");
                             monedas.setMonedas(monedas.getMonedas() - cantidad);
-                            tr.transcripcion(nombrePartida, cantidad + " de comida comprada por " + cantidad
+                            registro.registrar(nombrePartida, cantidad + " de comida comprada por " + cantidad
                                     + " monedas. Se almacena en la piscifactoría " + p.getNombre() + ".");
                         } else {
                             System.out.println("No tienes espacio para meter más comida");
@@ -672,7 +681,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.BESUGO.getNombre() + " (" + sexoString + ") comprado por "
                             + AlmacenPropiedades.BESUGO.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -690,7 +699,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.CABALLA.getNombre() + " (" + sexoString
                             + ") comprado por " + AlmacenPropiedades.CABALLA.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -708,7 +717,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.CABALLA.getNombre() + " (" + sexoString
                             + ") comprado por " + AlmacenPropiedades.CABALLA.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -726,7 +735,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.ROBALO.getNombre() + " (" + sexoString + ") comprado por "
                             + AlmacenPropiedades.ROBALO.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -744,7 +753,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.SARGO.getNombre() + " (" + sexoString + ") comprado por "
                             + AlmacenPropiedades.SARGO.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -762,7 +771,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.CARPA_PLATEADA.getNombre() + " (" + sexoString
                             + ") comprado por " + AlmacenPropiedades.CARPA_PLATEADA.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -780,7 +789,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.CARPA.getNombre() + " (" + sexoString + ") comprado por "
                             + AlmacenPropiedades.CARPA.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -798,7 +807,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.LUCIO_NORTE.getNombre() + " (" + sexoString
                             + ") comprado por " + AlmacenPropiedades.LUCIO_NORTE.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -816,7 +825,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.PEJERREY.getNombre() + " (" + sexoString
                             + ") comprado por " + AlmacenPropiedades.PEJERREY.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -834,7 +843,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.PERCA_EUROPEA.getNombre() + " (" + sexoString
                             + ") comprado por " + AlmacenPropiedades.PERCA_EUROPEA.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -852,7 +861,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.DORADA.getNombre() + " (" + sexoString + ") comprado por "
                             + AlmacenPropiedades.DORADA.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -870,7 +879,7 @@ public class Simulador {
                     String transcripcion = AlmacenPropiedades.LUBINA_EUROPEA.getNombre() + " (" + sexoString
                             + ") comprado por " + AlmacenPropiedades.LUBINA_EUROPEA.getCoste()
                             + " monedas.";
-                    tr.transcripcion(nombrePartida, transcripcion);
+                    registro.registrar(nombrePartida, transcripcion);
                 } else {
                     System.out.println("No tienes suficientes fondos para comprar el pez");
                 }
@@ -888,7 +897,7 @@ public class Simulador {
 
     }
 
-    public void addPezRandom(){
+    public void addPezRandom() {
         Random rd = new Random();
         boolean sexo;
         if (numHembras >= numMachos) {
@@ -896,24 +905,100 @@ public class Simulador {
         } else {
             sexo = false;
         }
-        int opcion = rd.nextInt(12);
-        switch(opcion){
+        int opcion = rd.nextInt(12) + 1;
+        switch (opcion) {
             case 1:
-            escogerPez = new Besugo(sexo, AlmacenPropiedades.BESUGO);
                 if (!comprobarPecesDelTanque(escogerPez)) {
-                    return;
+                    for (int i = 0; i < 4; i++) {
+                        escogerPez = new Besugo(sexo, AlmacenPropiedades.BESUGO);
+                    }
+                }
+            case 2:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new Caballa(sexo, AlmacenPropiedades.CABALLA);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 3:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new Robalo(sexo, AlmacenPropiedades.ROBALO);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 4:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new Rodaballo(sexo, AlmacenPropiedades.RODABALLO);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 5:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new Sargo(sexo, AlmacenPropiedades.SARGO);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 6:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new Carpa_Plateada(sexo, AlmacenPropiedades.CARPA_PLATEADA);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 7:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new Carpa(sexo, AlmacenPropiedades.CARPA);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 8:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new LucioDelNorte(sexo, AlmacenPropiedades.LUCIO_NORTE);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 9:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new Pejerrey(sexo, AlmacenPropiedades.PEJERREY);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 10:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new PercaEuropea(sexo, AlmacenPropiedades.PERCA_EUROPEA);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 11:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new Dorada(sexo, AlmacenPropiedades.DORADA);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
+                }
+            case 12:
+                for (int i = 0; i < 4; i++) {
+                    escogerPez = new LubinaEuropea(sexo, AlmacenPropiedades.LUBINA_EUROPEA);
+                    if (!comprobarPecesDelTanque(escogerPez)) {
+                        return;
+                    }
                 }
 
         }
-
         if (sexo) {
             numMachos++;
         } else {
             numHembras++;
         }
-    }
 
-    
+    }
 
     /**
      * Limpia los peces muertos de todos los tanques de la piscifactoría
@@ -930,7 +1015,7 @@ public class Simulador {
                 t.limpiarPecesMuertos();
 
                 String transcripcion = "Limpiado el tanque " + (i + 1) + " de la piscifactoría " + p.getNombre() + ".";
-                tr.transcripcion(nombrePartida, transcripcion);
+                registro.registrar(nombrePartida, transcripcion);
             }
             System.out.println("Se han eliminado los peces muertos de todos los tanques de la piscifactoría "
                     + p.getNombre() + ".");
@@ -957,7 +1042,7 @@ public class Simulador {
                 t.vaciarTanque();
                 String transcripcion = "Vaciado el tanque " + (tanqueSeleccionado + 1) + " de la piscifactoría "
                         + p.getNombre();
-                tr.transcripcion(nombrePartida, transcripcion);
+                registro.registrar(nombrePartida, transcripcion);
                 System.out.println("Se han eliminado todos los peces del tanque " + t.getTipo());
             } else {
                 System.out.println("Tanque no válido");
@@ -1068,7 +1153,7 @@ public class Simulador {
                     case 2:
                         comprarAlmacenCentral();
                         System.out.println("Compraste un Almacen Centrar");
-                        tr.transcripcion(nombrePartida, "Comprado el almacén central.");
+                        registro.registrar(nombrePartida, "Comprado el almacén central.");
                     default:
                         break;
                 }
@@ -1154,7 +1239,7 @@ public class Simulador {
                     PiscifactoriaRio nuevaPisci = new PiscifactoriaRio(nombrePisci);
                     piscifactorias.add(nuevaPisci);
                     System.out.println("Piscifactoria de Rio añadida CORRECTAMENTE");
-                    tr.transcripcion(nombrePartida,
+                    registro.registrar(nombrePartida,
                             "Comparada la piscifactoría de río " + nombrePisci + " por 500 monedas.");
                 } else {
                     System.out.println("No tienes suficientes monedas para comprar");
@@ -1166,7 +1251,7 @@ public class Simulador {
                     PiscifactoriaMar nuevaPisci = new PiscifactoriaMar(nombrePisci);
                     piscifactorias.add(nuevaPisci);
                     System.out.println("Piscifactoria de Mar añadida CORRECTAMENTE");
-                    tr.transcripcion(nombrePartida,
+                    registro.registrar(nombrePartida,
                             "Comparada la piscifactoría de mar " + nombrePisci + " por 2000 monedas.");
                 } else {
                     System.out.println("No tienes suficientes monedas para comprar");
@@ -1201,7 +1286,7 @@ public class Simulador {
                         monedas.setMonedas(monedas.getMonedas() - 150 * p.getTanque().size());
                         p.añadirTanque(new Tanque<>(25, p.getTanque().size(), p));
                         System.out.println("Tanque añadido correctamente.");
-                        tr.transcripcion(nombrePartida, "Comprado un tanque número " + p.getTanque().size()
+                        registro.registrar(nombrePartida, "Comprado un tanque número " + p.getTanque().size()
                                 + " de la piscifactoría de río " + p.getNombre() + ".");
                     } else {
                         System.out.println("No tienes suficientes monedas para comprar un tanque.");
@@ -1211,7 +1296,7 @@ public class Simulador {
                         monedas.setMonedas(monedas.getMonedas() - 600 * p.getTanque().size());
                         p.añadirTanque(new Tanque<>(100, p.getTanque().size(), p));
                         System.out.println("Tanque añadido correctamente.");
-                        tr.transcripcion(nombrePartida, "Comprado un tanque número " + p.getTanque().size()
+                        registro.registrar(nombrePartida, "Comprado un tanque número " + p.getTanque().size()
                                 + " de la piscifactoría de mar " + p.getNombre() + ".");
                     } else {
                         System.out.println("No tienes suficientes monedas para comprar un tanque.");
@@ -1266,7 +1351,9 @@ public class Simulador {
      *             caso).
      */
     public static void main(String[] args) {
+
         Simulador s = new Simulador();
+
         s.menu();
     }
 }
