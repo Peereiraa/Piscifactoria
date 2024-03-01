@@ -7,7 +7,6 @@ import Tanques.Tanque;
  * Clase que representa una piscifactoría de tipo río.
  * Extiende la clase base Piscifactoria.
  */
-
 public class PiscifactoriaRio extends Piscifactoria {
 
     /**
@@ -15,7 +14,6 @@ public class PiscifactoriaRio extends Piscifactoria {
      *
      * @param nombre El nombre de la piscifactoría de río.
      */
-
     public PiscifactoriaRio(String nombre) {
         super(nombre);
         this.comidaActual = 25;

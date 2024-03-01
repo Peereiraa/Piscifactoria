@@ -97,16 +97,16 @@ public class Simulador {
             File transcripcionesFolder = new File("transcripciones");
             File errorLogFile = new File(logsFolder, "0_errors.log");
 
-            if (!errorLogFile.exists()) {
-                errorLogFile.createNewFile();
-            }
-            
             if (!logsFolder.exists()) {
                 logsFolder.mkdirs();
             }
 
             if (!transcripcionesFolder.exists()) {
                 transcripcionesFolder.mkdirs();
+            }
+
+            if (!errorLogFile.exists()) {
+                errorLogFile.createNewFile();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,6 +157,34 @@ public class Simulador {
         return nombrePartida;
     }
 
+    public String[] getPeces() {
+        return peces;
+    }
+
+    public boolean getAlmacenCentral(){
+        return ac != null;
+    }
+
+    public ArrayList<Piscifactoria> getPiscifactorias() {
+        return piscifactorias;
+    }
+
+    public void setPiscifactorias(ArrayList<Piscifactoria> piscifactorias) {
+        this.piscifactorias = piscifactorias;
+    }
+
+    public void setPeces(String[] peces) {
+        this.peces = peces;
+    }
+
+    public int getDiasPasados() {
+        return diasPasados;
+    }
+
+    public void setDiasPasados(int diasPasados) {
+        this.diasPasados = diasPasados;
+    }
+
     /**
      * Muestra el menú de opciones para la simulación y realiza las acciones
      * correspondientes según la opción seleccionada por el usuario.
@@ -180,7 +208,7 @@ public class Simulador {
             System.out.println("6. Pasar día");
             System.out.println("7. Comprar comida");
             System.out.println("8. Comprar peces");
-            System.out.println("9. Vender peces"); 
+            System.out.println("9. Vender peces");
             System.out.println("10. Limpiar tanques");
             System.out.println("11. Vaciar tanque");
             System.out.println("12. Mejorar");
@@ -526,6 +554,15 @@ public class Simulador {
 
     }
 
+    /**
+     * Avanza un día en la simulación. Este método realiza varias acciones:
+     * - Distribuye la comida almacenada en el acuario entre las piscifactorías no
+     * llenas.
+     * - Calcula el número total de peces en el sistema, tanto de río como de mar.
+     * - Registra el final del día en el log y transcribe la información
+     * correspondiente.
+     * - Incrementa el número de días pasados en la simulación.
+     */
     public void nextDay() {
         if (ac != null) {
             if (ac.getEspacioOcupado() > 0) {
@@ -573,6 +610,10 @@ public class Simulador {
         diasPasados++;
     }
 
+    /**
+     * Avanza la simulación durante un número especificado de días.
+     *
+     */
     public void pasarVariosDias() {
         System.out.println("¿Cuántos días quieres pasar?");
         int dias = sc.nextInt();
@@ -897,6 +938,14 @@ public class Simulador {
 
     }
 
+    /**
+     * Agrega un pez aleatorio al tanque.
+     * 
+     * Este método selecciona aleatoriamente un tipo de pez y agrega cuatro
+     * ejemplares
+     * de ese tipo al tanque, asegurándose de que haya espacio suficiente y que no
+     * se exceda el límite de población del tanque.
+     */
     public void addPezRandom() {
         Random rd = new Random();
         boolean sexo;
@@ -1013,7 +1062,6 @@ public class Simulador {
             for (int i = 0; i < p.getTanque().size(); i++) {
                 Tanque<? extends Pez> t = p.getTanque().get(i);
                 t.limpiarPecesMuertos();
-
                 String transcripcion = "Limpiado el tanque " + (i + 1) + " de la piscifactoría " + p.getNombre() + ".";
                 registro.registrar(nombrePartida, transcripcion);
             }
@@ -1343,6 +1391,8 @@ public class Simulador {
         }
     }
 
+
+
     /**
      * Método principal que crea una instancia de la clase Simulador y llama al
      * método menu() para iniciar la simulación.
@@ -1351,9 +1401,12 @@ public class Simulador {
      *             caso).
      */
     public static void main(String[] args) {
-
         Simulador s = new Simulador();
+        try {
+            s.menu();
+        } catch (Exception e) {
+            log.logError(e.getMessage());
+        }
 
-        s.menu();
     }
 }

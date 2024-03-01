@@ -15,19 +15,16 @@ import Piscifactorias.Piscifactoria;
  * 
  * @param <T> Tipo de pez que puede contener el tanque (extiende la clase Pez).
  */
-
 public class Tanque<T extends Pez> {
 
     /**
      * Array de peces muertos
      */
-
     protected ArrayList<Pez> muertos;
 
     /**
      * Array de peces vivos
      */
-
     protected ArrayList<Pez> peces;
     protected int numTanque;
     protected String tipo;
@@ -35,8 +32,6 @@ public class Tanque<T extends Pez> {
     protected int pecesVivos;
     protected int pecesMuertos;
     protected Piscifactoria p;
-
-    
 
     Scanner sc = new Scanner(System.in);
 
@@ -47,7 +42,6 @@ public class Tanque<T extends Pez> {
      * @param numTanque El número de identificación del tanque.
      * @param p         La piscifactoría a la que pertenece el tanque.
      */
-
     public Tanque(int espacio, int numTanque, Piscifactoria p) {
         this.p = p;
         this.numTanque = numTanque;
@@ -65,22 +59,25 @@ public class Tanque<T extends Pez> {
      * Muestra el estado del tanque, incluyendo la ocupación, cantidad de peces
      * vivos, peces alimentados, peces adultos, y otros detalles.
      */
-
     public void showStatus() {
-        int sexo = macho();
-        System.out.println("=============== Tanque " + numTanque + " ===============\r");
-        System.out.println("Ocupación: " + peces.size() + "/" + this.getEspacio() + " ["
-                + (this.getEspacio() != 0 ? (peces.size() / this.getEspacio()) * 100 : 0) + "%]");
-        System.out.println("Peces vivos: " + pecesVivos() + "/" + peces.size() + " ["
-                + (peces.size() != 0 ? (pecesVivos() / peces.size()) * 100 : 0) + "%]");
-        System.out.println("Peces alimentados: " + pezAlimentado() + "/" + peces.size() + " ["
-                + (peces.size() != 0 ? (pezAlimentado() / peces.size()) * 100 : 0) + "%]");
-        System.out.println("Peces adultos: " + pezAdulto() + "/" + peces.size() + " ["
-                + (peces.size() != 0 ? (pezAdulto() / peces.size()) * 100 : 0) + "%]");
-        System.out.println("Hembras / Machos: " + sexo + " / " + (peces.size() - sexo) + " ["
-                + (peces.size() != 0 ? (sexo / peces.size()) * 100 : 0) + "%]");
-        System.out.println("Fértiles: " + fertil() + " / " + pecesVivos() + " ["
-                + (pecesVivos() != 0 ? (fertil() / pecesVivos()) * 100 : 0) + "%]");
+        try {
+            int sexo = macho();
+            System.out.println("=============== Tanque " + numTanque + " ===============\r");
+            System.out.println("Ocupación: " + peces.size() + "/" + this.getEspacio() + " ["
+                    + (this.getEspacio() != 0 ? (peces.size() / this.getEspacio()) * 100 : 0) + "%]");
+            System.out.println("Peces vivos: " + pecesVivos() + "/" + peces.size() + " ["
+                    + (peces.size() != 0 ? (pecesVivos() / peces.size()) * 100 : 0) + "%]");
+            System.out.println("Peces alimentados: " + pezAlimentado() + "/" + peces.size() + " ["
+                    + (peces.size() != 0 ? (pezAlimentado() / peces.size()) * 100 : 0) + "%]");
+            System.out.println("Peces adultos: " + pezAdulto() + "/" + peces.size() + " ["
+                    + (peces.size() != 0 ? (pezAdulto() / peces.size()) * 100 : 0) + "%]");
+            System.out.println("Hembras / Machos: " + sexo + " / " + (peces.size() - sexo) + " ["
+                    + (peces.size() != 0 ? (sexo / peces.size()) * 100 : 0) + "%]");
+            System.out.println("Fértiles: " + fertil() + " / " + pecesVivos() + " ["
+                    + (pecesVivos() != 0 ? (fertil() / pecesVivos()) * 100 : 0) + "%]");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -88,7 +85,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return El número total de peces en el tanque.
      */
-
     public int pecesTotales() {
 
         return peces.size() + muertos.size();
@@ -99,18 +95,20 @@ public class Tanque<T extends Pez> {
      * 
      * @param p El pez que ha muerto y debe ser eliminado del tanque.
      */
-
     public void pezMuere(Pez p) {
-        Iterator<Pez> pezIterator = peces.iterator();
-        while (pezIterator.hasNext()) {
-            Pez pez = pezIterator.next();
-            if (pez.equals(p)) {
-                pezIterator.remove();
-                break;
+        try {
+            Iterator<Pez> pezIterator = peces.iterator();
+            while (pezIterator.hasNext()) {
+                Pez pez = pezIterator.next();
+                if (pez.equals(p)) {
+                    pezIterator.remove();
+                    break;
+                }
             }
+            this.muertos.add(p);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        this.muertos.add(p);
-        
     }
 
     /**
@@ -118,7 +116,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La cantidad de peces vivos en el tanque.
      */
-
     public int pecesVivos() {
 
         return peces.size();
@@ -129,7 +126,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La cantidad de peces alimentados en el tanque.
      */
-
     public int pezAlimentado() {
         int pecesAlimentados = 0;
 
@@ -147,7 +143,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La cantidad de peces adultos en el tanque.
      */
-
     public int pezAdulto() {
         int pecesAdultos = 0;
 
@@ -165,7 +160,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La cantidad de peces machos en el tanque.
      */
-
     public int macho() {
         int machos = 0;
         for (Pez p : peces) {
@@ -178,14 +172,11 @@ public class Tanque<T extends Pez> {
         return machos;
     }
 
-    
-
     /**
      * Obtiene la cantidad de peces hembras en el tanque.
      * 
      * @return La cantidad de peces hembras en el tanque.
      */
-
     public int hembra() {
         int hembras = 0;
         for (Pez p : peces) {
@@ -202,7 +193,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La cantidad de peces fértiles en el tanque.
      */
-
     public int fertil() {
         int fertiles = 0;
         for (Pez p : peces) {
@@ -220,7 +210,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return El primer pez muerto en la lista, o null si no hay peces muertos.
      */
-
     public Pez obtenerPezMuerto() {
         if (muertos.size() > 0) {
             return muertos.get(0);
@@ -238,7 +227,6 @@ public class Tanque<T extends Pez> {
      * @return Un pez fértil del tanque o null si no hay peces fértil del género
      *         especificado.
      */
-
     public Pez obtenerPezFertil(boolean sexo) {
         Random rd = new Random();
         List<Pez> pecesFertiles = peces.stream().filter(p -> p.getSexo() == sexo && p.isFertil())
@@ -257,7 +245,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La cantidad de espacio libre en el tanque.
      */
-
     public int espacioLibreTanque() {
         return this.espacio - peces.size() - muertos.size();
     }
@@ -267,12 +254,16 @@ public class Tanque<T extends Pez> {
      * 
      * @param p El pez muerto que se eliminará de la lista.
      */
-
     public void comerPezMuerto(Pez p) {
         muertos.remove(p);
     }
 
-    public void removerPezVivo(Pez p){
+    /**
+     * Elimina un pez vivo de la lista de peces en el tanque.
+     * 
+     * @param p El pez que se eliminará de la lista de peces vivos en el tanque.
+     */
+    public void removerPezVivo(Pez p) {
         peces.remove(p);
     }
 
@@ -281,7 +272,6 @@ public class Tanque<T extends Pez> {
      * 
      * @param p El pez que se añadirá al tanque.
      */
-
     public void añadirLosHijos(Pez p) {
         this.peces.add(p);
     }
@@ -289,7 +279,6 @@ public class Tanque<T extends Pez> {
     /**
      * Vacía el tanque, eliminando todos los peces y peces muertos.
      */
-
     public void vaciarTanque() {
         peces.clear();
         muertos.clear();
@@ -301,23 +290,23 @@ public class Tanque<T extends Pez> {
      * 
      * @param comida La cantidad de comida disponible para los peces.
      */
-
     public void nextDay(int comida) {
-        for (int i = 0; i < peces.size(); i++) {
-            Pez pezActual = peces.get(i);
-            if (pezActual != null) {
-                pezActual.grow(this, comida);
-                pezActual.reproducir(this); // Intentar reproducción para cada pez
+        try {
+            for (int i = 0; i < peces.size(); i++) {
+                Pez pezActual = peces.get(i);
+                if (pezActual != null) {
+                    pezActual.grow(this, comida);
+                    pezActual.reproducir(this);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    
-    
 
     /**
      * Limpia la lista de peces muertos en el tanque.
      */
-
     public void limpiarPecesMuertos() {
         muertos.clear();
     }
@@ -328,7 +317,6 @@ public class Tanque<T extends Pez> {
      * 
      * @param comida La cantidad de comida disponible.
      */
-
     public void setCantidadComida(int comida) {
         if (p != null) {
             p.setComidaActual(comida);
@@ -343,7 +331,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La cantidad de comida disponible.
      */
-
     public int getCantidadComida() {
         return p.getComidaActual();
     }
@@ -353,7 +340,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return true si hay espacio disponible, false de lo contrario.
      */
-
     public boolean hayEspacio() {
         if (this.espacio > peces.size()) {
             return true;
@@ -367,7 +353,6 @@ public class Tanque<T extends Pez> {
      * 
      * @param p El pez a agregar al tanque.
      */
-
     public void addFish(Pez p) {
         this.peces.add(p);
     }
@@ -377,7 +362,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La lista de peces en el tanque.
      */
-
     public ArrayList<Pez> getPeces() {
         return peces;
     }
@@ -387,7 +371,6 @@ public class Tanque<T extends Pez> {
      * 
      * @param peces La nueva lista de peces para establecer en el tanque.
      */
-
     public void setPeces(ArrayList<Pez> peces) {
         this.peces = peces;
     }
@@ -397,7 +380,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return El número identificador del tanque.
      */
-
     public int getNumTanque() {
         return numTanque;
     }
@@ -405,7 +387,6 @@ public class Tanque<T extends Pez> {
     /**
      * Muestra el estado de cada pez en el tanque.
      */
-
     public void mostrarEstadoPeces() {
         for (Pez p : peces) {
             p.showStatus();
@@ -417,7 +398,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return El tipo de tanque.
      */
-
     public String getTipo() {
         return tipo;
     }
@@ -427,7 +407,6 @@ public class Tanque<T extends Pez> {
      * 
      * @param tipo El nuevo tipo de tanque.
      */
-
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -437,7 +416,6 @@ public class Tanque<T extends Pez> {
      * 
      * @param numTanque El nuevo número identificador del tanque.
      */
-
     public void setNumTanque(int numTanque) {
         this.numTanque = numTanque;
     }
@@ -447,7 +425,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return El espacio disponible en el tanque.
      */
-
     public int getEspacio() {
         return espacio;
     }
@@ -457,7 +434,6 @@ public class Tanque<T extends Pez> {
      * 
      * @param espacio El nuevo espacio disponible en el tanque.
      */
-
     public void setEspacio(int espacio) {
         this.espacio = espacio;
     }
@@ -467,7 +443,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return La lista de peces muertos en el tanque.
      */
-
     public ArrayList<Pez> getMuertos() {
         return muertos;
     }
@@ -477,7 +452,6 @@ public class Tanque<T extends Pez> {
      * 
      * @return `true` si el tanque está vacío, `false` si contiene peces.
      */
-
     public boolean isEmpty() {
         if (peces.size() == 0) {
             return true;

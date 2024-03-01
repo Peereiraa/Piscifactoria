@@ -4,26 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c70d767-1a03-47ca-ac2c-f78f78068026" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Piscifactoria.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+    <list default="true" id="37da6430-44f6-4f26-9505-3a92e56b8f50" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/98.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/a.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/a.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comun/AlmacenCentral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comun/AlmacenCentral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comun/Gestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comun/Gestion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Comun/Simulador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comun/Simulador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/Pez.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/Pez.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Piscifactorias/Piscifactoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Piscifactorias/Piscifactoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Piscifactorias/PiscifactoriaMar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Piscifactorias/PiscifactoriaMar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Piscifactorias/PiscifactoriaRio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Piscifactorias/PiscifactoriaRio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Registro/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registro/Log.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Registro/Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registro/Registro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Registro/Transcripciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registro/Transcripciones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tanques/Tanque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tanques/Tanque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/98.tr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/a.tr" beforeDir="false" afterPath="$PROJECT_DIR$/transcripciones/a.tr" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -31,24 +33,20 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2Vq6nyeIF4R6HXc2uRUzTearMbo" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2d69CIoyX9PKLNULG28okyPqQ8H" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Simulador.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "Z:/2DAM/Acceso a datos/TRABAJO PISCI GIT/Piscifactoria",
     "node.js.detected.package.eslint": "true",
@@ -56,56 +54,29 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="PISCIFACTORIA" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="PISCIFACTORIA" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4c70d767-1a03-47ca-ac2c-f78f78068026" name="Changes" comment="" />
-      <created>1695551435013</created>
+      <changelist id="37da6430-44f6-4f26-9505-3a92e56b8f50" name="Changes" comment="" />
+      <created>1709317531322</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1695551435013</updated>
-      <workItem from="1709153618170" duration="64000" />
-      <workItem from="1709153691698" duration="147000" />
-      <workItem from="1709220843728" duration="508000" />
-      <workItem from="1709221358487" duration="2718000" />
+      <updated>1709317531322</updated>
+      <workItem from="1709317532542" duration="2220000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

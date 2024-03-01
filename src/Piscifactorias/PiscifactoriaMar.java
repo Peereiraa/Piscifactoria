@@ -7,7 +7,6 @@ import Tanques.Tanque;
  * Clase que representa una piscifactoría de tipo mar.
  * Extiende la clase base Piscifactoria.
  */
-
 public class PiscifactoriaMar extends Piscifactoria {
 
     /**
@@ -15,7 +14,6 @@ public class PiscifactoriaMar extends Piscifactoria {
      *
      * @param nombre El nombre de la piscifactoría de mar.
      */
-
     public PiscifactoriaMar(String nombre) {
         super(nombre);
         this.comidaActual = 100;

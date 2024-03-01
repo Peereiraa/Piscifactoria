@@ -1,0 +1,55 @@
+{
+	"implementados": [
+		"nombre1",
+		"nombre2"
+	],
+	"empresa": "nombre",
+	"dia": 0,
+	"monedas": 0,
+	"orca": "0:0,0,0;0:0,0,0",
+	"edificios": {
+		"almacen": {
+			"disponible": false,
+			"capacidad": 200,
+			"comida": {
+				"general": 0
+			}
+		}
+	},
+	"piscifactorias": [
+		{
+			"nombre": "nombre",
+			"tipo": 0,
+			"capacidad": 25,
+			"comida": {
+				"general": 0
+			},
+			"tanques": [
+				{
+					"pez": "nombre",
+					"num": 1,
+					"datos": {
+						"vivos": 1,
+						"maduros": 0,
+						"fertiles": 0
+					},
+					"peces": [
+						{
+							"edad": 0,
+							"sexo": true,
+							"vivo": true,
+							"maduro": false,
+							"fertil": false,
+							"ciclo": 0,
+							"alimentado": false,
+							"extra": {
+								"k": "v"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
+

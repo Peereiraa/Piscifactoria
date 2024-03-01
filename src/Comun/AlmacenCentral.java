@@ -3,7 +3,6 @@ package Comun;
     /**
      * Clase que representa el almacén central en el simulador.
      */
-
 public class AlmacenCentral {
 
     protected int espacioMaximo = 200;
@@ -14,7 +13,6 @@ public class AlmacenCentral {
     /**
      * Constructor por defecto que inicializa la capacidad máxima del almacén central.
      */
-
     public AlmacenCentral() {
         this.espacioMaximo = 200;
         this.espacioDisponible = 200;
@@ -25,7 +23,6 @@ public class AlmacenCentral {
      *
      * @param cantidad La cantidad de comida a almacenar.
      */
-
     public void meterComida(int cantidad){
         if(this.espacioDisponible >= cantidad){
             this.espacioOcupado += cantidad;
@@ -41,7 +38,6 @@ public class AlmacenCentral {
      *
      * @return La capacidad máxima del almacén central.
      */
-
     public int getEspacioMaximo() {
         return espacioMaximo;
     }
@@ -51,7 +47,6 @@ public class AlmacenCentral {
      *
      * @param espacioMaximo La nueva capacidad máxima del almacén central.
      */
-
     public void setEspacioMaximo(int espacioMaximo) {
         this.espacioMaximo = espacioMaximo;
     }
@@ -61,7 +56,6 @@ public class AlmacenCentral {
      *
      * @return El espacio actualmente ocupado en el almacén central.
      */
-
     public int getEspacioOcupado() {
         return espacioOcupado;
     }
@@ -71,7 +65,6 @@ public class AlmacenCentral {
      *
      * @param espacioOcupado El nuevo espacio ocupado en el almacén central.
      */
-
     public void setEspacioOcupado(int espacioOcupado) {
         this.espacioOcupado = espacioOcupado;
     }
@@ -81,7 +74,6 @@ public class AlmacenCentral {
      *
      * @return El espacio disponible en el almacén central.
      */
-
     public int getEspacioDisponible() {
         int espacio = espacioMaximo - espacioOcupado;
         return espacio;
@@ -92,11 +84,8 @@ public class AlmacenCentral {
      *
      * @param espacioDisponible El nuevo espacio disponible en el almacén central.
      */
-
     public void setEspacioDisponible(int espacioDisponible) {
         this.espacioDisponible = espacioDisponible;
     }
-
-    
 
 }
