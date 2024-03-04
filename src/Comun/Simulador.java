@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
+
+import Partida.Cargar;
+import Partida.Guardar;
 import Pez.Pez;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
@@ -47,6 +50,8 @@ public class Simulador {
     protected static Transcripciones tr = Transcripciones.getInstance();
     protected Pez escogerPez;
 
+    protected Guardar guardar;
+
     protected ArrayList<String> pecesRio;
     protected ArrayList<String> pecesMar;
     protected ArrayList<String> pecesMixto;
@@ -82,6 +87,8 @@ public class Simulador {
     public Simulador() {
         piscifactorias = new ArrayList<>();
         g = new Gestion();
+        guardar = new Guardar(this);
+
         init();
     }
 
@@ -93,6 +100,7 @@ public class Simulador {
      */
     public void init() {
         try {
+
             File logsFolder = new File("logs");
             File transcripcionesFolder = new File("transcripciones");
             File errorLogFile = new File(logsFolder, "0_errors.log");
@@ -108,8 +116,19 @@ public class Simulador {
             if (!errorLogFile.exists()) {
                 errorLogFile.createNewFile();
             }
+
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        File srcFolder = new File("src/saves");
+        File[] files = srcFolder.listFiles((dir, name) -> name.endsWith(".save"));
+
+        if (files != null && files.length > 0) {
+            String rutaArchivo = files[0].getAbsolutePath();
+            load();
+            System.out.println("Partida cargada exitosamente desde " + rutaArchivo);
+            return;
         }
 
         System.out.println("Introduce nombre de partida: ");
@@ -151,11 +170,29 @@ public class Simulador {
         registro.registrar(nombrePartida, "Piscifactoria Inicial: " + nombrePisci);
         tr.transcripcion(nombrePartida, "----------");
 
+        guardar.save();
+
+    }
+
+    public void load() {
+        File srcFolder = new File("src/saves");
+        File[] files = srcFolder.listFiles((dir, name) -> name.endsWith(".save"));
+
+        if (files != null && files.length > 0) {
+            String rutaArchivo = files[0].getAbsolutePath();
+            Cargar cargador = new Cargar(this);
+            cargador.cargarPartida(rutaArchivo);
+            System.out.println("Partida cargada exitosamente desde " + rutaArchivo);
+        } else {
+            System.out.println("No se encontraron archivos .save en la carpeta src.");
+        }
     }
 
     public String getNombrePartida() {
         return nombrePartida;
     }
+
+
 
     public String[] getPeces() {
         return peces;
@@ -164,6 +201,11 @@ public class Simulador {
     public boolean getAlmacenCentral(){
         return ac != null;
     }
+
+    public void setAlmacenCentral(AlmacenCentral ac) {
+        this.ac = ac;
+    }
+
 
     public ArrayList<Piscifactoria> getPiscifactorias() {
         return piscifactorias;
@@ -184,6 +226,20 @@ public class Simulador {
     public void setDiasPasados(int diasPasados) {
         this.diasPasados = diasPasados;
     }
+
+    public void setNombrePartida(String nombrePartida) {
+        this.nombrePartida = nombrePartida;
+    }
+
+    public void setNombrePisci(String nombrePisci) {
+        this.nombrePisci = nombrePisci;
+    }
+
+    public void setAc(AlmacenCentral ac) {
+        this.ac = ac;
+    }
+
+
 
     /**
      * Muestra el menú de opciones para la simulación y realiza las acciones
@@ -277,6 +333,7 @@ public class Simulador {
                     log.cerrar();
                     tr.cerrar();
                     registro.cerrar();
+                    guardar.save();
                     break;
                 case 98:
                     addPezRandom();
@@ -372,6 +429,11 @@ public class Simulador {
         }
     }
 
+    /**
+     * Muestra un desglose de los peces en el sistema, incluyendo la cantidad comprada,
+     * cantidad vendida y el dinero ganado para cada tipo de pez. Al final, se muestra el
+     * total general de dinero ganado en todas las ventas.
+     */
     public void showStats() {
         System.out.println("Desglose de los peces en el sistema: ");
         System.out.println("-------------------------------------");
@@ -485,6 +547,14 @@ public class Simulador {
         seleccionarPez(menuPeces());
     }
 
+    /**
+     * Permite al usuario vender peces de una piscifactoría seleccionada.
+     * Muestra las piscifactorías disponibles y solicita al usuario que elija una.
+     * Luego, recorre los tanques de la piscifactoría seleccionada, identifica los peces adultos
+     * y vivos, los elimina del tanque, registra la venta de los peces y actualiza el total de monedas.
+     * Finalmente, muestra un mensaje con el número total de peces vendidos y las monedas ganadas.
+     * También registra la transacción en el registro de la partida.
+     */
     public void sell() {
 
         System.out.println("Selecciona una piscifactoría para vender peces (ingresa el número correspondiente):");
@@ -555,12 +625,11 @@ public class Simulador {
     }
 
     /**
-     * Avanza un día en la simulación. Este método realiza varias acciones:
-     * - Distribuye la comida almacenada en el acuario entre las piscifactorías no
-     * llenas.
+     * Avanza un día en la simulación.
+     * Realiza varias acciones:
+     * - Distribuye la comida almacenada en el acuario entre las piscifactorías no llenas.
      * - Calcula el número total de peces en el sistema, tanto de río como de mar.
-     * - Registra el final del día en el log y transcribe la información
-     * correspondiente.
+     * - Registra el final del día en el log y transcribe la información correspondiente.
      * - Incrementa el número de días pasados en la simulación.
      */
     public void nextDay() {
@@ -589,7 +658,6 @@ public class Simulador {
             }
         }
 
-        // Calcular el número total de peces en el sistema
         int totalPecesRio = 0;
         int totalPecesMar = 0;
         for (Piscifactoria p : piscifactorias) {
@@ -608,6 +676,7 @@ public class Simulador {
 
         // Incrementar el número de días pasados
         diasPasados++;
+        guardar.save();
     }
 
     /**
@@ -623,6 +692,7 @@ public class Simulador {
         }
 
         System.out.println("Se han pasado " + dias + " días.");
+        guardar.save();
     }
 
     /**

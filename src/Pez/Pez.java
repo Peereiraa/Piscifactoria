@@ -6,6 +6,8 @@ import Tanques.Tanque;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
+import javax.management.ValueExp;
+
 /**
  * La clase `Pez` representa un pez en un sistema de piscifactorías.
  * Cada pez tiene una edad, un ciclo de vida, un género (hembra o macho),
@@ -35,6 +37,17 @@ public class Pez {
         this.edad = 0;
         this.pezDato = pezDato;
         this.ciclodevida = pezDato.getCiclo();
+
+    }
+
+    public Pez(int edad, boolean sexo, boolean fertil, boolean vivo, boolean alimentado, boolean adulto, int ciclodevida) {
+        this.edad = edad;
+        this.sexo = sexo;
+        this.fertil = fertil;
+        this.vivo = vivo;
+        this.alimentado = alimentado;
+        this.adulto = adulto;
+        this.ciclodevida = ciclodevida;
 
     }
 
