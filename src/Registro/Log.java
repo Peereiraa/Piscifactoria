@@ -47,7 +47,7 @@ public class Log {
             writer.write(currentTime + " " + texto + "\n");
             writer.flush(); 
         } catch (IOException e) {
-            e.printStackTrace();
+            logError(e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ public class Log {
                 writer = null; 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logError(e.getMessage());
         }
     }
 }

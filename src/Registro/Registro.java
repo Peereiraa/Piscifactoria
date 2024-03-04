@@ -17,6 +17,8 @@ public class Registro {
     private BufferedWriter writerLog;
     private BufferedWriter writerTranscripcion;
 
+    protected static Log log = Log.getInstance();
+
     
     private Registro() {
     }
@@ -57,7 +59,7 @@ public class Registro {
             writerTranscripcion.write(texto + "\n");
             writerTranscripcion.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 
@@ -75,7 +77,7 @@ public class Registro {
                 writerTranscripcion = null; 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 }

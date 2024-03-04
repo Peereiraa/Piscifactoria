@@ -13,9 +13,9 @@
     "Pejerrey ",
     "Perca europea"
   ],
-  "empresa": "a",
-  "dia": 1,
-  "monedas": 9965,
+  "empresa": "l",
+  "dia": 0,
+  "monedas": 10000,
   "orca": "0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0",
   "disponible": false,
   "capacidad": 200,
@@ -28,7 +28,7 @@
   },
   "piscifactoria": [
     {
-      "nombre": "a",
+      "nombre": "l",
       "tipo": 0,
       "capacidad": 25,
       "comida": {
@@ -36,25 +36,14 @@
       },
       "tanques": [
         {
-          "pez": "Carpa plateada",
+          "pez": "nombre",
           "num": 1,
           "datos": {
-            "vivos": 1,
-            "maduros": 1,
+            "vivos": 0,
+            "maduros": 0,
             "fertiles": 0
           },
-          "peces": [
-            {
-              "edad": 0,
-              "sexo": true,
-              "vivo": true,
-              "maduro": false,
-              "fertil": false,
-              "ciclo": 5,
-              "alimentado": false,
-              "extra": {}
-            }
-          ]
+          "peces": []
         }
       ]
     }

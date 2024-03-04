@@ -11,6 +11,7 @@ import Comun.Simulador;
 import Piscifactorias.Piscifactoria;
 import Piscifactorias.PiscifactoriaMar;
 import Piscifactorias.PiscifactoriaRio;
+import Registro.Log;
 import Tanques.Tanque;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -28,7 +29,7 @@ public class Cargar {
     Simulador s;
     static Monedas m = Monedas.getInstance();
 
-
+    protected static Log log = Log.getInstance();
 
     public Cargar(Simulador s) {
         this.s = s;
@@ -73,15 +74,20 @@ public class Cargar {
      * @param simulador  El simulador al que se asignarán los datos cargados.
      */
     private void cargarDatosGenerales(JsonObject jsonObject, Simulador simulador) {
-        String empresa = jsonObject.get("empresa").getAsString();
-        int dia = jsonObject.get("dia").getAsInt();
-        int monedas = jsonObject.get("monedas").getAsInt();
+        try {
+            String empresa = jsonObject.get("empresa").getAsString();
+            int dia = jsonObject.get("dia").getAsInt();
+            int monedas = jsonObject.get("monedas").getAsInt();
 
-        simulador.setNombrePartida(empresa);
-        simulador.setDiasPasados(dia);
+            simulador.setNombrePartida(empresa);
+            simulador.setDiasPasados(dia);
 
-        m.setMonedas(monedas);
+            m.setMonedas(monedas);
+        } catch (Exception e) {
+            log.logError(e.getMessage());
+        }
     }
+
 
     /**
      * Carga los datos del almacén desde el objeto JsonObject y los asigna al simulador.

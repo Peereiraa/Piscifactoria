@@ -15,6 +15,8 @@ public class Transcripciones {
     private static Transcripciones instance;
     private BufferedWriter writer;
 
+    protected static Log log = Log.getInstance();
+
     
     private Transcripciones() {
     }
@@ -46,7 +48,7 @@ public class Transcripciones {
             writer.write(texto + "\n");
             writer.flush(); 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 
@@ -60,7 +62,7 @@ public class Transcripciones {
                 writer = null; 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 }

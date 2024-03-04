@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Pez.Pez;
 import Pez.PecesMar.DeMar;
 import Pez.PecesRio.DeRio;
+import Registro.Log;
 import Tanques.*;
 
 /**
@@ -14,6 +15,8 @@ public class Piscifactoria {
     protected String nombre;
     protected int comidaActual;
     protected int comidaMaxima;
+
+    protected static Log log = Log.getInstance();
 
     /**
      * Lista de tanques en la piscifactoría.
@@ -54,7 +57,7 @@ public class Piscifactoria {
                 System.out.println("Fértiles: " + (t.pecesVivos() != 0 ? (t.fertil() / t.pecesVivos()) : 0));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 
@@ -126,7 +129,7 @@ public class Piscifactoria {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
         return totalPecesRio;
     }
@@ -202,7 +205,7 @@ public class Piscifactoria {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
         return tanquesDispos;
     }

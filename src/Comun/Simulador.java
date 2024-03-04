@@ -138,8 +138,8 @@ public class Simulador {
         registro.registrar(nombrePartida, "Inicio de la simulacion " + nombrePartida);
         tr.transcripcion(nombrePartida, "Dinero: " + String.valueOf(monedas.getMonedas()) + " monedas");
         Piscifactoria p = new PiscifactoriaRio(nombrePisci);
-        piscifactorias.add(p);
         p.setComidaActual(25);
+        piscifactorias.add(p);
         pecesRio = new ArrayList<>();
         pecesMar = new ArrayList<>();
         pecesMixto = new ArrayList<>();
@@ -174,19 +174,30 @@ public class Simulador {
 
     }
 
+    /**
+     * Carga una partida desde un archivo .save en la carpeta "src/saves".
+     * Si encuentra al menos un archivo .save, carga el primero encontrado.
+     *
+     * @throws Exception si ocurre algún error durante la carga de la partida.
+     */
     public void load() {
-        File srcFolder = new File("src/saves");
-        File[] files = srcFolder.listFiles((dir, name) -> name.endsWith(".save"));
+        try {
+            File srcFolder = new File("src/saves");
+            File[] files = srcFolder.listFiles((dir, name) -> name.endsWith(".save"));
 
-        if (files != null && files.length > 0) {
-            String rutaArchivo = files[0].getAbsolutePath();
-            Cargar cargador = new Cargar(this);
-            cargador.cargarPartida(rutaArchivo);
-            System.out.println("Partida cargada exitosamente desde " + rutaArchivo);
-        } else {
-            System.out.println("No se encontraron archivos .save en la carpeta src.");
+            if (files != null && files.length > 0) {
+                String rutaArchivo = files[0].getAbsolutePath();
+                Cargar cargador = new Cargar(this);
+                cargador.cargarPartida(rutaArchivo);
+                System.out.println("Partida cargada exitosamente desde " + rutaArchivo);
+            } else {
+                System.out.println("No se encontraron archivos .save en la carpeta src.");
+            }
+        } catch (Exception e) {
+            log.logError(e.getMessage());
         }
     }
+
 
     public String getNombrePartida() {
         return nombrePartida;
@@ -656,6 +667,10 @@ public class Simulador {
                     ac.setEspacioDisponible(200);
                 }
             }
+        }
+
+        for (Piscifactoria p : piscifactorias) {
+            p.nextDay();
         }
 
         int totalPecesRio = 0;

@@ -2,6 +2,7 @@ package Pez;
 
 import java.util.Random;
 
+import Registro.Log;
 import Tanques.Tanque;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
@@ -25,6 +26,7 @@ public class Pez {
     protected boolean alimentado = false; // false es que no esta Alimentado
     protected boolean adulto = false; // false es que no es Adulto
     protected PecesDatos pezDato;
+    protected static Log log = Log.getInstance();
 
     /**
      * Constructor de la clase `Pez`.
@@ -65,7 +67,7 @@ public class Pez {
             System.out.println("Adulto: " + (this.adulto ? "Si" : "No"));
             System.out.println("Fértil: " + (this.fertil ? "Si" : "No"));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 
@@ -94,7 +96,7 @@ public class Pez {
                 this.adulto = false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 
@@ -180,7 +182,7 @@ public class Pez {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 

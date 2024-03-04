@@ -4,6 +4,7 @@ import Comun.AlmacenCentral;
 import Pez.Pez;
 import Piscifactorias.Piscifactoria;
 import Piscifactorias.PiscifactoriaRio;
+import Registro.Log;
 import Tanques.Tanque;
 import com.google.gson.Gson;
 
@@ -42,6 +43,8 @@ public class Guardar {
      * Array de peces implementados en el simulador.
      */
     String[] pecesImp;
+
+    protected static Log log = Log.getInstance();
 
     /**
      * Estadísticas de los peces implementados en el simulador.
@@ -210,13 +213,13 @@ public class Guardar {
             gson.toJson(partida, writer);
             System.out.println("Datos guardados " + absoluteFilePath);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         } finally {
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.logError(e.getMessage());
                 }
             }
         }

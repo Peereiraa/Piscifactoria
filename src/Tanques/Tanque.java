@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import Pez.*;
 import Piscifactorias.Piscifactoria;
+import Registro.Log;
 
 /**
  * Clase que representa un tanque en una piscifactoría, que alberga peces.
@@ -32,6 +33,8 @@ public class Tanque<T extends Pez> {
     protected int pecesVivos;
     protected int pecesMuertos;
     protected Piscifactoria p;
+
+    protected static Log log = Log.getInstance();
 
     Scanner sc = new Scanner(System.in);
 
@@ -76,7 +79,7 @@ public class Tanque<T extends Pez> {
             System.out.println("Fértiles: " + fertil() + " / " + pecesVivos() + " ["
                     + (pecesVivos() != 0 ? (fertil() / pecesVivos()) * 100 : 0) + "%]");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 
@@ -107,7 +110,7 @@ public class Tanque<T extends Pez> {
             }
             this.muertos.add(p);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 
@@ -300,7 +303,7 @@ public class Tanque<T extends Pez> {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
 

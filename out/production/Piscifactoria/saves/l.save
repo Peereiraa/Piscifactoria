@@ -1,0 +1,51 @@
+{
+  "implementados": [
+    "Besugo",
+    "Caballa",
+    "Róbalo",
+    "Rodaballo",
+    "Sargo",
+    "Dorada",
+    "Lubina europea",
+    "Carpa plateada",
+    "Carpa",
+    "Lucio del norte",
+    "Pejerrey ",
+    "Perca europea"
+  ],
+  "empresa": "l",
+  "dia": 0,
+  "monedas": 10000,
+  "orca": "0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0",
+  "disponible": false,
+  "capacidad": 200,
+  "edificios": {
+    "almacen": {
+      "comida": {
+        "general": 25
+      }
+    }
+  },
+  "piscifactoria": [
+    {
+      "nombre": "l",
+      "tipo": 0,
+      "capacidad": 25,
+      "comida": {
+        "general": 25
+      },
+      "tanques": [
+        {
+          "pez": "nombre",
+          "num": 1,
+          "datos": {
+            "vivos": 0,
+            "maduros": 0,
+            "fertiles": 0
+          },
+          "peces": []
+        }
+      ]
+    }
+  ]
+}
