@@ -10,6 +10,7 @@ import java.util.Scanner;
 import Partida.Cargar;
 import Partida.Guardar;
 import Pez.Pez;
+import Recompensas.Rewards;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 import Pez.PecesMar.Besugo;
@@ -51,6 +52,7 @@ public class Simulador {
     protected Pez escogerPez;
 
     protected Guardar guardar;
+    private Rewards rewards;
 
     protected ArrayList<String> pecesRio;
     protected ArrayList<String> pecesMar;
@@ -87,6 +89,7 @@ public class Simulador {
     public Simulador() {
         piscifactorias = new ArrayList<>();
         g = new Gestion();
+        rewards = new Rewards(this);
         guardar = new Guardar(this);
 
         init();
@@ -104,6 +107,33 @@ public class Simulador {
             File logsFolder = new File("logs");
             File transcripcionesFolder = new File("transcripciones");
             File errorLogFile = new File(logsFolder, "0_errors.log");
+            File carpeta = new File("rewards");
+            if (!carpeta.exists()) {
+                carpeta.mkdir();
+                rewards.generarComida(1);
+                rewards.generarComida(2);
+                rewards.generarComida(3);
+                rewards.generarComida(4);
+                rewards.generarComida(5);
+
+                rewards.generarMonedas(1);
+                rewards.generarMonedas(2);
+                rewards.generarMonedas(3);
+                rewards.generarMonedas(4);
+                rewards.generarMonedas(5);
+
+                rewards.generarAlmacen('A');
+                rewards.generarAlmacen('B');
+                rewards.generarAlmacen('C');
+                rewards.generarAlmacen('D');
+
+                rewards.generarPiscifactoriaMar('A');
+                rewards.generarPiscifactoriaMar('B');
+
+                rewards.generarPiscifactoriaRio('A');
+                rewards.generarPiscifactoriaRio('B');
+            }
+
 
             if (!logsFolder.exists()) {
                 logsFolder.mkdirs();
@@ -213,6 +243,14 @@ public class Simulador {
         return ac != null;
     }
 
+    public void setAlmacenCentral(boolean tiene){
+        if(!tiene){
+            ac = new AlmacenCentral();
+        }else{
+            System.out.println("Ya tienes el almacen");
+        }
+    }
+
     public void setAlmacenCentral(AlmacenCentral ac) {
         this.ac = ac;
     }
@@ -280,7 +318,8 @@ public class Simulador {
             System.out.println("11. Vaciar tanque");
             System.out.println("12. Mejorar");
             System.out.println("13. Pasar varios días");
-            System.out.println("14. Salir");
+            System.out.println("14. Recompensas");
+            System.out.println("15. Salir");
             System.out.print("Seleccione una opción: ");
 
             int opcion = sc.nextInt();
@@ -337,7 +376,12 @@ public class Simulador {
                     System.out.println("Opción 13: Pasar varios días");
                     pasarVariosDias();
                     break;
+
                 case 14:
+                    System.out.println("Opcion 14: Recompensas");
+                    canjearRecompensas();
+                    break;
+                case 15:
                     System.out.println("Saliendo del programa.");
                     salir = true;
                     log.log(nombrePartida, "Cierre de partida");
@@ -359,6 +403,41 @@ public class Simulador {
             }
         }
 
+    }
+
+    public void canjearRecompensas(){
+
+        boolean salir = false;
+
+        while(!salir){
+            System.out.println("Menú:");
+            System.out.println("1. Canjear recompensa");
+            System.out.println("2. Salir");
+            System.out.print("Seleccione una opción: ");
+            int opcion = sc.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    // Canjear recompensa
+                    System.out.println("Introduce el nombre del archivo XML a canjear: ");
+                    String nombreArchivo = sc.next();
+                    File archivo = new File("rewards/" + nombreArchivo + ".xml");
+                    if (archivo.exists()) {
+                        rewards.canjearRecompensa(archivo);
+                    } else {
+                        System.out.println("El archivo no existe.");
+                    }
+                    break;
+                case 2:
+
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+                    break;
+            }
+
+        }
     }
 
     /**

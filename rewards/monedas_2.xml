@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<reward>
+  <name>Monedas II</name>
+  <origin>Diego</origin>
+  <desc>300 monedas</desc>
+  <rarity>1</rarity>
+  <give>
+    <coins>300</coins>
+  </give>
+  <quantity>1</quantity>
+</reward>

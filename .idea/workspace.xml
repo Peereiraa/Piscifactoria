@@ -5,38 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37da6430-44f6-4f26-9505-3a92e56b8f50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/logs/l.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/pablo.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/sergio.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transcripciones/l.tr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transcripciones/pablo.tr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transcripciones/sergio.tr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/hola.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/null.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/almacen_a.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/almacen_b.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/almacen_c.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/almacen_d.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/comida_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/comida_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/comida_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/comida_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/comida_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/monedas_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/monedas_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/monedas_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/monedas_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/monedas_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/pisci_m_a.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/pisci_m_b.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/pisci_r_a.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rewards/pisci_r_b.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Recompensas/Rewards.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transcripciones/hola.tr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transcripciones/null.tr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/0_errors.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/0_errors.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/a.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/a.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/catha.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/l.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/pablo.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/sergio.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/Simulador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/Simulador.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Cargar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Cargar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Guardar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Guardar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/Pez.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/Pez.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Piscifactorias/Piscifactoria.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Piscifactorias/Piscifactoria.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Registro/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Registro/Log.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Registro/Registro.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Registro/Registro.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Registro/Transcripciones.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Registro/Transcripciones.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Tanques/Tanque.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Tanques/Tanque.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/saves/a.save" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Comun/Simulador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comun/Simulador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Partida/Cargar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Partida/Cargar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Partida/Guardar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Partida/Guardar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pez/Pez.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/Pez.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Piscifactorias/Piscifactoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Piscifactorias/Piscifactoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Registro/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registro/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Registro/Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registro/Registro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Registro/Transcripciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registro/Transcripciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tanques/Tanque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tanques/Tanque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/saves/a.save" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/saves/l.save" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/transcripciones/a.tr" beforeDir="false" afterPath="$PROJECT_DIR$/transcripciones/a.tr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transcripciones/catha.tr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/l.tr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/pablo.tr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/sergio.tr" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,29 +73,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.Simulador.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "Z:/2DAM/Acceso a datos/TRABAJO PISCI GIT/Piscifactoria",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Simulador.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/papet/Downloads/AP4.2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;discord-application&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\2DAM\Acceso a datos\TRABAJO DEFINITIVO\Piscifactoria\rewards" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -120,6 +131,11 @@
       <workItem from="1709503526474" duration="4696000" />
       <workItem from="1709547946550" duration="595000" />
       <workItem from="1709563155727" duration="8313000" />
+      <workItem from="1710100396021" duration="2229000" />
+      <workItem from="1710117774890" duration="594000" />
+      <workItem from="1710203896072" duration="17000" />
+      <workItem from="1710467219639" duration="1078000" />
+      <workItem from="1710499196460" duration="4338000" />
     </task>
     <servers />
   </component>
