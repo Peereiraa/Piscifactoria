@@ -5,7 +5,7 @@ package Comun;
      */
 public class AlmacenCentral {
 
-    protected int espacioMaximo = 200;
+    protected int espacioMaximo;
     protected int espacioOcupado;
     protected int espacioDisponible;
     protected static int precio = 2000;

@@ -37,12 +37,13 @@ public class Rewards {
     public Rewards(Simulador simulador){
         ac = new AlmacenCentral();
         sc = simulador;
+        piscifactorias = new ArrayList<>();
     }
     public Document generarXML(){
         Document document = DocumentHelper.createDocument();
         Element raiz = document.addElement("reward");
         raiz.addElement("name").addText("");
-        raiz.addElement("origin").addText("Diego");
+        raiz.addElement("origin").addText("Pablo");
         raiz.addElement("desc").addText("");
         raiz.addElement("rarity").addText("");
         raiz.addElement("give");
@@ -331,8 +332,6 @@ public class Rewards {
         }
     }
 
-
-
     private void reducirQuantity(File archivo) {
         SAXReader reader = null;
         int quantity = 0;
@@ -345,6 +344,7 @@ public class Rewards {
                     quantity = Integer.parseInt(elemento.getText()) - 1;
                     if (quantity == 0) {
                         archivo.delete();
+                        return; // Agregar esta línea para salir del método si la cantidad es cero
                     } else {
                         elemento.setText(Integer.toString(quantity));
                         guardarDocumentoXML(document, archivo.getPath());
@@ -356,7 +356,7 @@ public class Rewards {
         }
     }
 
-    private void canjearComida(File archivo) {
+    public void canjearComida(File archivo) {
         SAXReader reader = null;
         try {
             reader = new SAXReader();
@@ -368,9 +368,9 @@ public class Rewards {
                 if (food != null) {
                     int cantidad = Integer.parseInt(food.getText());
                     if (sc.getAlmacenCentral()) {
-                        ac.setEspacioOcupado(cantidad);
+                        ac.meterComida(cantidad);
                     } else {
-                        // Lógica casera para repartir equitativamente la comida
+
                         int piscifactoriasNoLLenas = 0;
                         for (Piscifactoria p : piscifactorias) {
                             if (!p.estaLlena()) {
@@ -440,12 +440,13 @@ public class Rewards {
             }
         }
         if (partesDiponibles.equals(partesTotales)) {
-            sc.setAlmacenCentral(true);
+            AlmacenCentral ac = new AlmacenCentral(); // Crear el almacén central
+            sc.setAlmacenCentral(ac); // Establecer el almacén central en el simulador
             System.out.println("Almacen central canjeado");
             log.log(sc.getNombrePartida(), "Recompensa Almacen central usada");
             tr.transcripcion(sc.getNombrePartida(), "Recompensa Almacen central usada");
             for (String string : archivosAlmacen) {
-                reducirQuantity(new File(string));
+                reducirQuantity(new File("rewards/" + string));
             }
         } else {
             System.out.println("No tienes todas las partes para canjear el almacen");
@@ -482,7 +483,7 @@ public class Rewards {
             log.log(sc.getNombrePartida(), "Recompensa Piscifactoria de mar usada");
             tr.transcripcion(sc.getNombrePartida(),"Recompensa Piscifactoria de mar usada");
             for (String string : archivosPiscifactoriaM) {
-                reducirQuantity(new File(string));
+                reducirQuantity(new File("rewards/"+string));
             }
         } else {
             System.out.println("No tienes todas las partes para canjear la piscifactoria de mar");
@@ -522,7 +523,7 @@ public class Rewards {
             log.log(sc.getNombrePartida(),"Recompensa Piscifactoria de rio usada");
             tr.transcripcion(sc.getNombrePartida(),"Recompensa Piscifactoria de rio usada");
             for (String string : archivosPiscifactoriaM) {
-                reducirQuantity(new File(string));
+                reducirQuantity(new File("rewards/"+string));
             }
         } else {
             System.out.println("No tienes todas las partes para canjear la piscifactoria de rio");
@@ -530,6 +531,8 @@ public class Rewards {
             System.out.println("Partes necesarias: " + partesTotales);
         }
     }
+
+
 
     /**
      * Obtiene el tipo de recompensa que se quiere canjear

@@ -137,7 +137,7 @@ public class Guardar {
             JsonObject comidaJSON = new JsonObject();
             comidaJSON.addProperty("general", piscifactoria.getComidaActual());
             piscifactoriaJSON.add("comida", comidaJSON);
-            almacen.add("comida", comidaJSON);
+
 
             JsonArray tanquesArray = new JsonArray();
 
@@ -189,9 +189,10 @@ public class Guardar {
         partida.addProperty("dia", diasPasados);
         partida.addProperty("monedas", cantidadMonedas);
         partida.addProperty("orca", estadisticas.exportarDatos(pecesImp));
-        partida.addProperty("disponible", disponible);
-        partida.addProperty("capacidad", capacidad);
         edificios.add("almacen", almacen);
+        almacen.addProperty("disponible", disponible);
+        almacen.addProperty("capacidad", capacidad);
+        almacen.addProperty("comida", comida);
         partida.add("edificios", edificios);
         partida.add("piscifactoria", piscifactoriasArray);
 

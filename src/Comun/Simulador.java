@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
+import Conexion.Conexion;
+import Conexion.DAOPedidos;
 import Partida.Cargar;
 import Partida.Guardar;
 import Pez.Pez;
@@ -32,6 +34,7 @@ import Registro.Log;
 import Registro.Registro;
 import Registro.Transcripciones;
 import Tanques.Tanque;
+import Conexion.GeneradorBD;
 
 /**
  * Esta clase representa un simulador para gestionar una piscifactoría.
@@ -58,10 +61,12 @@ public class Simulador {
     protected ArrayList<String> pecesMar;
     protected ArrayList<String> pecesMixto;
 
+    GeneradorBD generadorBD = GeneradorBD.obtenerInstancia();
+
     /**
      * Arreglo de nombres de peces disponibles en la simulación.
      */
-    protected String[] peces = { AlmacenPropiedades.BESUGO.getNombre(), AlmacenPropiedades.CABALLA.getNombre(),
+    public static String[] peces = { AlmacenPropiedades.BESUGO.getNombre(), AlmacenPropiedades.CABALLA.getNombre(),
             AlmacenPropiedades.ROBALO.getNombre(),
             AlmacenPropiedades.RODABALLO.getNombre(), AlmacenPropiedades.SARGO.getNombre(),
             AlmacenPropiedades.DORADA.getNombre(),
@@ -160,7 +165,10 @@ public class Simulador {
             System.out.println("Partida cargada exitosamente desde " + rutaArchivo);
             return;
         }
-
+        generadorBD.crearTablas();
+        generadorBD.prepararStatementsInserts();
+        generadorBD.insertarClientes();
+        generadorBD.insertarPeces();
         System.out.println("Introduce nombre de partida: ");
         nombrePartida = sc.nextLine();
         System.out.println("Introduce nombre de la piscifactoria: ");
@@ -204,6 +212,8 @@ public class Simulador {
 
     }
 
+
+
     /**
      * Carga una partida desde un archivo .save en la carpeta "src/saves".
      * Si encuentra al menos un archivo .save, carga el primero encontrado.
@@ -240,20 +250,22 @@ public class Simulador {
     }
 
     public boolean getAlmacenCentral(){
-        return ac != null;
-    }
-
-    public void setAlmacenCentral(boolean tiene){
-        if(!tiene){
-            ac = new AlmacenCentral();
-        }else{
-            System.out.println("Ya tienes el almacen");
+        if(ac != null){
+            return true;
+        }else {
+            return false;
         }
     }
 
-    public void setAlmacenCentral(AlmacenCentral ac) {
-        this.ac = ac;
+    public void setAlmacenCentral(AlmacenCentral ac){
+        if(this.ac == null){
+            this.ac = ac;
+        }else{
+            System.out.println("Ya tienes el almacén");
+        }
     }
+
+
 
 
     public ArrayList<Piscifactoria> getPiscifactorias() {
@@ -390,6 +402,9 @@ public class Simulador {
                     registro.cerrar();
                     guardar.save();
                     break;
+
+                case 97:
+
                 case 98:
                     addPezRandom();
                 case 99:
@@ -405,38 +420,45 @@ public class Simulador {
 
     }
 
-    public void canjearRecompensas(){
-
+    public void canjearRecompensas() {
         boolean salir = false;
 
-        while(!salir){
-            System.out.println("Menú:");
-            System.out.println("1. Canjear recompensa");
-            System.out.println("2. Salir");
-            System.out.print("Seleccione una opción: ");
-            int opcion = sc.nextInt();
+        while (!salir) {
+            System.out.println("Menú de Recompensas:");
 
-            switch (opcion) {
-                case 1:
-                    // Canjear recompensa
-                    System.out.println("Introduce el nombre del archivo XML a canjear: ");
-                    String nombreArchivo = sc.next();
-                    File archivo = new File("rewards/" + nombreArchivo + ".xml");
-                    if (archivo.exists()) {
-                        rewards.canjearRecompensa(archivo);
-                    } else {
-                        System.out.println("El archivo no existe.");
-                    }
-                    break;
-                case 2:
+            File rewardsFolder = new File("rewards/");
+            File[] archivos = rewardsFolder.listFiles();
 
-                    salir = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-                    break;
+            if (archivos != null && archivos.length > 0) {
+                for (int i = 0; i < archivos.length; i++) {
+                    System.out.println((i + 1) + ". " + archivos[i].getName().replace(".xml", ""));
+                }
+            } else {
+                System.out.println("No hay recompensas disponibles.");
+                salir = true;
+                break;
             }
 
+            System.out.println((archivos.length + 1) + ". Salir");
+            System.out.print("Seleccione una opción: ");
+
+            int opcion = sc.nextInt();
+
+            if (opcion >= 1 && opcion <= archivos.length) {
+                File archivoSeleccionado = archivos[opcion - 1];
+                String nombreArchivo = archivoSeleccionado.getName();
+                if (nombreArchivo.startsWith("comida_")) {
+                    rewards.canjearComida(archivoSeleccionado);
+                } else if (nombreArchivo.startsWith("monedas_")) {
+                    rewards.canjearMonedas(archivoSeleccionado);
+                } else {
+                    rewards.canjearRecompensa(archivoSeleccionado);
+                }
+            } else if (opcion == (archivos.length + 1)) {
+                salir = true;
+            } else {
+                System.out.println("Opción no válida.");
+            }
         }
     }
 
@@ -1531,19 +1553,23 @@ public class Simulador {
     public void comprarAlmacenCentral() {
         System.out.println("¿Quieres comprar el AlmacenCentral? (SI/NO)");
         String respuesta = sc.next();
+        if (ac == null) {
 
-        if (respuesta.equalsIgnoreCase("SI")) {
-            if (monedas.getMonedas() >= AlmacenCentral.precio) {
-                monedas.setMonedas(monedas.getMonedas() - AlmacenCentral.precio);
-                ac = new AlmacenCentral();
+            if (respuesta.equalsIgnoreCase("SI")) {
+                if (monedas.getMonedas() >= AlmacenCentral.precio) {
+                    monedas.setMonedas(monedas.getMonedas() - AlmacenCentral.precio);
+                    ac = new AlmacenCentral();
+
+                } else {
+                    System.out.println("No tienes suficiente dinero para comprar el Almacen");
+                }
 
             } else {
-                System.out.println("No tienes suficiente dinero para comprar el Almacen");
+                System.out.println("Vuelva pronto!");
+                upgrade();
             }
-
         } else {
-            System.out.println("Vuelva pronto!");
-            upgrade();
+            System.out.println("Ya tienes el almacen central");
         }
     }
 
@@ -1555,8 +1581,6 @@ public class Simulador {
         }
     }
 
-
-
     /**
      * Método principal que crea una instancia de la clase Simulador y llama al
      * método menu() para iniciar la simulación.
@@ -1566,10 +1590,13 @@ public class Simulador {
      */
     public static void main(String[] args) {
         Simulador s = new Simulador();
+
         try {
             s.menu();
         } catch (Exception e) {
             log.logError(e.getMessage());
+        }finally {
+            Conexion.cerrarConexion();
         }
 
     }
