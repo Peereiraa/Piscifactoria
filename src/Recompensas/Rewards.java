@@ -22,23 +22,53 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.*;
 
+/**
+ * Esta clase representa un gestor de recompensas en el simulador.
+ * Permite generar, guardar y canjear distintos tipos de recompensas, como comida, monedas, y construcciones de piscifactorías y almacenes.
+ */
 public class Rewards {
 
+    /**
+     * Clase de registro para la gestión de registros de eventos y errores.
+     */
     protected static Log log = Log.getInstance();
+
+    /**
+     * Clase para la gestión de transcripciones de eventos.
+     */
     protected static Transcripciones tr = Transcripciones.getInstance();
+
+    /**
+     * Clase para la gestión de monedas dentro del sistema.
+     */
     protected static Monedas monedas = Monedas.getInstance();
 
+    /**
+     * Objeto para gestionar el almacén central en el sistema.
+     */
     private AlmacenCentral ac;
 
+    /**
+     * Objeto para manejar el simulador en el sistema.
+     */
     private static Simulador sc;
 
 
-
+    /**
+     * Constructor de la clase Rewards.
+     *
+     * @param simulador El simulador al que se asocia el gestor de recompensas.
+     */
     public Rewards(Simulador simulador){
         ac = new AlmacenCentral();
         sc = simulador;
 
     }
+
+    /**
+     * Genera un documento XML para representar una recompensa.
+     * @return Documento XML generado.
+     */
     public Document generarXML(){
         Document document = DocumentHelper.createDocument();
         Element raiz = document.addElement("reward");
@@ -52,6 +82,11 @@ public class Rewards {
 
     }
 
+    /**
+     * Busca el nombre en un archivo XML dado.
+     * @param archivo El archivo XML en el que se buscará el nombre.
+     * @return El nombre encontrado en el archivo XML.
+     */
     private String buscarNombre(File archivo) {
         SAXReader reader = null;
         String nombre = "";
@@ -70,7 +105,11 @@ public class Rewards {
         return nombre;
     }
 
-
+    /**
+     * Guarda un documento XML en un archivo.
+     * @param document El documento XML a guardar.
+     * @param nombreArchivo El nombre del archivo en el que se guardará el documento.
+     */
     public void guardarDocumentoXML(Document document, String nombreArchivo) {
         XMLWriter writer = null;
         try {
@@ -93,7 +132,10 @@ public class Rewards {
         }
     }
 
-
+    /**
+     * Actualiza un archivo XML incrementando la cantidad.
+     * @param nombreArchivo El nombre del archivo XML a actualizar.
+     */
     public void actualizarArchivoXML(String nombreArchivo){
         try {
             SAXReader reader = new SAXReader();
@@ -112,6 +154,12 @@ public class Rewards {
 
     }
 
+    /**
+     * Verifica si existe un archivo con el nombre especificado.
+     * @param nombre El nombre del archivo a verificar.
+     * @return true si existe el archivo, false de lo contrario.
+     */
+
     public boolean existeArchivo(String nombre) {
         File carpeta = new File("rewards/");
         if (carpeta.isDirectory()) {
@@ -127,6 +175,10 @@ public class Rewards {
         return false;
     }
 
+    /**
+     * Genera una recompensa de comida según el número dado.
+     * @param numero El número que determina el tipo de comida.
+     */
     public void generarComida(int numero) {
         if (existeArchivo("comida_" + numero)) {
             actualizarArchivoXML("comida_" + numero);
@@ -186,6 +238,10 @@ public class Rewards {
         }
     }
 
+    /**
+     * Genera una recompensa de monedas según el número dado.
+     * @param numero El número que determina la cantidad de monedas.
+     */
     public void generarMonedas(int numero) {
         if (existeArchivo("monedas_" + numero)) {
             actualizarArchivoXML("monedas_" + numero);
@@ -245,6 +301,10 @@ public class Rewards {
         }
     }
 
+    /**
+     * Genera una recompensa de un almacén central.
+     * @param letra La letra que representa la parte del almacén.
+     */
     public void generarAlmacen(char letra) {
         if (existeArchivo("almacen_" + Character.toLowerCase(letra))) {
             actualizarArchivoXML("almacen_" + Character.toLowerCase(letra));
@@ -274,6 +334,10 @@ public class Rewards {
         }
     }
 
+    /**
+     * Genera una recompensa de una piscifactoría de mar.
+     * @param letra La letra que representa la parte de la piscifactoría.
+     */
     public void generarPiscifactoriaMar(char letra) {
         if (existeArchivo("pisci_m_" + Character.toLowerCase(letra))) {
             actualizarArchivoXML("pisci_m_" + Character.toLowerCase(letra));
@@ -303,6 +367,10 @@ public class Rewards {
         }
     }
 
+    /**
+     * Genera una recompensa de una piscifactoría de río.
+     * @param letra La letra que representa la parte de la piscifactoría.
+     */
     public void generarPiscifactoriaRio(char letra) {
         if (existeArchivo("pisci_r_" + Character.toLowerCase(letra))) {
             actualizarArchivoXML("pisci_r_" + Character.toLowerCase(letra));
@@ -332,6 +400,10 @@ public class Rewards {
         }
     }
 
+    /**
+     * Reduce la cantidad en un archivo XML.
+     * @param archivo El archivo XML en el que se reducirá la cantidad.
+     */
     private void reducirQuantity(File archivo) {
         SAXReader reader = null;
         int quantity = 0;
@@ -356,6 +428,10 @@ public class Rewards {
         }
     }
 
+    /**
+     * Canjea una recompensa de comida.
+     * @param archivo El archivo XML que representa la recompensa de comida.
+     */
     public void canjearComida(File archivo) {
         SAXReader reader = null;
         try {
@@ -399,6 +475,10 @@ public class Rewards {
         }
     }
 
+    /**
+     * Canjea una recompensa de monedas.
+     * @param archivo El archivo XML que representa la recompensa de monedas.
+     */
     public void canjearMonedas(File archivo) {
         SAXReader reader = null;
         try {
@@ -421,6 +501,9 @@ public class Rewards {
         }
     }
 
+    /**
+     * Canjea una recompensa de un almacén central si todas las partes están disponibles.
+     */
     public void canjearAlmacen() {
         Set<Character> partesTotales = new TreeSet<>(Arrays.asList('A', 'B', 'C', 'D'));
         Set<Character> partesDiponibles = new TreeSet<>();
@@ -455,6 +538,9 @@ public class Rewards {
         }
     }
 
+    /**
+     * Canjea una recompensa de una piscifactoría de mar si todas las partes están disponibles.
+     */
     public void canjearPisciM() {
         Scanner scanner =new Scanner(System.in);
         Set<Character> partesTotales = new TreeSet<>(Arrays.asList('A', 'B'));
@@ -493,7 +579,7 @@ public class Rewards {
     }
 
     /**
-     * Canjea una recompensa de Piscifactoria río
+     * Canjea una recompensa de una piscifactoría de río si todas las partes están disponibles.
      */
     public void canjearPisciR() {
         Scanner scanner =new Scanner(System.in);
@@ -560,7 +646,5 @@ public class Rewards {
             System.out.println("Ese archivo no puede ser canjeado");
         }
     }
-
-
 
 }

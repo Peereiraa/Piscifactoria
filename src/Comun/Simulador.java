@@ -46,24 +46,76 @@ import Conexion.Producto;
  * @version 1.0
  */
 public class Simulador {
+    /**
+     * Clase para gestionar la interacción con el usuario y otras operaciones relacionadas.
+     */
     static Scanner sc = new Scanner(System.in);
+
+    /**
+     * La cantidad de días transcurridos en el juego.
+     */
     protected int diasPasados;
+
+    /**
+     * Instancia del objeto para gestionar las monedas dentro del sistema.
+     */
     protected static Monedas monedas = Monedas.getInstance();
+
+    /**
+     * Instancia del objeto para gestionar registros de eventos y errores.
+     */
     protected static Log log = Log.getInstance();
+
+    /**
+     * Instancia del objeto para gestionar el registro de eventos en el sistema.
+     */
     protected static Registro registro = Registro.getInstance();
+
+    /**
+     * Instancia del objeto para gestionar transcripciones de eventos.
+     */
     protected static Transcripciones tr = Transcripciones.getInstance();
+
+    /**
+     * El pez seleccionado por el usuario.
+     */
     protected Pez escogerPez;
 
+    /**
+     * Objeto para guardar datos.
+     */
     protected Guardar guardar;
+
+    /**
+     * Objeto para manejar las recompensas en el sistema.
+     */
     private Rewards rewards;
 
+    /**
+     * Lista de peces de río disponibles en el juego.
+     */
     protected ArrayList<String> pecesRio;
+
+    /**
+     * Lista de peces de mar disponibles en el juego.
+     */
     protected ArrayList<String> pecesMar;
+
+    /**
+     * Lista de peces de tipo mixto disponibles en el juego.
+     */
     protected ArrayList<String> pecesMixto;
 
+    /**
+     * Objeto para acceder a la capa de acceso a datos de pedidos.
+     */
     protected DAOPedidos daoPedidos;
 
+    /**
+     * Generador de base de datos para el sistema.
+     */
     GeneradorBD generadorBD = GeneradorBD.obtenerInstancia();
+
 
     /**
      * Arreglo de nombres de peces disponibles en la simulación.
@@ -81,12 +133,36 @@ public class Simulador {
      * Lista de piscifactorías en la simulación.
      */
     public static ArrayList<Piscifactoria> piscifactorias;
+    /**
+     * El nombre de la partida actual.
+     */
     protected String nombrePartida;
+
+    /**
+     * El nombre de la piscifactoría.
+     */
     protected String nombrePisci;
+
+    /**
+     * Objeto para gestionar diversas operaciones dentro del juego.
+     */
     protected Gestion g;
+
+    /**
+     * El almacén central asociado a la partida.
+     */
     protected AlmacenCentral ac;
+
+    /**
+     * El número de peces machos en la partida.
+     */
     private int numMachos = 0;
+
+    /**
+     * El número de peces hembras en la partida.
+     */
     private int numHembras = 0;
+
 
     /**
      * Constructor por defecto de la clase Simulador.
@@ -123,6 +199,7 @@ public class Simulador {
             generadorBD.prepararStatementsInserts();
             generadorBD.insertarClientes();
             generadorBD.insertarPeces();
+            generadorBD.cerrar();
 
             if (!logsFolder.exists()) {
                 logsFolder.mkdirs();
@@ -256,6 +333,10 @@ public class Simulador {
         return peces;
     }
 
+    /**
+     * Comprueba si la partida tiene un almacén central asociado.
+     * @return true si la partida tiene un almacén central asociado, false si no lo tiene.
+     */
     public boolean getAlmacenCentral(){
         if(ac != null){
             return true;
@@ -264,6 +345,10 @@ public class Simulador {
         }
     }
 
+    /**
+     * Establece el almacén central asociado a la partida.
+     * @param ac El almacén central que se va a asociar a la partida.
+     */
     public void setAlmacenCentral(AlmacenCentral ac){
         if(this.ac == null){
             this.ac = ac;
@@ -271,9 +356,6 @@ public class Simulador {
             System.out.println("Ya tienes el almacén");
         }
     }
-
-
-
 
     public ArrayList<Piscifactoria> getPiscifactorias() {
         return piscifactorias;
@@ -428,6 +510,10 @@ public class Simulador {
 
     }
 
+    /**
+     * Muestra un menú de recompensas disponibles y permite al usuario canjearlas.
+     * Las recompensas pueden ser comida, monedas u otros tipos de recompensas.
+     */
     public void canjearRecompensas() {
         boolean salir = false;
 
@@ -470,6 +556,11 @@ public class Simulador {
         }
     }
 
+    /**
+     * Comprueba si hay tanques disponibles para un tipo de pez específico y muestra los tanques disponibles al usuario.
+     * @param p El pez para el cual se desea comprobar la disponibilidad de tanques.
+     * @return El tanque seleccionado por el usuario para colocar el pez, o null si no hay tanques disponibles.
+     */
     public Tanque<? extends Pez> comprobarPecesPedidos(Pez p) {
         ArrayList<Tanque<? extends Pez>> tanquesDispos = new ArrayList<>();
 
@@ -495,6 +586,9 @@ public class Simulador {
 
     }
 
+    /**
+     * Muestra un menú de pedidos y permite al usuario realizar acciones como ver el registro de pedidos o mandar un pedido.
+     */
     public void menuPedidos(){
         System.out.println("--------------------------- Menu de Pedidos ---------------------------");
         System.out.println("Seleccione una opcion");
@@ -597,9 +691,6 @@ public class Simulador {
 
         }
     }
-
-
-
 
 
     /**

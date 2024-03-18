@@ -8,6 +8,10 @@ import java.sql.Statement;
 import Comun.Simulador;
 import propiedades.AlmacenPropiedades;
 
+/**
+ * Esta clase se encarga de generar la estructura de la base de datos y de insertar datos de prueba.
+ * También proporciona métodos para preparar los statements de inserción y para obtener una instancia única del generador.
+ */
 public class GeneradorBD {
 
     private PreparedStatement statementClientes;
@@ -57,6 +61,9 @@ public class GeneradorBD {
         return instancia;
     }
 
+    /**
+     * Crea las tablas en la base de datos.
+     */
     public void crearTablas() {
         Statement statement = null;
         try {
@@ -129,6 +136,31 @@ public class GeneradorBD {
         }
     }
 
+    /**
+     * Cierra los statements y la conexión.
+     */
+    public void cerrar() {
+        try {
+            if (statementClientes != null) {
+                statementClientes.close();
+            }
+            if (statementPeces != null) {
+                statementPeces.close();
+            }
+            if (statementPedidos != null) {
+                statementPedidos.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al cerrar los recursos: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Inserta registros de clientes en la base de datos.
+     */
     public void insertarClientes(){
         try {
             for (int i = 0; i < 10; i++) {
@@ -144,6 +176,10 @@ public class GeneradorBD {
             System.err.println("Error al insertar clientes: " + e.getMessage());
         }
     }
+
+    /**
+     * Inserta registros de peces en la base de datos.
+     */
     public void insertarPeces(){
         try {
             for (int i = 0; i < Simulador.peces.length; i++) {

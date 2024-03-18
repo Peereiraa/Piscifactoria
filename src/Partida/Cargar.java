@@ -24,6 +24,9 @@ import com.google.gson.JsonParser;
 import Pez.Pez;
 import propiedades.AlmacenPropiedades;
 
+/**
+ * Esta clase se encarga de cargar una partida desde un archivo JSON.
+ */
 public class Cargar {
 
     Simulador s;
@@ -31,11 +34,20 @@ public class Cargar {
 
     protected static Log log = Log.getInstance();
 
-
+    /**
+     * Constructor de la clase Cargar.
+     *
+     * @param s El simulador asociado a la carga de la partida.
+     */
     public Cargar(Simulador s) {
         this.s = s;
     }
 
+    /**
+     * Carga una partida desde un archivo JSON.
+     *
+     * @param rutaArchivo La ruta del archivo JSON que contiene los datos de la partida.
+     */
     public void cargarPartida(String rutaArchivo) {
         try {
             JsonObject jsonObject = leerArchivoJSON(rutaArchivo);
@@ -51,11 +63,24 @@ public class Cargar {
         }
     }
 
+    /**
+     * Lee un archivo JSON y devuelve su representación como objeto JSON.
+     *
+     * @param rutaArchivo La ruta del archivo JSON a leer.
+     * @return El objeto JSON correspondiente al archivo.
+     * @throws IOException Si ocurre un error de lectura del archivo.
+     */
     private JsonObject leerArchivoJSON(String rutaArchivo) throws IOException {
         JsonParser parser = new JsonParser();
         return (JsonObject) parser.parse(new FileReader(rutaArchivo));
     }
 
+    /**
+     * Carga los datos generales de la partida desde un objeto JSON.
+     *
+     * @param jsonObject El objeto JSON que contiene los datos generales de la partida.
+     * @param simulador  El simulador asociado a la partida.
+     */
     private void cargarDatosGenerales(JsonObject jsonObject, Simulador simulador) {
         try {
             String empresa = jsonObject.get("empresa").getAsString();
@@ -71,6 +96,12 @@ public class Cargar {
         }
     }
 
+    /**
+     * Carga los datos del almacén desde un objeto JSON.
+     *
+     * @param jsonObject El objeto JSON que contiene los datos del almacén.
+     * @param simulador  El simulador asociado a la partida.
+     */
     private void cargarAlmacen(JsonObject jsonObject, Simulador simulador) {
         JsonObject edificios = jsonObject.getAsJsonObject("edificios");
         JsonObject almacen = edificios.getAsJsonObject("almacen");
@@ -94,6 +125,12 @@ public class Cargar {
         }
     }
 
+    /**
+     * Carga las piscifactorías desde un objeto JSON.
+     *
+     * @param jsonObject El objeto JSON que contiene los datos de las piscifactorías.
+     * @param simulador  El simulador asociado a la partida.
+     */
     private void cargarPiscifactorias(JsonObject jsonObject, Simulador simulador) {
         JsonArray piscifactoriasArray = jsonObject.getAsJsonArray("piscifactoria");
         if (piscifactoriasArray != null) {
@@ -109,6 +146,12 @@ public class Cargar {
         }
     }
 
+    /**
+     * Crea una piscifactoría a partir de un objeto JSON.
+     *
+     * @param piscifactoriaObj El objeto JSON que contiene los datos de la piscifactoría.
+     * @return La piscifactoría creada.
+     */
     private Piscifactoria crearPiscifactoria(JsonObject piscifactoriaObj) {
         String nombrePiscifactoria = piscifactoriaObj.get("nombre").getAsString();
         int tipoPiscifactoria = piscifactoriaObj.get("tipo").getAsInt();
@@ -137,6 +180,14 @@ public class Cargar {
         return p;
     }
 
+    /**
+     * Crea un tanque de peces a partir de un objeto JSON.
+     *
+     * @param tanqueObj              El objeto JSON que contiene los datos del tanque.
+     * @param capacidadPiscifactoria La capacidad de la piscifactoría a la que pertenece el tanque.
+     * @param p                      La piscifactoría a la que pertenece el tanque.
+     * @return El tanque creado.
+     */
     private Tanque<? extends Pez> crearTanque(JsonObject tanqueObj, int capacidadPiscifactoria, Piscifactoria p) {
         int numPeces = tanqueObj.get("num").getAsInt();
         JsonObject datos = tanqueObj.getAsJsonObject("datos");

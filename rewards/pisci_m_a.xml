@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<reward>
+  <name>Piscifactoría de mar [A]</name>
+  <origin>Pablo</origin>
+  <desc>Materiales para la construcción de una piscifactoría de mar. Con la parte A y B, puedes obtenerla de forma gratuita.</desc>
+  <rarity>4</rarity>
+  <give>
+    <building code="1">Piscifactoría de mar</building>
+    <part>A</part>
+    <total>AB</total>
+  </give>
+  <quantity>1</quantity>
+</reward>

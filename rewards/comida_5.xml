@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<reward>
+  <name>Comida general V</name>
+  <origin>Pablo</origin>
+  <desc>1000 unidades de pienso multipropósito para todo tipo de peces.</desc>
+  <rarity>4</rarity>
+  <give>
+    <food type="general">1000</food>
+  </give>
+  <quantity>1</quantity>
+</reward>

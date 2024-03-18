@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<reward>
+  <name>Monedas I</name>
+  <origin>Pablo</origin>
+  <desc>100 monedas</desc>
+  <rarity>0</rarity>
+  <give>
+    <coins>100</coins>
+  </give>
+  <quantity>1</quantity>
+</reward>

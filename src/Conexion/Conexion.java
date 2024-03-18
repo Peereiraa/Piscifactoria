@@ -10,15 +10,49 @@ import java.util.Properties;
 import Registro.Transcripciones;
 
 public class Conexion {
+    /**
+     * Dirección del servidor de la base de datos.
+     */
     private static final String SERVER = "localhost";
+
+    /**
+     * Número de puerto para la conexión a la base de datos.
+     */
     private static final String PORT_NUMBER = "3306";
+
+    /**
+     * Nombre de la base de datos a la que se desea conectar.
+     */
     private static final String DATABASE = "piscifactoria";
+
+    /**
+     * Nombre de usuario para la conexión a la base de datos.
+     */
     private static final String USERNAME = "admin_pisci";
+
+    /**
+     * Contraseña para la conexión a la base de datos.
+     */
     private static final String PASSWORD = "abc123.";
+
+    /**
+     * La conexión a la base de datos. Inicialmente se establece como nula.
+     */
     private static Connection conexion = null;
 
+    /**
+     * Instancia del registro de eventos de la aplicación.
+     */
     protected static Log log = Log.getInstance();
+
+    /**
+     * Instancia del registro de acciones de la aplicación.
+     */
     protected static Registro registro = Registro.getInstance();
+
+    /**
+     * Instancia de las transcripciones de la aplicación.
+     */
     protected static Transcripciones tr = Transcripciones.getInstance();
 
     /**

@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Random;
 import Registro.Transcripciones;
 
+/**
+ * Esta clase gestiona las operaciones relacionadas con los pedidos en la base de datos.
+ * Proporciona métodos para insertar, actualizar, listar y eliminar pedidos,
+ * así como para obtener la cantidad de pedidos en la base de datos.
+ */
 public class DAOPedidos {
     private Connection conexion;
     private PreparedStatement statementInsertarPedido;
@@ -35,6 +40,10 @@ public class DAOPedidos {
 
     private Random random;
 
+    /**
+     * Constructor de la clase DAOPedidos.
+     * Establece la conexión a la base de datos y prepara las declaraciones SQL.
+     */
     public DAOPedidos() {
         this.conexion = Conexion.obtenerConexion();
         prepararStatements();
@@ -42,6 +51,9 @@ public class DAOPedidos {
 
     }
 
+    /**
+     * Prepara las declaraciones SQL utilizadas en la clase.
+     */
     private void prepararStatements() {
         try {
             statementInsertarPedido = conexion.prepareStatement("INSERT INTO pedido (id_cliente, id_pez, cantidad_solicitada, cantidad_enviada) VALUES (?, ?, ?, ?)");
@@ -56,8 +68,12 @@ public class DAOPedidos {
             log.logError(e.getMessage());
         }
     }
+
+    /**
+     * Inserta un nuevo pedido en la base de datos.
+     */
     public void insertarPedido() {
-        try {
+        try (PreparedStatement statementInsertarPedido = conexion.prepareStatement("INSERT INTO pedido (id_cliente, id_pez, cantidad_solicitada, cantidad_enviada) VALUES (?, ?, ?, ?)")) {
             statementInsertarPedido.setInt(1, obtenerIdAleatorioCliente());
             statementInsertarPedido.setInt(2, obtenerIdAleatorioPez());
             statementInsertarPedido.setInt(3, random.nextInt(41) + 10);
@@ -68,16 +84,32 @@ public class DAOPedidos {
         }
     }
 
+    /**
+     * Obtiene la cantidad de pedidos desde la base de datos.
+     *
+     * @return El resultado de la consulta SQL como un conjunto de resultados ResultSet.
+     */
     public ResultSet getCantidad() {
         ResultSet resultSet = null;
         try {
             resultSet = statementSelectCantidad.executeQuery();
         } catch (SQLException e) {
             log.logError(e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch (SQLException e) {
+                log.logError(e.getMessage());
+            }
         }
         return resultSet;
     }
 
+    /**
+     * Obtiene un ID de cliente aleatorio desde la base de datos.
+     *
+     * @return ID de cliente aleatorio.
+     */
     private int obtenerIdAleatorioCliente() {
         int idAleatorio = 0;
         try {
@@ -95,6 +127,11 @@ public class DAOPedidos {
         return idAleatorio;
     }
 
+    /**
+     * Obtiene un ID de pez aleatorio desde la base de datos.
+     *
+     * @return ID de pez aleatorio.
+     */
     private int obtenerIdAleatorioPez() {
         int idAleatorio = 0;
         try {
@@ -113,7 +150,11 @@ public class DAOPedidos {
     }
 
 
-
+    /**
+     * Obtiene una lista de pedidos desde la base de datos.
+     *
+     * @return Lista de pedidos.
+     */
     public List<Producto> productosSeleccionar(){
         List<Producto> listaPedidos = new ArrayList<>();
         try {
@@ -134,6 +175,12 @@ public class DAOPedidos {
         return listaPedidos;
     }
 
+    /**
+     * Añade una cantidad de pez a un pedido específico en la base de datos.
+     *
+     * @param cantidadNueva Cantidad de pez a añadir.
+     * @param numPedido     Número de referencia del pedido.
+     */
     public void añadirPezPedido(int cantidadNueva,int numPedido){
         try {
             // Suponiendo que tienes una variable llamada 'cantidadNueva' que contiene la nueva cantidad enviada
@@ -151,6 +198,12 @@ public class DAOPedidos {
         }
     }
 
+    /**
+     * Actualiza la cantidad enviada de un pedido en la base de datos.
+     *
+     * @param numeroReferencia Número de referencia del pedido.
+     * @param cantidadEnviada  Nueva cantidad enviada.
+     */
     public void actualizarCantidadEnviada(int numeroReferencia, int cantidadEnviada) {
         try {
             statementActualizarPedido.setInt(1, cantidadEnviada);
@@ -161,6 +214,11 @@ public class DAOPedidos {
         }
     }
 
+    /**
+     * Elimina un pedido de la base de datos.
+     *
+     * @param numeroReferencia Número de referencia del pedido a eliminar.
+     */
     public void eliminarPedido(int numeroReferencia){
         try{
             statementBorrarPedido.setInt(1, numeroReferencia);
@@ -169,4 +227,6 @@ public class DAOPedidos {
             log.logError(e.getMessage());
         }
     }
+
+
 }
