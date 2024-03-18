@@ -1,9 +1,13 @@
 package Conexion;
 
+import Registro.Log;
+import Registro.Registro;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import Registro.Transcripciones;
 
 public class Conexion {
     private static final String SERVER = "localhost";
@@ -12,6 +16,10 @@ public class Conexion {
     private static final String USERNAME = "admin_pisci";
     private static final String PASSWORD = "abc123.";
     private static Connection conexion = null;
+
+    protected static Log log = Log.getInstance();
+    protected static Registro registro = Registro.getInstance();
+    protected static Transcripciones tr = Transcripciones.getInstance();
 
     /**
      * Obtiene una conexión a la base de datos.
@@ -35,7 +43,8 @@ public class Conexion {
                                 + "?rewriteBatchedStatements=true",
                         propsConexion);
             } catch (SQLException e) {
-                System.out.println("Falló la conexión");
+
+                log.logError(e.getMessage());
             }
             return conexion;
         } else {
@@ -55,7 +64,7 @@ public class Conexion {
                 conexion.close();
             }
         } catch (SQLException e) {
-            System.out.println("No se ha podido cerrar la conexión.");
+            log.logError(e.getMessage());
 
         }
     }

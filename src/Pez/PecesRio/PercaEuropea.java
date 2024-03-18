@@ -21,6 +21,16 @@ public class PercaEuropea extends CarnivoroActivo implements DeRio {
         super(sexo, AlmacenPropiedades.PERCA_EUROPEA);
     }
 
+    public PercaEuropea(int edad, boolean sexo, boolean vivo, boolean adulto, boolean fertil, int ciclo, boolean alimentado) {
+        super(sexo, AlmacenPropiedades.PERCA_EUROPEA);
+        this.edad = edad;
+        this.vivo = vivo;
+        this.fertil = fertil;
+        this.adulto = adulto;
+        this.alimentado = alimentado;
+        this.ciclodevida = ciclo;
+    }
+
     /**
      * Crea un nuevo pez Perca Europea con el sexo especificado.
      * 

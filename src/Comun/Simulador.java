@@ -2,10 +2,9 @@ package Comun;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Scanner;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 import Conexion.Conexion;
 import Conexion.DAOPedidos;
@@ -35,6 +34,7 @@ import Registro.Registro;
 import Registro.Transcripciones;
 import Tanques.Tanque;
 import Conexion.GeneradorBD;
+import Conexion.Producto;
 
 /**
  * Esta clase representa un simulador para gestionar una piscifactoría.
@@ -61,6 +61,8 @@ public class Simulador {
     protected ArrayList<String> pecesMar;
     protected ArrayList<String> pecesMixto;
 
+    protected DAOPedidos daoPedidos;
+
     GeneradorBD generadorBD = GeneradorBD.obtenerInstancia();
 
     /**
@@ -78,7 +80,7 @@ public class Simulador {
     /**
      * Lista de piscifactorías en la simulación.
      */
-    protected ArrayList<Piscifactoria> piscifactorias;
+    public static ArrayList<Piscifactoria> piscifactorias;
     protected String nombrePartida;
     protected String nombrePisci;
     protected Gestion g;
@@ -96,6 +98,7 @@ public class Simulador {
         g = new Gestion();
         rewards = new Rewards(this);
         guardar = new Guardar(this);
+        daoPedidos = new DAOPedidos();
 
         init();
     }
@@ -107,38 +110,19 @@ public class Simulador {
      * piscifactoria con los valores iniciales de Rio y de 25 de comida
      */
     public void init() {
+        File carpeta = null;
         try {
 
             File logsFolder = new File("logs");
             File transcripcionesFolder = new File("transcripciones");
             File errorLogFile = new File(logsFolder, "0_errors.log");
-            File carpeta = new File("rewards");
-            if (!carpeta.exists()) {
-                carpeta.mkdir();
-                rewards.generarComida(1);
-                rewards.generarComida(2);
-                rewards.generarComida(3);
-                rewards.generarComida(4);
-                rewards.generarComida(5);
+            carpeta = new File("rewards");
 
-                rewards.generarMonedas(1);
-                rewards.generarMonedas(2);
-                rewards.generarMonedas(3);
-                rewards.generarMonedas(4);
-                rewards.generarMonedas(5);
 
-                rewards.generarAlmacen('A');
-                rewards.generarAlmacen('B');
-                rewards.generarAlmacen('C');
-                rewards.generarAlmacen('D');
-
-                rewards.generarPiscifactoriaMar('A');
-                rewards.generarPiscifactoriaMar('B');
-
-                rewards.generarPiscifactoriaRio('A');
-                rewards.generarPiscifactoriaRio('B');
-            }
-
+            generadorBD.crearTablas();
+            generadorBD.prepararStatementsInserts();
+            generadorBD.insertarClientes();
+            generadorBD.insertarPeces();
 
             if (!logsFolder.exists()) {
                 logsFolder.mkdirs();
@@ -165,10 +149,7 @@ public class Simulador {
             System.out.println("Partida cargada exitosamente desde " + rutaArchivo);
             return;
         }
-        generadorBD.crearTablas();
-        generadorBD.prepararStatementsInserts();
-        generadorBD.insertarClientes();
-        generadorBD.insertarPeces();
+
         System.out.println("Introduce nombre de partida: ");
         nombrePartida = sc.nextLine();
         System.out.println("Introduce nombre de la piscifactoria: ");
@@ -178,6 +159,32 @@ public class Simulador {
         Piscifactoria p = new PiscifactoriaRio(nombrePisci);
         p.setComidaActual(25);
         piscifactorias.add(p);
+
+        if (!carpeta.exists()) {
+            carpeta.mkdir();
+            rewards.generarComida(1);
+            rewards.generarComida(2);
+            rewards.generarComida(3);
+            rewards.generarComida(4);
+            rewards.generarComida(5);
+
+            rewards.generarMonedas(1);
+            rewards.generarMonedas(2);
+            rewards.generarMonedas(3);
+            rewards.generarMonedas(4);
+            rewards.generarMonedas(5);
+
+            rewards.generarAlmacen('A');
+            rewards.generarAlmacen('B');
+            rewards.generarAlmacen('C');
+            rewards.generarAlmacen('D');
+
+            rewards.generarPiscifactoriaMar('A');
+            rewards.generarPiscifactoriaMar('B');
+
+            rewards.generarPiscifactoriaRio('A');
+            rewards.generarPiscifactoriaRio('B');
+        }
         pecesRio = new ArrayList<>();
         pecesMar = new ArrayList<>();
         pecesMixto = new ArrayList<>();
@@ -404,7 +411,8 @@ public class Simulador {
                     break;
 
                 case 97:
-
+                    menuPedidos();
+                    break;
                 case 98:
                     addPezRandom();
                 case 99:
@@ -461,6 +469,138 @@ public class Simulador {
             }
         }
     }
+
+    public Tanque<? extends Pez> comprobarPecesPedidos(Pez p) {
+        ArrayList<Tanque<? extends Pez>> tanquesDispos = new ArrayList<>();
+
+
+        for (int i = 0; i < piscifactorias.size(); i++) {
+            tanquesDispos.addAll(piscifactorias.get(i).comprobarEspacioTanque(p));
+        }
+
+        if (tanquesDispos.size() == 0) {
+            System.out.println("No hay tanques disponibles");
+            return null;
+        } else {
+            System.out.println("Tanques disponibles:");
+            for (int i = 0; i < tanquesDispos.size(); i++) {
+                System.out.println((i + 1) + ". " + tanquesDispos.get(i).getTipo());
+            }
+
+            System.out.println("Selecciona una opción de los tanques disponibles");
+            int opc = sc.nextInt();
+            return tanquesDispos.get(opc - 1);
+
+        }
+
+    }
+
+    public void menuPedidos(){
+        System.out.println("--------------------------- Menu de Pedidos ---------------------------");
+        System.out.println("Seleccione una opcion");
+        int opc = 0;
+        while(opc != 4){
+            System.out.println("1. Ver registro de pedidos");
+            System.out.println("2. Mandar un pedido");
+            System.out.println("3. Volver");
+            opc = sc.nextInt();
+            switch (opc){
+                case 1:
+                    List<Producto> pedidos = daoPedidos.productosSeleccionar();
+                    for (Producto p : pedidos) {
+                        System.out.println(p);
+                    }
+                    break;
+
+                case 2:
+                    List<Producto> pedidos2 = daoPedidos.productosSeleccionar();
+                    for (Producto p : pedidos2) {
+                        System.out.println(p);
+                    }
+                    int idPedido;
+                    do{
+                        System.out.println("Seleccione el ID del pedido que desea atender: ");
+                        idPedido = sc.nextInt();
+                        sc.nextLine();
+
+                    }while(idPedido < 0 || idPedido >= pedidos2.size());
+
+                    if(idPedido == 0){
+                        return;
+                    }
+                    Producto p = pedidos2.get(idPedido - 1);
+                    int cantidadPezPedido = p.getCantidad_solicitada();
+                    String nombrePezProducto = p.getId_pez();
+
+                    Tanque<? extends Pez> tanqueSeleccionado = null;
+                    switch (nombrePezProducto){
+                        case "Besugo":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Besugo(false, AlmacenPropiedades.BESUGO));
+                            break;
+                        case "Caballa":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Caballa(false, AlmacenPropiedades.CABALLA));
+                            break;
+                        case "Róbalo":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Robalo(false, AlmacenPropiedades.ROBALO));
+                            break;
+                        case "Rodaballo":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Rodaballo(false, AlmacenPropiedades.RODABALLO));
+                            break;
+                        case "Sargo":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Sargo(false, AlmacenPropiedades.SARGO));
+                            break;
+                        case "Dorada":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Dorada(false, AlmacenPropiedades.DORADA));
+                            break;
+                        case "Lubina europea":
+                            tanqueSeleccionado = comprobarPecesPedidos(new LubinaEuropea(false, AlmacenPropiedades.LUBINA_EUROPEA));
+                            break;
+                        case "Carpa plateada":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Carpa_Plateada(false, AlmacenPropiedades.CARPA_PLATEADA));
+                            break;
+                        case "Carpa":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Carpa(false, AlmacenPropiedades.CARPA));
+                            break;
+                        case "Lucio del norte":
+                            tanqueSeleccionado = comprobarPecesPedidos(new LucioDelNorte(false, AlmacenPropiedades.LUCIO_NORTE));
+                            break;
+                        case "Pejerrey":
+                            tanqueSeleccionado = comprobarPecesPedidos(new Pejerrey(false, AlmacenPropiedades.PEJERREY));
+                            break;
+                        case "Perca europea":
+                            tanqueSeleccionado = comprobarPecesPedidos(new PercaEuropea(false, AlmacenPropiedades.PERCA_EUROPEA));
+                            break;
+                        default:
+                            System.out.println("No se pudo encontrar el pez especificado.");
+                            break;
+                    }
+
+
+                    if(tanqueSeleccionado == null){
+                        return;
+                    }
+
+
+                    if(cantidadPezPedido == p.getCantidad_enviada()){
+                        daoPedidos.eliminarPedido(p.getNumero_referencia());
+                    }else{
+                        int pecesAMandar = tanqueSeleccionado.eliminarPecesMaduros(cantidadPezPedido);
+                        daoPedidos.actualizarCantidadEnviada(p.getNumero_referencia(),pecesAMandar);
+                    }
+
+
+                    break;
+                default:
+
+                    break;
+            }
+
+        }
+    }
+
+
+
+
 
     /**
      * Muestra el estado de las piscifactorías, incluyendo la cantidad de peces
@@ -790,8 +930,14 @@ public class Simulador {
         tr.transcripcion(nombrePartida, "-------------------------");
         tr.transcripcion(nombrePartida, ">>>Inicio del día " + (diasPasados + 1) + ".");
 
+        if(diasPasados % 2 == 0){
+            daoPedidos.insertarPedido();
+        }
+
         // Incrementar el número de días pasados
         diasPasados++;
+
+
         guardar.save();
     }
 
@@ -1348,6 +1494,8 @@ public class Simulador {
             return true;
         }
     }
+
+
 
     /**
      * Muestra un menú de opciones para mejorar o comprar edificios en la

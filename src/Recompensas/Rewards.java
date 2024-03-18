@@ -32,12 +32,12 @@ public class Rewards {
 
     private static Simulador sc;
 
-    private ArrayList<Piscifactoria> piscifactorias;
+
 
     public Rewards(Simulador simulador){
         ac = new AlmacenCentral();
         sc = simulador;
-        piscifactorias = new ArrayList<>();
+
     }
     public Document generarXML(){
         Document document = DocumentHelper.createDocument();
@@ -372,14 +372,14 @@ public class Rewards {
                     } else {
 
                         int piscifactoriasNoLLenas = 0;
-                        for (Piscifactoria p : piscifactorias) {
+                        for (Piscifactoria p : Simulador.piscifactorias) {
                             if (!p.estaLlena()) {
                                 piscifactoriasNoLLenas++;
                             }
                         }
                         if (piscifactoriasNoLLenas > 0) {
                             int comidaPorPiscifactoria = cantidad / piscifactoriasNoLLenas;
-                            for (Piscifactoria p : piscifactorias) {
+                            for (Piscifactoria p : Simulador.piscifactorias) {
                                 if (!p.estaLlena()) {
                                     p.setComidaActual(p.getComidaActual() + comidaPorPiscifactoria);
                                 }
@@ -477,7 +477,7 @@ public class Rewards {
         if (partesDiponibles.equals(partesTotales)) {
             System.out.println("Indique el nombre de la nueva piscifactoria: ");
             String nombreNuevaPiscifactoria = scanner.nextLine();
-            piscifactorias.add(new PiscifactoriaMar(nombreNuevaPiscifactoria));
+            Simulador.piscifactorias.add(new PiscifactoriaMar(nombreNuevaPiscifactoria));
             System.out.println("Piscifactoria de mar canjeada");
             System.out.println("Añadida nueva piscifactoria de mar " + nombreNuevaPiscifactoria);
             log.log(sc.getNombrePartida(), "Recompensa Piscifactoria de mar usada");
@@ -517,7 +517,7 @@ public class Rewards {
         if (partesDiponibles.equals(partesTotales)) {
             System.out.println("Indique el nombre de la nueva piscifactoria: ");
             String nombreNuevaPiscifactoria = scanner.nextLine();
-            piscifactorias.add(new PiscifactoriaRio(nombreNuevaPiscifactoria));
+            Simulador.piscifactorias.add(new PiscifactoriaRio(nombreNuevaPiscifactoria));
             System.out.println("Piscifactoria de rio canjeada");
             System.out.println("Añadida nueva piscifactoria de rio " + nombreNuevaPiscifactoria);
             log.log(sc.getNombrePartida(),"Recompensa Piscifactoria de rio usada");

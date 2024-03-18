@@ -21,6 +21,16 @@ public class Caballa extends Carnivoro implements DeMar {
         super(sexo, AlmacenPropiedades.CABALLA);
     }
 
+    public Caballa(int edad, boolean sexo, boolean vivo, boolean adulto, boolean fertil, int ciclo, boolean alimentado) {
+        super(sexo, AlmacenPropiedades.CABALLA);
+        this.edad = edad;
+        this.vivo = vivo;
+        this.fertil = fertil;
+        this.adulto = adulto;
+        this.alimentado = alimentado;
+        this.ciclodevida = ciclo;
+    }
+
     /**
      * Crea un nuevo pez Caballa con el género especificado.
      * 

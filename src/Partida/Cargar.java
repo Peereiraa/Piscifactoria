@@ -8,6 +8,10 @@ import java.util.List;
 import Comun.AlmacenCentral;
 import Comun.Monedas;
 import Comun.Simulador;
+import Pez.PecesMar.*;
+import Pez.PecesMixtos.Dorada;
+import Pez.PecesMixtos.LubinaEuropea;
+import Pez.PecesRio.*;
 import Piscifactorias.Piscifactoria;
 import Piscifactorias.PiscifactoriaMar;
 import Piscifactorias.PiscifactoriaRio;
@@ -18,12 +22,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import Pez.Pez;
+import propiedades.AlmacenPropiedades;
 
-
-
-/**
- * Clase encargada de cargar los datos de una partida desde un archivo JSON.
- */
 public class Cargar {
 
     Simulador s;
@@ -31,15 +31,11 @@ public class Cargar {
 
     protected static Log log = Log.getInstance();
 
+
     public Cargar(Simulador s) {
         this.s = s;
     }
 
-    /**
-     * Carga los datos de una partida desde un archivo JSON y los asigna al simulador.
-     *
-     * @param rutaArchivo La ruta del archivo JSON.
-     */
     public void cargarPartida(String rutaArchivo) {
         try {
             JsonObject jsonObject = leerArchivoJSON(rutaArchivo);
@@ -55,24 +51,11 @@ public class Cargar {
         }
     }
 
-    /**
-     * Lee un archivo JSON y lo convierte en un objeto JsonObject.
-     *
-     * @param rutaArchivo La ruta del archivo JSON a leer.
-     * @return El objeto JsonObject que representa el contenido del archivo JSON.
-     * @throws IOException Si ocurre un error de lectura del archivo.
-     */
     private JsonObject leerArchivoJSON(String rutaArchivo) throws IOException {
         JsonParser parser = new JsonParser();
         return (JsonObject) parser.parse(new FileReader(rutaArchivo));
     }
 
-    /**
-     * Carga los datos generales de la partida desde el objeto JsonObject y los asigna al simulador.
-     *
-     * @param jsonObject El objeto JsonObject que contiene los datos de la partida.
-     * @param simulador  El simulador al que se asignarán los datos cargados.
-     */
     private void cargarDatosGenerales(JsonObject jsonObject, Simulador simulador) {
         try {
             String empresa = jsonObject.get("empresa").getAsString();
@@ -88,18 +71,10 @@ public class Cargar {
         }
     }
 
-
-    /**
-     * Carga los datos del almacén desde el objeto JsonObject y los asigna al simulador.
-     *
-     * @param jsonObject El objeto JsonObject que contiene los datos de la partida.
-     * @param simulador  El simulador al que se asignarán los datos cargados.
-     */
     private void cargarAlmacen(JsonObject jsonObject, Simulador simulador) {
         JsonObject edificios = jsonObject.getAsJsonObject("edificios");
         JsonObject almacen = edificios.getAsJsonObject("almacen");
 
-        // Verificar si el atributo "disponible" está presente y no es nulo
         boolean almacenDisponible = false;
         JsonElement disponibleElement = almacen.get("disponible");
         if (disponibleElement != null && !disponibleElement.isJsonNull() && disponibleElement.isJsonPrimitive()) {
@@ -119,13 +94,6 @@ public class Cargar {
         }
     }
 
-
-    /**
-     * Carga los datos de las piscifactorías desde el objeto JsonObject y los asigna al simulador.
-     *
-     * @param jsonObject El objeto JsonObject que contiene los datos de la partida.
-     * @param simulador  El simulador al que se asignarán los datos cargados.
-     */
     private void cargarPiscifactorias(JsonObject jsonObject, Simulador simulador) {
         JsonArray piscifactoriasArray = jsonObject.getAsJsonArray("piscifactoria");
         if (piscifactoriasArray != null) {
@@ -141,13 +109,6 @@ public class Cargar {
         }
     }
 
-
-    /**
-     * Crea una piscifactoría a partir de un objeto JsonObject que contiene sus datos.
-     *
-     * @param piscifactoriaObj El objeto JsonObject que contiene los datos de la piscifactoría.
-     * @return La piscifactoría creada.
-     */
     private Piscifactoria crearPiscifactoria(JsonObject piscifactoriaObj) {
         String nombrePiscifactoria = piscifactoriaObj.get("nombre").getAsString();
         int tipoPiscifactoria = piscifactoriaObj.get("tipo").getAsInt();
@@ -176,24 +137,23 @@ public class Cargar {
         return p;
     }
 
-    /**
-     * Crea un tanque a partir de un objeto JsonObject que contiene sus datos.
-     *
-     * @param tanqueObj              El objeto JsonObject que contiene los datos del tanque.
-     * @param capacidadPiscifactoria La capacidad de la piscifactoría a la que pertenece el tanque.
-     * @param p                      La piscifactoría a la que pertenece el tanque.
-     * @return El tanque creado.
-     */
     private Tanque<? extends Pez> crearTanque(JsonObject tanqueObj, int capacidadPiscifactoria, Piscifactoria p) {
         int numPeces = tanqueObj.get("num").getAsInt();
         JsonObject datos = tanqueObj.getAsJsonObject("datos");
 
-        JsonArray pecesArray = tanqueObj.getAsJsonArray("peces");
-        ArrayList<Pez> pecesTanque = new ArrayList<>();
-        if (pecesArray != null) {
-            for (JsonElement pece : pecesArray) {
-                JsonObject pezObj = pece.getAsJsonObject();
-                // Aquí debes extraer los datos de cada pez del JSON
+        // Crear un nuevo tanque con la capacidad y la piscifactoría especificadas
+        Tanque<? extends Pez> t = new Tanque<>(capacidadPiscifactoria, numPeces, p);
+
+        String pezDato = tanqueObj.get("pez").getAsString();
+
+
+        // Verificar si hay un array de peces en el objeto JSON
+        if (tanqueObj.has("peces") && tanqueObj.get("peces").isJsonArray()) {
+            JsonArray pecesArray = tanqueObj.getAsJsonArray("peces");
+
+            // Iterar sobre el array de peces y agregarlos al tanque
+            for (JsonElement pezElement : pecesArray) {
+                JsonObject pezObj = pezElement.getAsJsonObject();
                 int edad = pezObj.get("edad").getAsInt();
                 boolean sexo = pezObj.get("sexo").getAsBoolean();
                 boolean vivo = pezObj.get("vivo").getAsBoolean();
@@ -202,20 +162,49 @@ public class Cargar {
                 int ciclo = pezObj.get("ciclo").getAsInt();
                 boolean alimentado = pezObj.get("alimentado").getAsBoolean();
 
-                // Aquí creas un nuevo objeto Pez con los datos extraídos
-                Pez pez = new Pez(edad, sexo, fertil, vivo, alimentado, maduro, ciclo);
 
-                // Agregas el pez al ArrayList de peces del tanque
-                pecesTanque.add(pez);
+                switch (pezDato){
+                    case "Besugo":
+                        t.addFish(new Besugo(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Caballa":
+                        t.addFish(new Caballa(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Robalo":
+                        t.addFish(new Robalo(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Rodaballo":
+                        t.addFish(new Rodaballo(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Sargo":
+                        t.addFish(new Sargo(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Lubina Europea":
+                        t.addFish(new LubinaEuropea(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Carpa":
+                        t.addFish(new Carpa(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Carpa Plateada":
+                        t.addFish(new Carpa_Plateada(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Lucio del Norte":
+                        t.addFish(new LucioDelNorte(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Pejerrey":
+                        t.addFish(new Pejerrey(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                    case "Perca Europea":
+                        t.addFish(new PercaEuropea(edad, sexo, vivo, maduro, fertil, ciclo, alimentado));
+                        break;
+                }
+
+
             }
         }
 
-        // Creas el tanque con los peces cargados
-        Tanque<? extends Pez> t = new Tanque<>(numPeces, capacidadPiscifactoria, p);
-        t.setPeces(pecesTanque);
-
-
-
+        // Devolver el tanque creado con los peces agregados
         return t;
     }
+
 }

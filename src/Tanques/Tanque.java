@@ -83,6 +83,20 @@ public class Tanque<T extends Pez> {
         }
     }
 
+
+    public int eliminarPecesMaduros(int max){
+        int pecesAMandar = 0;
+
+        for(int i = 0; i < peces.size() && i < max; i++){
+            if(peces.get(i).getAdulto()){
+                pecesAMandar++;
+                peces.remove(i);
+            }
+        }
+
+        return pecesAMandar;
+    }
+
     /**
      * Obtiene el número total de peces en el tanque (vivos y muertos).
      * 
@@ -325,6 +339,12 @@ public class Tanque<T extends Pez> {
             p.setComidaActual(comida);
         } else {
             System.out.println("Error: La instancia de Piscifactoria no está inicializada.");
+        }
+    }
+
+    public void sellFish(List<Pez> pecesAVender){
+        for(Pez pez : pecesAVender){
+            peces.remove(pez);
         }
     }
 

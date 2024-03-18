@@ -21,6 +21,16 @@ public class Carpa extends OmnivoroVoraz implements DeRio {
         super(sexo, AlmacenPropiedades.CARPA);
     }
 
+    public Carpa(int edad, boolean sexo, boolean vivo, boolean adulto, boolean fertil, int ciclo, boolean alimentado) {
+        super(sexo, AlmacenPropiedades.CARPA);
+        this.edad = edad;
+        this.vivo = vivo;
+        this.fertil = fertil;
+        this.adulto = adulto;
+        this.alimentado = alimentado;
+        this.ciclodevida = ciclo;
+    }
+
     /**
      * Crea un nuevo pez Carpa con el sexo especificado.
      * 

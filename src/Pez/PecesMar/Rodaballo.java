@@ -21,6 +21,16 @@ public class Rodaballo extends Carnivoro implements DeMar {
         super(sexo, AlmacenPropiedades.RODABALLO);
     }
 
+    public Rodaballo(int edad, boolean sexo, boolean vivo, boolean adulto, boolean fertil, int ciclo, boolean alimentado) {
+        super(sexo, AlmacenPropiedades.RODABALLO);
+        this.edad = edad;
+        this.vivo = vivo;
+        this.fertil = fertil;
+        this.adulto = adulto;
+        this.alimentado = alimentado;
+        this.ciclodevida = ciclo;
+    }
+
     /**
      * Crea un nuevo pez Rodaballo con el sexo especificado.
      * 

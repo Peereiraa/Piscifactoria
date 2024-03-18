@@ -4,6 +4,7 @@
       <root url="jar://$PROJECT_DIR$/lib/gson-2.10.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/dom4j-2.1.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/Orca_lib_1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-j-8.2.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

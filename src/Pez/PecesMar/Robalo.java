@@ -21,6 +21,16 @@ public class Robalo extends CarnivoroVoraz implements DeMar {
         super(sexo, AlmacenPropiedades.ROBALO);
     }
 
+    public Robalo(int edad, boolean sexo, boolean vivo, boolean adulto, boolean fertil, int ciclo, boolean alimentado) {
+        super(sexo, AlmacenPropiedades.ROBALO);
+        this.edad = edad;
+        this.vivo = vivo;
+        this.fertil = fertil;
+        this.adulto = adulto;
+        this.alimentado = alimentado;
+        this.ciclodevida = ciclo;
+    }
+
     /**
      * Crea un nuevo pez Robalo con el sexo especificado.
      * 

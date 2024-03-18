@@ -23,6 +23,16 @@ public class LubinaEuropea extends Carnivoro implements DeMar, DeRio {
         super(sexo, AlmacenPropiedades.LUBINA_EUROPEA);
     }
 
+    public LubinaEuropea(int edad, boolean sexo, boolean vivo, boolean adulto, boolean fertil, int ciclo, boolean alimentado) {
+        super(sexo, AlmacenPropiedades.LUBINA_EUROPEA);
+        this.edad = edad;
+        this.vivo = vivo;
+        this.fertil = fertil;
+        this.adulto = adulto;
+        this.alimentado = alimentado;
+        this.ciclodevida = ciclo;
+    }
+
     /**
      * Crea un nuevo pez Lubina Europea con el sexo especificado.
      * 

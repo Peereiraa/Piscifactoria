@@ -1,5 +1,23 @@
 Inicio de la simulacion a
 Dinero: 10000 monedas
+Recompensa comida_I creada
+Recompensa comida_II creada
+Recompensa comida_III creada
+Recompensa comida_IV creada
+Recompensa comida_V creada
+Recompensa monedas_I creada
+Recompensa monedas_II creada
+Recompensa monedas_III creada
+Recompensa monedas_IV creada
+Recompensa monedas_V creada
+Recompensa almacen_a creada
+Recompensa almacen_b creada
+Recompensa almacen_c creada
+Recompensa almacen_d creada
+Recompensa pisci_m_a creada
+Recompensa pisci_m_b creada
+Recompensa pisci_r_a creada
+Recompensa pisci_r_b creada
 Rio: 
 -Carpa plateada
 -Carpa
@@ -17,4 +35,43 @@ Mar:
 Mixto: 
 Piscifactoria Inicial: a
 ----------
-Carpa plateada (M) comprado por 35 monedas.
+Recompensa Piscifactoria de mar usada
+Inicio de la simulacion a
+Dinero: 10000 monedas
+Recompensa comida_I creada
+Recompensa comida_II creada
+Recompensa comida_III creada
+Recompensa comida_IV creada
+Recompensa comida_V creada
+Recompensa monedas_I creada
+Recompensa monedas_II creada
+Recompensa monedas_III creada
+Recompensa monedas_IV creada
+Recompensa monedas_V creada
+Recompensa almacen_a creada
+Recompensa almacen_b creada
+Recompensa almacen_c creada
+Recompensa almacen_d creada
+Recompensa pisci_m_a creada
+Recompensa pisci_m_b creada
+Recompensa pisci_r_a creada
+Recompensa pisci_r_b creada
+Rio: 
+-Carpa plateada
+-Carpa
+-Lucio del norte
+-Pejerrey 
+-Perca europea
+Mar: 
+-Besugo
+-Caballa
+-Róbalo
+-Rodaballo
+-Sargo
+-Dorada
+-Lubina europea
+Mixto: 
+Piscifactoria Inicial: a
+----------
+Recompensa Piscifactoria de mar usada
+Recompensa Almacen central usada

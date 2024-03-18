@@ -194,7 +194,7 @@ public class Piscifactoria {
                     } else if (tanque.get(i).hayEspacio()) {
                         if ((this instanceof PiscifactoriaRio && p instanceof DeRio)
                                 || (this instanceof PiscifactoriaMar && p instanceof DeMar)) {
-                            String pezAdmitido = this.tanque.get(i).getPeces().get(i).getClass().getName();
+                            String pezAdmitido = this.tanque.get(i).getPeces().get(0).getClass().getName();
                             if (pezAdmitido.equals(p.getClass().getName())) {
                                 tanquesDispos.add(this.tanque.get(i));
                                 System.out.println(

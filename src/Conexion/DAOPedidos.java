@@ -1,5 +1,8 @@
 package Conexion;
 
+import Registro.Log;
+import Registro.Registro;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import Registro.Transcripciones;
 
 public class DAOPedidos {
     private Connection conexion;
@@ -16,6 +20,17 @@ public class DAOPedidos {
 
     private PreparedStatement statementObtenerIdClientes;
     private PreparedStatement statementObtenerIdPeces;
+
+    private PreparedStatement statementUpdateCantidad;
+    private PreparedStatement statementSelectCantidad;
+
+    private PreparedStatement statementBorrarPedido;
+
+    protected static Log log = Log.getInstance();
+    protected static Registro registro = Registro.getInstance();
+    protected static Transcripciones tr = Transcripciones.getInstance();
+
+
 
 
     private Random random;
@@ -30,12 +45,15 @@ public class DAOPedidos {
     private void prepararStatements() {
         try {
             statementInsertarPedido = conexion.prepareStatement("INSERT INTO pedido (id_cliente, id_pez, cantidad_solicitada, cantidad_enviada) VALUES (?, ?, ?, ?)");
-            statementListarPedidos = conexion.prepareStatement("SELECT pedido.numero_referencia, cliente.nombre AS nombre_cliente, pez.nombre AS nombre_pez, pedido.cantidad_solicitada, pedido.cantidad_enviada FROM pedido JOIN cliente ON pedido.id_cliente = cliente.id JOIN pez ON pedido.id_pez = pez.id WHERE pedido.cantidad_enviada < pedido.cantidad_solicitada ORDER BY pez.nombre");
+            statementListarPedidos = conexion.prepareStatement("SELECT pedido.numero_referencia, cliente.nombre AS nombre_cliente, pez.nombre AS nombre_pez, pedido.cantidad_solicitada, pedido.cantidad_enviada FROM pedido JOIN cliente ON pedido.id_cliente = cliente.id JOIN pez ON pedido.id_pez = pez.id WHERE pedido.cantidad_enviada < pedido.cantidad_solicitada ORDER BY numero_referencia");
             statementActualizarPedido = conexion.prepareStatement("UPDATE pedido SET cantidad_enviada = ? WHERE numero_referencia = ?");
             statementObtenerIdClientes = conexion.prepareStatement("SELECT id FROM cliente");
             statementObtenerIdPeces = conexion.prepareStatement("SELECT id FROM pez");
+            statementUpdateCantidad = conexion.prepareStatement("UPDATE pedido SET cantidad_enviada = ? where numero_referencia = ?;");
+            statementSelectCantidad = conexion.prepareStatement("SELECT cantidad_solicitada,cantidad_enviada FROM pedido;");
+            statementBorrarPedido = conexion.prepareStatement("DELETE FROM pedido WHERE numero_referencia = ?");
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
     }
     public void insertarPedido() {
@@ -46,8 +64,18 @@ public class DAOPedidos {
             statementInsertarPedido.setInt(4, 0);
             statementInsertarPedido.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
+    }
+
+    public ResultSet getCantidad() {
+        ResultSet resultSet = null;
+        try {
+            resultSet = statementSelectCantidad.executeQuery();
+        } catch (SQLException e) {
+            log.logError(e.getMessage());
+        }
+        return resultSet;
     }
 
     private int obtenerIdAleatorioCliente() {
@@ -62,7 +90,7 @@ public class DAOPedidos {
                 idAleatorio = idsClientes.get(random.nextInt(idsClientes.size()));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
         return idAleatorio;
     }
@@ -79,29 +107,48 @@ public class DAOPedidos {
                 idAleatorio = idsPeces.get(random.nextInt(idsPeces.size()));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
         return idAleatorio;
     }
 
-    public List<String> listarPedidos() {
-        List<String> listaPedidos = new ArrayList<>();
+
+
+    public List<Producto> productosSeleccionar(){
+        List<Producto> listaPedidos = new ArrayList<>();
         try {
             ResultSet resultSet = statementListarPedidos.executeQuery();
             while (resultSet.next()) {
                 int numeroReferencia = resultSet.getInt("numero_referencia");
-                String nombreCliente = resultSet.getString("nombre_cliente");
-                String nombrePez = resultSet.getString("nombre_pez");
+                String idCliente = resultSet.getString("nombre_cliente");
+                String idPez = resultSet.getString("nombre_pez");
                 int cantidadSolicitada = resultSet.getInt("cantidad_solicitada");
                 int cantidadEnviada = resultSet.getInt("cantidad_enviada");
-                double porcentajeEnviado = ((double) cantidadEnviada / cantidadSolicitada) * 100;
 
-                listaPedidos.add("[" + numeroReferencia + "] " + nombreCliente + ": " + nombrePez + " (" + String.format("%.2f", porcentajeEnviado) + "%)");
+
+                listaPedidos.add(new Producto(numeroReferencia, idCliente, idPez, cantidadSolicitada, cantidadEnviada));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
         }
         return listaPedidos;
+    }
+
+    public void añadirPezPedido(int cantidadNueva,int numPedido){
+        try {
+            // Suponiendo que tienes una variable llamada 'cantidadNueva' que contiene la nueva cantidad enviada
+            int nuevaCantidadEnviada = cantidadNueva;
+
+
+            statementUpdateCantidad.setInt(1, nuevaCantidadEnviada);
+            statementUpdateCantidad.setInt(2,numPedido);
+            statementUpdateCantidad.executeUpdate();
+
+            System.out.println("Cantidad enviada actualizada correctamente en la tabla 'pedido'.");
+        } catch (SQLException e) {
+            System.out.println("Error al intentar actualizar la cantidad enviada en la tabla 'pedido'.");
+            log.logError(e.getMessage());
+        }
     }
 
     public void actualizarCantidadEnviada(int numeroReferencia, int cantidadEnviada) {
@@ -110,7 +157,16 @@ public class DAOPedidos {
             statementActualizarPedido.setInt(2, numeroReferencia);
             statementActualizarPedido.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.logError(e.getMessage());
+        }
+    }
+
+    public void eliminarPedido(int numeroReferencia){
+        try{
+            statementBorrarPedido.setInt(1, numeroReferencia);
+            statementBorrarPedido.executeQuery();
+        }catch (SQLException e){
+            log.logError(e.getMessage());
         }
     }
 }

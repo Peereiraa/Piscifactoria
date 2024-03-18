@@ -22,6 +22,16 @@ public class Carpa_Plateada extends Filtrador implements DeRio {
         super(sexo, AlmacenPropiedades.CARPA_PLATEADA);
     }
 
+    public Carpa_Plateada(int edad, boolean sexo, boolean vivo, boolean adulto, boolean fertil, int ciclo, boolean alimentado) {
+        super(sexo, AlmacenPropiedades.CARPA_PLATEADA);
+        this.edad = edad;
+        this.vivo = vivo;
+        this.fertil = fertil;
+        this.adulto = adulto;
+        this.alimentado = alimentado;
+        this.ciclodevida = ciclo;
+    }
+
     /**
      * Crea un nuevo pez Carpa Plateada con el sexo especificado.
      * 

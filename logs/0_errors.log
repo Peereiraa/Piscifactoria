@@ -1,4 +1,0 @@
-[2024-03-15 18:38:56] [ERROR] class com.google.gson.JsonPrimitive cannot be cast to class com.google.gson.JsonObject (com.google.gson.JsonPrimitive and com.google.gson.JsonObject are in unnamed module of loader 'app')
-[2024-03-15 18:38:59] [ERROR] class com.google.gson.JsonPrimitive cannot be cast to class com.google.gson.JsonObject (com.google.gson.JsonPrimitive and com.google.gson.JsonObject are in unnamed module of loader 'app')
-[2024-03-15 18:39:16] Recompensa comida_3.xml usada
-[2024-03-15 18:39:24] Fin del dia 0.

@@ -5,45 +5,66 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37da6430-44f6-4f26-9505-3a92e56b8f50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-j-8.2.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Conexion/Conexion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Conexion/DAOPedidos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Conexion/GeneradorBD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/lola.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Conexion/Producto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/saves/a.save" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/0_errors.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/0_errors.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/hola.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/hola.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/null.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/null.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/AlmacenCentral.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/AlmacenCentral.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/a.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/a.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/hola.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/null.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/Simulador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/Simulador.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Cargar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Cargar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Guardar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Guardar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/saves/l.save" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/almacen_a.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/almacen_b.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/almacen_c.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/almacen_d.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/comida_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/comida_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/comida_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/comida_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/comida_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/comida_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/comida_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/comida_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/monedas_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/monedas_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/monedas_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/monedas_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/monedas_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/monedas_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/monedas_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/monedas_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/monedas_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/monedas_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/pisci_m_a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/pisci_m_a.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/pisci_m_b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/pisci_m_b.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/pisci_r_a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/pisci_r_a.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rewards/pisci_r_b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rewards/pisci_r_b.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Comun/AlmacenCentral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comun/AlmacenCentral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Besugo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Besugo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Caballa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Caballa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Robalo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Robalo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Rodaballo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Rodaballo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Sargo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMar/Sargo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMixtos/Dorada.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMixtos/Dorada.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMixtos/LubinaEuropea.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesMixtos/LubinaEuropea.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/Carpa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/Carpa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/Carpa_Plateada.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/Carpa_Plateada.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/LucioDelNorte.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/LucioDelNorte.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/Pejerrey.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/Pejerrey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/PercaEuropea.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/PecesRio/PercaEuropea.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/Pez.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Pez/Pez.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Piscifactorias/Piscifactoria.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Piscifactorias/Piscifactoria.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Tanques/Tanque.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Tanques/Tanque.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/comida_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/comida_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/comida_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/monedas_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/monedas_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/monedas_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/monedas_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/monedas_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/pisci_m_a.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/pisci_m_b.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/pisci_r_a.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rewards/pisci_r_b.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Comun/Simulador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comun/Simulador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Conexion/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexion/Conexion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Conexion/DAOPedidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexion/DAOPedidos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Partida/Cargar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Partida/Cargar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Partida/Guardar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Partida/Guardar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Recompensas/Rewards.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Recompensas/Rewards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transcripciones/hola.tr" beforeDir="false" afterPath="$PROJECT_DIR$/transcripciones/hola.tr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transcripciones/null.tr" beforeDir="false" afterPath="$PROJECT_DIR$/transcripciones/null.tr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesMar/Besugo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesMar/Besugo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesMar/Caballa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesMar/Caballa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesMar/Robalo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesMar/Robalo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesMar/Rodaballo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesMar/Rodaballo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesMar/Sargo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesMar/Sargo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesMixtos/Dorada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesMixtos/Dorada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesMixtos/LubinaEuropea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesMixtos/LubinaEuropea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesRio/Carpa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesRio/Carpa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesRio/Carpa_Plateada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesRio/Carpa_Plateada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesRio/LucioDelNorte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesRio/LucioDelNorte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesRio/Pejerrey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesRio/Pejerrey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/PecesRio/PercaEuropea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/PecesRio/PercaEuropea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pez/Pez.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pez/Pez.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Piscifactorias/Piscifactoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Piscifactorias/Piscifactoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tanques/Tanque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tanques/Tanque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/a.tr" beforeDir="false" afterPath="$PROJECT_DIR$/transcripciones/a.tr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/hola.tr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/null.tr" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +108,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "Z:/2DAM/Acceso a datos/TRABAJO PISCI GIT/Piscifactoria/lib/mysql-connector-j-8.2.0.jar",
+    "last_opened_file_path": "C:/2DAM/Acceso a datos/TRABAJO DEFINITIVO/Piscifactoria/lib/mysql-connector-j-8.2.0.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -96,7 +117,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "discord-application",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -150,6 +171,11 @@
       <workItem from="1710499196460" duration="4338000" />
       <workItem from="1710518034211" duration="6445000" />
       <workItem from="1710531957118" duration="3269000" />
+      <workItem from="1710550843333" duration="2107000" />
+      <workItem from="1710583580896" duration="593000" />
+      <workItem from="1710669009294" duration="1424000" />
+      <workItem from="1710686145490" duration="3690000" />
+      <workItem from="1710697842735" duration="22114000" />
     </task>
     <servers />
   </component>
@@ -158,26 +184,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Partida/Guardar.java</url>
-          <line>110</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Comun/Simulador.java</url>
-          <line>167</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Conexion/GeneradorBD.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

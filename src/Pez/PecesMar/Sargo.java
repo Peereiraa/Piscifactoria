@@ -21,6 +21,16 @@ public class Sargo extends Omnivoro implements DeMar {
         super(sexo, AlmacenPropiedades.SARGO);
     }
 
+    public Sargo(int edad, boolean sexo, boolean vivo, boolean adulto, boolean fertil, int ciclo, boolean alimentado) {
+        super(sexo, AlmacenPropiedades.SARGO);
+        this.edad = edad;
+        this.vivo = vivo;
+        this.fertil = fertil;
+        this.adulto = adulto;
+        this.alimentado = alimentado;
+        this.ciclodevida = ciclo;
+    }
+
     /**
      * Crea un nuevo pez Sargo con el sexo especificado.
      * 

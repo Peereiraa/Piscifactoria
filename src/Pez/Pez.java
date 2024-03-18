@@ -42,6 +42,12 @@ public class Pez {
 
     }
 
+    public Pez(PecesDatos pezDato){
+        this.sexo = false;
+        this.pezDato = pezDato;
+        this.ciclodevida = pezDato.getCiclo();
+    }
+
     public Pez(int edad, boolean sexo, boolean fertil, boolean vivo, boolean alimentado, boolean adulto, int ciclodevida) {
         this.edad = edad;
         this.sexo = sexo;
