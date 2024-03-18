@@ -150,9 +150,7 @@ public class GeneradorBD {
             if (statementPedidos != null) {
                 statementPedidos.close();
             }
-            if (conexion != null) {
-                conexion.close();
-            }
+
         } catch (SQLException e) {
             System.out.println("Error al cerrar los recursos: " + e.getMessage());
         }

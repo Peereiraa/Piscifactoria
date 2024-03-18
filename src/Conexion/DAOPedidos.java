@@ -73,12 +73,12 @@ public class DAOPedidos {
      * Inserta un nuevo pedido en la base de datos.
      */
     public void insertarPedido() {
-        try (PreparedStatement statementInsertarPedido = conexion.prepareStatement("INSERT INTO pedido (id_cliente, id_pez, cantidad_solicitada, cantidad_enviada) VALUES (?, ?, ?, ?)")) {
+        try {
             statementInsertarPedido.setInt(1, obtenerIdAleatorioCliente());
             statementInsertarPedido.setInt(2, obtenerIdAleatorioPez());
             statementInsertarPedido.setInt(3, random.nextInt(41) + 10);
             statementInsertarPedido.setInt(4, 0);
-            statementInsertarPedido.executeUpdate();
+            statementInsertarPedido.executeUpdate(); // Agregar esta línea para ejecutar la inserción en la base de datos
         } catch (SQLException e) {
             log.logError(e.getMessage());
         }
@@ -227,6 +227,10 @@ public class DAOPedidos {
             log.logError(e.getMessage());
         }
     }
+
+
+
+
 
 
 }

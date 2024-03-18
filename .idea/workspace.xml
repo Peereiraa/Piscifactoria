@@ -4,29 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37da6430-44f6-4f26-9505-3a92e56b8f50" name="Changes" comment="Version Terminada 50/100">
-      <change afterPath="$PROJECT_DIR$/rewards/comida_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/comida_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/comida_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/comida_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/comida_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/monedas_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/monedas_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/monedas_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/monedas_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/monedas_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/pisci_m_a.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/pisci_m_b.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/pisci_r_a.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rewards/pisci_r_b.xml" afterDir="false" />
+    <list default="true" id="37da6430-44f6-4f26-9505-3a92e56b8f50" name="Changes" comment="JavaDoc Mejorado">
+      <change afterPath="$PROJECT_DIR$/logs/hola.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/saves/a.save" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transcripciones/hola.tr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/a.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/a.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/Simulador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/Simulador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Cargar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Cargar.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Comun/Simulador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comun/Simulador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Conexion/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexion/Conexion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Conexion/DAOPedidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexion/DAOPedidos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Conexion/GeneradorBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexion/GeneradorBD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Conexion/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexion/Producto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Recompensas/Rewards.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Recompensas/Rewards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcripciones/a.tr" beforeDir="false" afterPath="$PROJECT_DIR$/transcripciones/a.tr" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,31 +47,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Simulador.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/2DAM/Acceso a datos/TRABAJO DEFINITIVO/Piscifactoria/lib/mysql-connector-j-8.2.0.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Simulador.executor": "Run",
+    "Application.Unnamed.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "17",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/2DAM/Acceso a datos/TRABAJO DEFINITIVO/Piscifactoria/lib/mysql-connector-j-8.2.0.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\2DAM\Acceso a datos\TRABAJO DEFINITIVO\Piscifactoria\rewards" />
@@ -138,7 +127,8 @@
       <workItem from="1710669009294" duration="1424000" />
       <workItem from="1710686145490" duration="3690000" />
       <workItem from="1710697842735" duration="22426000" />
-      <workItem from="1710726214093" duration="904000" />
+      <workItem from="1710726214093" duration="1057000" />
+      <workItem from="1710761155160" duration="4069000" />
     </task>
     <task id="LOCAL-00001" summary="Version Terminada 50/100">
       <option name="closed" value="true" />
@@ -148,7 +138,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710722134730</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="JavaDoc Mejorado">
+      <option name="closed" value="true" />
+      <created>1710727265758</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710727265758</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,6 +155,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Version Terminada 50/100" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version Terminada 50/100" />
+    <MESSAGE value="JavaDoc Mejorado" />
+    <option name="LAST_COMMIT_MESSAGE" value="JavaDoc Mejorado" />
   </component>
 </project>

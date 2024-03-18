@@ -420,7 +420,8 @@ public class Simulador {
             System.out.println("12. Mejorar");
             System.out.println("13. Pasar varios días");
             System.out.println("14. Recompensas");
-            System.out.println("15. Salir");
+            System.out.println("15. Pedidos");
+            System.out.println("16. Salir");
             System.out.print("Seleccione una opción: ");
 
             int opcion = sc.nextInt();
@@ -483,6 +484,9 @@ public class Simulador {
                     canjearRecompensas();
                     break;
                 case 15:
+                    menuPedidos();
+                    break;
+                case 16:
                     System.out.println("Saliendo del programa.");
                     salir = true;
                     log.log(nombrePartida, "Cierre de partida");
@@ -490,10 +494,6 @@ public class Simulador {
                     tr.cerrar();
                     registro.cerrar();
                     guardar.save();
-                    break;
-
-                case 97:
-                    menuPedidos();
                     break;
                 case 98:
                     addPezRandom();
@@ -593,7 +593,7 @@ public class Simulador {
         System.out.println("--------------------------- Menu de Pedidos ---------------------------");
         System.out.println("Seleccione una opcion");
         int opc = 0;
-        while(opc != 4){
+        while(opc != 3){
             System.out.println("1. Ver registro de pedidos");
             System.out.println("2. Mandar un pedido");
             System.out.println("3. Volver");
@@ -669,19 +669,17 @@ public class Simulador {
                             break;
                     }
 
-
                     if(tanqueSeleccionado == null){
                         return;
                     }
 
-
                     if(cantidadPezPedido == p.getCantidad_enviada()){
+
                         daoPedidos.eliminarPedido(p.getNumero_referencia());
                     }else{
                         int pecesAMandar = tanqueSeleccionado.eliminarPecesMaduros(cantidadPezPedido);
                         daoPedidos.actualizarCantidadEnviada(p.getNumero_referencia(),pecesAMandar);
                     }
-
 
                     break;
                 default:
