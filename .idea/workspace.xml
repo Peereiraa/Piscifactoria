@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37da6430-44f6-4f26-9505-3a92e56b8f50" name="Changes" comment="JavaDoc Mejorado">
-      <change afterPath="$PROJECT_DIR$/logs/hola.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/saves/a.save" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transcripciones/hola.tr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/a.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/a.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/Simulador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Comun/Simulador.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Cargar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Piscifactoria/Partida/Cargar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Comun/Simulador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comun/Simulador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Conexion/DAOPedidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexion/DAOPedidos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Conexion/GeneradorBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexion/GeneradorBD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transcripciones/a.tr" beforeDir="false" afterPath="$PROJECT_DIR$/transcripciones/a.tr" afterDir="false" />
-    </list>
+    <list default="true" id="37da6430-44f6-4f26-9505-3a92e56b8f50" name="Changes" comment="Trabajo de Ciclo terminado (Ultima entrega)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,7 +47,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/2DAM/Acceso a datos/TRABAJO DEFINITIVO/Piscifactoria/lib/mysql-connector-j-8.2.0.jar",
+    "last_opened_file_path": "C:/2DAM/Acceso a datos/TRABAJO DEFINITIVO/Piscifactoria",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -90,6 +78,7 @@
     <attachedChunks>
       <set>
         <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+        <option value="jdk-20.0.2-corretto-20.0.2.1-4caba194b151-5bc9ecd2" />
       </set>
     </attachedChunks>
   </component>
@@ -129,6 +118,7 @@
       <workItem from="1710697842735" duration="22426000" />
       <workItem from="1710726214093" duration="1057000" />
       <workItem from="1710761155160" duration="4069000" />
+      <workItem from="1711101584637" duration="76000" />
     </task>
     <task id="LOCAL-00001" summary="Version Terminada 50/100">
       <option name="closed" value="true" />

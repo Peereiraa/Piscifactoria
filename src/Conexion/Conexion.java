@@ -23,17 +23,17 @@ public class Conexion {
     /**
      * Nombre de la base de datos a la que se desea conectar.
      */
-    private static final String DATABASE = "piscifactoria";
+    private static final String DATABASE = "";
 
     /**
      * Nombre de usuario para la conexión a la base de datos.
      */
-    private static final String USERNAME = "admin_pisci";
+    private static final String USERNAME = "";
 
     /**
      * Contraseña para la conexión a la base de datos.
      */
-    private static final String PASSWORD = "abc123.";
+    private static final String PASSWORD = "";
 
     /**
      * La conexión a la base de datos. Inicialmente se establece como nula.
